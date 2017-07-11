@@ -244,16 +244,6 @@ show_admin_links ||= false
 
     </header>
 
-  <% else %>
-
-    <header class='contentSection-header'>
-
-      <h2 class='heading'>
-        <%= t('.header.methodology') %>
-      </h2>
-
-    </header>
-
   <% end %>
 
   <% if @verdict_ids.present? && @verdict_ids.length > 1 %>
@@ -288,22 +278,6 @@ show_admin_links ||= false
         </div>
 
       </div>
-
-    </div>
-
-  <% else %>
-
-    <div class='contentSection-body'>
-
-      <% if @methodology_government.present? %>
-        <div>
-          <%= simple_format_no_tags(@methodology_government.content) %>
-        </div>
-      <% else %>
-        <p>
-         <%= t('.no_methodology') %>
-        </p>
-      <% end %>
 
     </div>
 

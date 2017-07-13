@@ -7,6 +7,14 @@ en:
       partners: Partners
       sponsors_donors: Sponsors & Donors
       title: About
+      no_steering_committee: There are no steering committee members on record.
+      no_executive_team: There are no executive team members on record.
+      steering_committee: Steering Committee
+      executive_team: Executive Team
+      address: Address
+      email: Email
+      phone: Phone
+      fax: Fax
     download_data_and_reports:
       choose: Choose
       download: Download
@@ -14,6 +22,8 @@ en:
     economic_effects:
       associated_reforms: Reforms that Affect this Indicator
       select_indicator: Jump To Indicator
+      filter_reform: Filter By Reform
+      choose: Please Choose...
       title: Economic Effects
     index:
       big_link:
@@ -21,19 +31,20 @@ en:
         find_out_why: Find Out Why
         reforms: Learn About the Reforms
         review_board: Meet the Review Board
+        about: Who We Are
       economy_effects: How the Reforms are Affecting the Economy
       external_indicators_link: View All Economic Effects
-      heading: Where Does Georgia Stand?
-      primary_gauge_description: This is a composite score measuring Georgia's reform progress
+      heading: How is Georgia progressing?
+      primary_gauge_description: ReformVerdict
       reform_status: Reform Standings
       reforms_link: View All Reforms
-      subheading: A measure of reform progress.
+      subheading: Assessment of economic reforms
     reform_show:
       gauge_group:
         government:
-          subtitle: Government, %{quarter}
+          subtitle: Government, %{verdict}
         stakeholder:
-          subtitle: Stakeholders, %{quarter}
+          subtitle: Stakeholders, %{verdict}
         title: 'Reform: %{name}'
       title: 'Reform: %{name} for %{time}'
     reforms:
@@ -41,7 +52,7 @@ en:
         chart: Timeline
         methodology: Methodology
         table: Results
-      no_data: Sorry, but at this time there is no review board data on record.
+      no_data: Sorry, but at this time there is no reform data on record.
       no_methodology: No methodology is on record.
       table_header:
         government: Government
@@ -50,21 +61,35 @@ en:
         summary: Summary
         time: Time Period
       title: Reforms
-    review_board:
+    reform_verdicts:
       header:
         chart: Timeline
-        experts: Board Members
-        methodology: Methodology
         table: Results
-      no_data: Sorry, but at this time there is no review board data on record.
-      no_experts: No board members are on record.
-      no_methodology: No methodology is on record.
+      no_data: Sorry, but at this time there is no data on record.
       table_header:
         overall: Overall Score
         summary: Summary
         time: Time Period
-      title: Review Board
-    review_board_show:
+      title: ReformVerdicts
+    reform_verdict_show:
       gauge_group:
-        title: Review Board for %{quarter}
-      title: According to the Review Board for %{time}
+        title: ReformVerdict for %{time}
+      title: "ReformVerdict: %{title}"
+    # review_board:
+    #   header:
+    #     chart: Timeline
+    #     experts: Board Members
+    #     methodology: Methodology
+    #     table: Results
+    #   no_data: Sorry, but at this time there is no review board data on record.
+    #   no_experts: No board members are on record.
+    #   no_methodology: No methodology is on record.
+    #   table_header:
+    #     overall: Overall Score
+    #     summary: Summary
+    #     time: Time Period
+    #   title: Review Board
+    # review_board_show:
+    #   gauge_group:
+    #     title: Review Board for %{quarter}
+    #   title: According to the Review Board for %{time}

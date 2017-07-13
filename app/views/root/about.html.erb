@@ -1,4 +1,4 @@
-<%
+  <%
 page_title t('.title')
 @do_not_use_default_page_layout = true
 %>
@@ -29,38 +29,137 @@ page_title t('.title')
 
   <div class='aboutPage-contentSidebarContainer-content'>
 
-    <section class='contentSection'>
+    <section class='contentSection mod-accordion js-accordion'>
 
-      <header class='contentSection-header'>
+      <button class='contentSection-header js-accordion-toggle-button'>
 
         <h2 class='heading'>
           <%= t('.methodology') %>
         </h2>
 
-      </header>
+      </button>
 
-      <div class='contentSection-body'>
+      <div class='contentSection-body js-accordion-togglable-content'>
 
-        <% if @methodology_review_board %>
-          <div>
-            <h3><%= @methodology_review_board.title %></h3>
-            <%= simple_format_no_tags(@methodology_review_board.content) %>
-          </div>
-        <% end %>
+        <%= simple_format_no_tags(@methodology_general.content) %>
 
-        <% if @methodology_government %>
-          <div>
-            <h3><%= @methodology_government.title %></h3>
-            <%= simple_format_no_tags(@methodology_government.content) %>
-          </div>
-        <% end %>
+      </div>
 
-        <% if @methodology_stakeholder %>
-          <div>
-            <h3><%= @methodology_stakeholder.title %></h3>
-            <%= simple_format_no_tags(@methodology_stakeholder.content) %>
-          </div>
-        <% end %>
+    </section>
+
+    <section class='contentSection mod-accordion js-accordion'>
+
+      <button class='contentSection-header js-accordion-toggle-button'>
+
+        <h2 class='heading'>
+          <%= t('.steering_committee') %>
+        </h2>
+
+      </button>
+
+      <div class='contentSection-body js-accordion-togglable-content'>
+
+        <ul class='expertList'>
+
+          <% if @steering_committee.each do |expert| %>
+
+            <li class='expertList-item js-act-as-expert-item'>
+
+              <div class='expertList-item-imageLink'>
+
+                <%= image_tag(expert.avatar.url('100x100'),
+                              class: 'expertList-item-imageLink-image') %>
+
+              </div>
+
+              <div>
+
+                <h4 class='expertList-item-heading'>
+                  <%= expert.name %>
+                </h4>
+
+                <% if expert.bio %>
+
+                  <div class='expertList-item-description'>
+
+                    <%= simple_format(expert.bio) %>
+
+                  </div>
+
+                <% end %>
+
+              </div>
+
+            </li>
+
+          <% end.empty? %>
+
+            <li>
+             <%= t('.no_steering_committee') %>
+            </li>
+
+          <% end %>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+    <section class='contentSection mod-accordion js-accordion'>
+
+      <button class='contentSection-header js-accordion-toggle-button'>
+
+        <h2 class='heading'>
+          <%= t('.executive_team') %>
+        </h2>
+
+      </button>
+
+      <div class='contentSection-body js-accordion-togglable-content'>
+
+        <ul class='expertList'>
+
+          <% if @executive_team.each do |expert| %>
+
+            <li class='expertList-item js-act-as-expert-item'>
+
+              <div class='expertList-item-imageLink'>
+
+                <%= image_tag(expert.avatar.url('100x100'),
+                              class: 'expertList-item-imageLink-image') %>
+
+              </div>
+
+              <div>
+
+                <h4 class='expertList-item-heading'>
+                  <%= expert.name %>
+                </h4>
+
+                <% if expert.bio %>
+
+                  <div class='expertList-item-description'>
+
+                    <%= simple_format(expert.bio) %>
+
+                  </div>
+
+                <% end %>
+
+              </div>
+
+            </li>
+
+          <% end.empty? %>
+
+            <li>
+             <%= t('.no_executive_team') %>
+            </li>
+
+          <% end %>
+
+        </ul>
 
       </div>
 
@@ -89,19 +188,19 @@ page_title t('.title')
           </p>
 
           <p class='aboutPage-info-line'>
-            Address: 16, Zandukeli St, Tbilisi
+            <%= t('.address') %>: 16, Zandukeli St, Tbilisi
           </p>
 
           <p class='aboutPage-info-line'>
-            Email: <a class='link' href="http://www.google.com/recaptcha/mailhide/d?k=01tBlSg2Z63-In-L3j46Hs5A==&amp;c=ocXR892Yu9uw7cyP5ObMFKNYHuiYFXWuwwvenHGIjW0=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\x3d01tBlSg2Z63-In-L3j46Hs5A\x3d\x3d\x26c\x3docXR892Yu9uw7cyP5ObMFKNYHuiYFXWuwwvenHGIjW0\x3d', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">Click here</a>
+            <%= t('.email') %>: reformeter@iset.ge
           </p>
 
           <p class='aboutPage-info-line'>
-            Phone: (+995 32) 250 71 77
+            <%= t('.phone') %>: (+995 32) 250 71 77
           </p>
 
           <p class='aboutPage-info-line'>
-            Fax: (995 32) 299 86 44
+            <%= t('.fax') %>: (+995 32) 299 86 44
           </p>
 
         </section>
@@ -172,7 +271,7 @@ page_title t('.title')
       <div class='contentSection-body mod-vertical-padding'>
 
         <a class='aboutPage-logo' href='http://iset-pi.ge/index.php/en/' target='_blank'>
-          <%= image_tag('iset_logo.jpg') %>
+          <%= image_tag('iset_logo.png') %>
         </a>
 
         <%= link_to inline_svg('jumpstart_logo.svg'),

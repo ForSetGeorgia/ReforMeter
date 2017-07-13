@@ -42,6 +42,9 @@ function setupDefaultOptions() {
           fontSize: '1.2em'
         }
       }
+    },
+    lang: {
+        numericSymbols: null //otherwise by default ['k', 'M', 'G', 'T', 'P', 'E']
     }
   });
 }
@@ -59,6 +62,10 @@ function highchartsOptions(chartType, chartData) {
 
     case 'percentage-colorful-reforms-history-time-series': {
       return percentageColorfulReformsHistoryTimeSeriesOptions(chartData);
+    }
+
+    case 'reforms-stakeholder-history-series': {
+      return reformsStakeholderHistorySeriesOptions(chartData);
     }
 
     case 'small-meter-gauge': {

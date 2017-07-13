@@ -13,6 +13,36 @@
   }
 }
 
+  .appFooter-socialAndMobileLinks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @media (min-width: $footer-social-and-mobile-links-become-horizontal) {
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .appFooter-fb-like, .addthis_sharing_toolbox {
+      display: inline-block;
+    }
+
+    .addthis_sharing_toolbox {
+        a[role=button] {
+          border-radius: 3px !important;
+        }
+
+        .at-icon-wrapper, svg {
+          height: 27px !important;
+          width: 27px !important;  
+        }  
+
+        
+    }
+
+  }
+
   .appFooter-logos {
     padding-bottom: 20px;
   }

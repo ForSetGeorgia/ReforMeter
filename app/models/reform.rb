@@ -28,8 +28,9 @@ class Reform < AddMissingTranslation
   #######################
   ## VALIDATIONS
 
-  validates :name, :summary, :reform_color_id, presence: :true
-  validates_uniqueness_of :name
+  validates :name, :reform_color_id, presence: :true
+  # validates :name, :summary, :reform_color_id, presence: :true
+  # validates_uniqueness_of :name
 
   #######################
   ## SLUG DEFINITION (friendly_id)
@@ -45,7 +46,7 @@ class Reform < AddMissingTranslation
 
   # for locale sensitive transliteration with friendly_id
   def normalize_friendly_id(input)
-    input.to_s.to_slug.normalize.to_s
+    input.to_s.to_url
   end
 
   #######################
@@ -60,24 +61,24 @@ class Reform < AddMissingTranslation
     active.sorted.map{|x| [x.name, x.slug]}
   end
 
-  # get all reforms that are in the quarter
-  def self.in_quarter(quarter_id)
-    q = Quarter.find_by(id: quarter_id)
+  # get all reforms that are in the verdict
+  def self.in_verdict(verdict_id)
+    v = Verdict.find_by(id: verdict_id)
 
-    if q.present?
-      where(id: q.reform_ids)
+    if v.present?
+      where(id: v.reform_ids)
     end
   end
 
-  def self.with_reform_survey(quarter_id)
-    includes(:reform_surveys).where(reform_surveys: { quarter_id: quarter_id })
+  def self.with_reform_survey (verdict_id, is_public=true)
+    includes(:reform_surveys).where(reform_surveys: { verdict_id: verdict_id, is_public: is_public })
   end
 
   # get all reforms that have survey data
-  def self.with_survey_data(quarters_are_published=true)
-    q = Quarter.all
-    q = q.published if quarters_are_published
-    where(id: q.map{|x| x.reform_ids}.flatten.uniq)
+  def self.with_survey_data(verdicts_are_published=true)
+    v = Verdict.all
+    v = v.published if verdicts_are_published
+    where(id: v.map{|x| x.reform_ids}.flatten.uniq)
   end
 
 
@@ -86,12 +87,17 @@ class Reform < AddMissingTranslation
   #######################
   private
 
-  def has_required_translations?(trans)
-    trans.name.present? && trans.summary.present?
+  # def has_required_translations?(trans)
+  #   trans.name.present? && trans.summary.present?
+  # end
+
+  # def add_missing_translations(default_trans)
+  #   self.name = default_trans.name if self["name_#{Globalize.locale}"].blank?
+  #   self.summary = default_trans.summary if self["summary_#{Globalize.locale}"].blank?
+  # end
+
+  def required_translation_fields
+    return ['name', 'summary']
   end
 
-  def add_missing_translations(default_trans)
-    self.name = default_trans.name if self["name_#{Globalize.locale}"].blank?
-    self.summary = default_trans.summary if self["summary_#{Globalize.locale}"].blank?
-  end
 end

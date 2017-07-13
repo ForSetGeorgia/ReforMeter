@@ -9,6 +9,7 @@
 //= require twitter/bootstrap/collapse
 //= require twitter/bootstrap/carousel
 //= require twitter/bootstrap/affix
+//= require jquery-ui/datepicker
 //= require cocoon
 //= require_tree ./admin/
 
@@ -17,12 +18,18 @@
   $(document).ready(function() {
     setupReformColorSelect();
     setupReformColorSelectChange();
-    setQuarterFormQuarter();
+    setVerdictFormVerdict();
     setupExpertsSelectAll();
+    setupExpertMove();
     setupExternalIndicatorType();
     setupExternalIndicatorCocoon();
     setupExternalIndicatorMove();
     setupExternalIndicatorInputs();
+    setupExternalIndicatorBenchmark();
+    setupExpertReformSelector();
+    setupReportDatePicker();
+    setupVerdictDatePicker();
+    setupReformSurveyDatePicker();
   });
 
   $(document).on('page:change', function() {

@@ -14,6 +14,7 @@
 #  updated_at        :datetime         not null
 #  sort_order        :integer
 #  use_decimals      :boolean          default(FALSE)
+#  has_benchmark     :boolean          default(FALSE)
 #
 
 require 'csv'
@@ -23,7 +24,7 @@ class ExternalIndicator < AddMissingTranslation
   #######################
   ## TRANSLATIONS
 
-  translates :title, :subtitle, :description, :data, :fallbacks_for_empty_translations => true
+  translates :title, :subtitle, :description, :benchmark_title, :data, :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
@@ -74,7 +75,7 @@ class ExternalIndicator < AddMissingTranslation
   scope :sorted_for_list_page, -> { with_translations(I18n.locale).order(show_on_home_page: :desc).order(:sort_order).order(title: :asc) }
   scope :reverse_sorted, -> { with_translations(I18n.locale).order(title: :desc) }
   scope :for_home_page, -> { where(show_on_home_page: true).order(:sort_order) }
-
+  scope :with_time_periods, -> { where(id: ExternalIndicatorTime.external_indicator_ids) }
 
   # columns:
   # - basic: time, value
@@ -107,7 +108,7 @@ class ExternalIndicator < AddMissingTranslation
   end
 
   def gauge_chart_data(index, responsiveToSelector)
-    most_recent_data_point = format_for_charting[:series][0][:data].last
+    most_recent_data_point = format_for_charting[:series][0][:data].select{|x| x[:y].present?}.last
     {
       id: "external-indicator-#{id}",
       title: nil,
@@ -146,7 +147,7 @@ class ExternalIndicator < AddMissingTranslation
 
       when INDICATOR_TYPES[:country]
         countries = ext_ind.countries.sorted
-        header = [I18n.t('activerecord.attributes.quarter.time_period')]
+        header = [I18n.t('activerecord.attributes.verdict.time_period')]
         header << countries.map{|x| x.name}
         header.flatten!
 
@@ -182,7 +183,7 @@ class ExternalIndicator < AddMissingTranslation
 
       when INDICATOR_TYPES[:composite]
         indices = ext_ind.indices.sorted
-        header = [I18n.t('activerecord.attributes.quarter.time_period'), I18n.t('shared.categories.overall')]
+        header = [I18n.t('activerecord.attributes.verdict.time_period'), I18n.t('shared.categories.overall')]
         header << indices.map{|x| x.name}
         header.flatten!
 
@@ -339,7 +340,6 @@ class ExternalIndicator < AddMissingTranslation
     end
 
     dash_styles = [
-      'Solid',
       'Dot',
       'LongDash',
       'ShortDash',
@@ -353,7 +353,38 @@ class ExternalIndicator < AddMissingTranslation
     case indicator_type
     when INDICATOR_TYPES[:basic]
       # hash[:series] << {data: self.data_hash[:data].map{|x| {y: x[:values].first[:value], change: x[:values].first[:change]}}}
-      hash[:series] << {data: time.map{|x| {y: x.data.first.value.to_f, change: x.data.first.change}  }}
+      data = []
+      time.each do |x|
+        if x.data.present?
+          data << {y: x.data.first.value.to_f, change: x.data.first.change}
+        else
+          data << {y: nil, change: nil}
+        end
+      end
+      hash[:series] << {
+        name: I18n.t('shared.categories.overall'),
+        data: data
+      }
+
+      # if this indciator has a benchmark, add it
+      if self.has_benchmark?
+        benchmark_data = []
+        time.each do |x|
+          benchmark = x.data.select{|x| x.is_benchmark}.first
+          if benchmark.present?
+            benchmark_data << {y: benchmark.value.to_f, change: benchmark.change}
+          else
+            benchmark_data << {y: nil, change: nil}
+          end
+        end
+
+        hash[:series] << {
+          name: self.benchmark_title,
+          data: benchmark_data,
+          isBenchmark: true
+        }
+      end
+
     when INDICATOR_TYPES[:country]
 
       self.countries.sorted.each_with_index do |country, index|
@@ -368,6 +399,36 @@ class ExternalIndicator < AddMissingTranslation
         time.each do |tp|
           # get country data
           d = tp.data.select{|x| x.country_id == country.id}.first
+          if d.present?
+            item[:data] << {
+              y: d.value.to_f,
+              change: d.change
+            }
+          else
+            item[:data] << {
+              y: nil,
+              change: nil
+            }
+          end
+        end
+
+        hash[:series] << item
+      end
+
+      # if this indciator has a benchmark, add it
+      if self.has_benchmark?
+        # start the item for the series
+        item = {
+          name: self.benchmark_title,
+          dashStyle: nil,
+          data: [],
+          isBenchmark: true
+        }
+
+        # for each time period, get the benchmark data
+        time.each do |tp|
+          # get data
+          d = tp.data.select{|x| x.is_benchmark?}.first
           if d.present?
             item[:data] << {
               y: d.value.to_f,
@@ -432,7 +493,7 @@ class ExternalIndicator < AddMissingTranslation
       # get the index values
       hash[:indexes] = []
       self.indices.sorted.each_with_index do |ind, index|
-        item = {name: ind.name, short_name: ind.short_name, data: []}
+        item = {name: ind.name, short_name: ind.short_name, description: ind.description, data: []}
 
         # for each time period, get the index data
         time.each do |tp|
@@ -452,6 +513,36 @@ class ExternalIndicator < AddMissingTranslation
         end
         hash[:indexes] << item
       end
+
+      # if this indciator has a benchmark, add it
+      if self.has_benchmark?
+        # start the item for the series
+        item = {
+          name: self.benchmark_title,
+          data: [],
+          isBenchmark: true
+        }
+
+        # for each time period, get the benchmark data
+        time.each do |tp|
+          # get data
+          d = tp.data.select{|x| x.is_benchmark?}.first
+          if d.present?
+            item[:data] << {
+              y: d.value.to_f,
+              change: d.change
+            }
+          else
+            item[:data] << {
+              y: nil,
+              change: nil
+            }
+          end
+        end
+
+        hash[:series] << item
+      end
+
 
       # # get the overall values for charting
       # hash[:series] << {
@@ -740,12 +831,38 @@ class ExternalIndicator < AddMissingTranslation
   #######################
   #######################
 
-  def has_required_translations?(trans)
-    trans.title.present?
-  end
+  # def has_required_translations?(locale)
+  #   fields = ['title']
+  #   exists = []
+  #   fields.each do |field|
+  #     exists << self.send("#{field}_#{locale}").present?
+  #   end
 
-  def add_missing_translations(default_trans)
-    self.title = default_trans.title if self["title_#{Globalize.locale}"].blank?
-  end
+  #   return !exists.include? false
 
+  #   # puts "1111 ext ind has required for #{Globalize.locale} = #{trans.title.present?}"
+  #   # trans.title.present?
+  # end
+
+  # def add_missing_translations(default_locale)
+  #   fields = ['title']
+  #   locales = I18n.available_locales.clone
+  #   locales.delete(I18n.default_locale)
+
+  #   fields.each do |field|
+  #     locales.each do |locale|
+  #       self.send("#{field}_#{locale}") = self.send("#{field}_#{default_locale}").present? if self.send("#{field}_#{locale}").blank?
+  #     end
+  #   end
+
+
+  #   # puts "!!!!!!!! ext ind #{Globalize.locale} has no title #{self["title_#{Globalize.locale}"].blank?}"
+  #   # puts "!!!!!!!! default title = #{default_trans.title}"
+  #   # self.title = default_trans.title if self["title_#{Globalize.locale}"].blank?
+  #   # puts "####### self attributes #{self.attributes.inspect}"
+  # end
+
+  def required_translation_fields
+    return ['title']
+  end
 end

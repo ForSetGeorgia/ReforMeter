@@ -1,18 +1,38 @@
 <footer class='appFooter'>
 
-  <section class='socialLinks'>
+  <div class='appFooter-socialAndMobileLinks'>
 
-    <% if @addthis_id.present? %>
+    <section class='socialLinks'>
+
+    <div class="appFooter-fb-like fb-like" data-href="https://www.facebook.com/ReforMeter/" data-layout="button"
+     data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
+
+      <% if @addthis_id.present? %>
 
       <div class="addthis_sharing_toolbox"></div>
 
-    <% end %>
+      <% end %>
 
-  </section>
+    </section>
 
-  <p>
-    <%= t('.description') %>
-  </p>
+    <section class='mobileAppLinks'>
+      <span class='mobileAppLinks-item'>
+        <%= link_to inline_svg('itunes.svg'),
+        'https://itunes.apple.com/us/app/reformeter/id1217847939?l=en&mt=8',
+        target: '_blank' %>
+      </span>
+      <span class='mobileAppLinks-item'>
+        <%= link_to inline_svg('google_play.svg'),
+        'https://play.google.com/store/apps/details?id=org.isetpi.reformeter&utm_source=reformeter.iset-pi.ge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1',
+        target: '_blank' %>
+      </span>
+    </section>
+
+  </div>
+
+  <% if @disclaimer.present? %>
+    <%= simple_format @disclaimer.content %>
+  <% end %>
 
   <div class='appFooter-logos'>
 
@@ -29,7 +49,7 @@
     </div><div class='appFooter-logos-container'>
 
       <a class='appFooter-logos-item' href='http://iset-pi.ge/index.php/en/' target='_blank'>
-        <%= image_tag('iset_logo.jpg') %>
+        <%= image_tag('iset_logo.png') %>
       </a>
 
       <p class='appFooter-logos-item mod-jumpstart'>
@@ -44,3 +64,5 @@
   </div>
 
 </footer>
+
+<div id="fb-root"></div>

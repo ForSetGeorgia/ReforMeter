@@ -1,0 +1,13 @@
+---
+ka:
+  activerecord:
+    attributes:
+      report:
+        title: სათაური
+        report: რეპორტი
+        is_active: აქტიურია?
+        report_date: გამოქვეყნების თარიღი
+    models:
+      report:
+        one: რეპორტი
+        other: რეპორტები

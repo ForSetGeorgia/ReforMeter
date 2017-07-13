@@ -1,15 +1,17 @@
 # Non-resource pages
 class RootController < ApplicationController
   def index
-    @quarter = Quarter.published.with_expert_survey.latest
-    @external_indicators = ExternalIndicator.published.for_home_page
-    @reforms = Reform.with_reform_survey(@quarter.id).in_quarter(@quarter.id).active.highlight.sorted if @quarter
+    @verdict = Verdict.published.recent.first
+    @external_indicators = ExternalIndicator.published.for_home_page.with_time_periods
+    @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
+
+    # @quarter = Quarter.published.with_expert_survey.latest
 
     gon.change_icons = view_context.change_icons
 
     gon.charts = []
 
-    if @quarter.present?
+    if @verdict.present?
       charts = [
         # note: see below for chart being used for shareable image
         Chart.new(
@@ -17,8 +19,8 @@ class RootController < ApplicationController
             id: 'reform-current-overall',
             title: nil,
             responsiveTo: '.js-homepage-primary-gauge-container',
-            score: @quarter.expert_survey.overall_score.to_f,
-            change: @quarter.expert_survey.overall_change
+            score: @verdict.overall_score.to_f,
+            change: @verdict.overall_change
           }
         )
       ]
@@ -38,8 +40,8 @@ class RootController < ApplicationController
           title: I18n.t('root.index.heading'),
           subtitle: I18n.t('root.index.subheading'),
           size: 300,
-          score: @quarter.expert_survey.overall_score.to_f,
-          change: @quarter.expert_survey.overall_change
+          score: @verdict.overall_score.to_f,
+          change: @verdict.overall_change
         },
         request.path
       )
@@ -61,7 +63,7 @@ class RootController < ApplicationController
         next unless survey
 
         gon.charts << {
-          id: "reform-government-#{@quarter.slug}-#{reform.slug}",
+          id: "reform-government-#{@verdict.slug}-#{reform.slug}",
           color: reform.color.to_hash,
           title: nil,
           score: survey.government_overall_score.to_f,
@@ -69,7 +71,7 @@ class RootController < ApplicationController
         }
 
         gon.charts << {
-          id: "reform-stakeholder-#{@quarter.slug}-#{reform.slug}",
+          id: "reform-stakeholder-#{@verdict.slug}-#{reform.slug}",
           color: reform.color.to_hash,
           title: nil,
           score: survey.stakeholder_overall_score.to_f,
@@ -78,7 +80,7 @@ class RootController < ApplicationController
       end
     end
 
-    if @quarter.present? && @external_indicators.present?
+    if @verdict.present? && @external_indicators.present?
       gon.charts += @external_indicators.each_with_index.map do |external_indicator, index|
         external_indicator.gauge_chart_data(index, '.js-external-indicator-gauges-container')
       end
@@ -87,35 +89,36 @@ class RootController < ApplicationController
 
   def about
     @about_text = PageContent.find_by(name: 'about_text')
-    @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
-    @methodology_government = PageContent.find_by(name: 'methodology_government')
-    @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
+    @methodology_general = PageContent.find_by(name: 'methodology_general')
+    @steering_committee = Expert.steering_committee_members.active.sorted
+    @executive_team = Expert.executive_team_members.active.sorted
   end
 
   def download_data_and_reports
     @download_text = PageContent.find_by(name: 'download_text')
-    @download_review_board_text = PageContent.find_by(name: 'download_review_board_text')
     @download_reform_text = PageContent.find_by(name: 'download_reform_text')
     @download_external_indicator_text = PageContent.find_by(name: 'download_external_indicator_text')
     @download_report_text = PageContent.find_by(name: 'download_report_text')
 
     @reforms = Reform.active.sorted
-    @quarters = Quarter.published.recent
-    @external_indicators = ExternalIndicator.published.sorted
+    # @verdict = Verdict.published.recent
+#    @quarters = Quarter.published.recent
+    @external_indicators = ExternalIndicator.published.sorted.with_time_periods
+    @reports = Report.active.sorted
 
     # if there is a download request, process it
     if request.post? && params[:type].present?
       data,filename = nil
       is_csv = false
       case params[:type]
-        when 'review_board'
-          data = Quarter.to_csv('expert')
-          filename = 'ReforMeter_Review_Board_Data'
-          is_csv = true
+        # when 'review_board'
+        #   data = Quarter.to_csv('expert')
+        #   filename = 'ReforMeter_Review_Board_Data'
+        #   is_csv = true
         when 'reform'
           reform = Reform.friendly.find(params[:reform_id])
           if reform
-            data = Quarter.to_csv('reform', reform.id)
+            data = Verdict.to_csv('reform', reform.id)
             filename = "ReforMeter_#{reform.name}_Reform_Data"
             is_csv = true
           else
@@ -130,8 +133,8 @@ class RootController < ApplicationController
           end
         when 'report'
           # just need the url to the file
-          quarter = @quarters.select{|x| x.slug == params[:quarter]}.first
-          data = quarter.report.path if quarter
+          report = @reports.select{|x| x.slug == params[:report]}.first
+          data = report.report.path if report
       end
 
       # send the file
@@ -148,8 +151,13 @@ class RootController < ApplicationController
   end
 
   def economic_effects
-    @most_recent_quarter = Quarter.published.latest
-    @external_indicators = ExternalIndicator.published.sorted_for_list_page
+    @most_recent_verdict = Verdict.published.recent.first
+    @external_indicators = ExternalIndicator.published.sorted_for_list_page.with_time_periods
+
+    @reforms = @external_indicators.map{|external_indicator| external_indicator.reforms}.flatten.compact
+                              .select{|reform| reform.name.present?}
+                              .uniq.sort {|x,y| x.name <=> y.name }
+
 
     gon.change_icons = view_context.change_icons
 
@@ -177,25 +185,42 @@ class RootController < ApplicationController
     @reform_text = PageContent.find_by(name: 'reform_text')
     @methodology_government = PageContent.find_by(name: 'methodology_government')
     @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
-    @quarters = Quarter.published.recent
+    # @quarters = Quarter.published.recent
+    @verdicts = Verdict.published.recent
     @reforms = Reform.with_survey_data.active.with_color.sorted
-    @reform_surveys = ReformSurvey.in_quarters(@quarters.map{|x| x.id}) if @quarters.present?
+    @reform_surveys = ReformSurvey.in_verdicts(@verdicts.map{|x| x.id}).published if @verdicts.present?
 
     gon.chart_download = highchart_export_config
     gon.change_icons = view_context.change_icons
 
+    @government_chart = Chart.new(
+      Verdict.all_reform_survey_data_for_charting(
+        id: 'reforms-government-history-series',
+        type: 'government',
+        verdict_ids: @verdicts.map{|x| x.id}
+      ),
+      request.path
+    )
+
+    @stakeholder_chart = Chart.new(
+      Verdict.all_reform_survey_data_for_charting(
+        id: 'reforms-stakeholder-history-series',
+        type: 'stakeholder',
+        verdict_ids: @verdicts.map{|x| x.id}
+      ),
+      request.path
+    )
+
     charts = [
-      Chart.new(
-        Quarter.all_reform_survey_data_for_charting(id: 'reforms-history-series', quarter_ids: @quarters.map{|x| x.id}),
-        request.path
-      )
+      @government_chart,
+      @stakeholder_chart
     ]
 
     @share_image_paths = charts.select(&:png_image_exists?).map(&:png_image_path)
     gon.charts = charts.map(&:to_hash)
 
-    @quarters.each do |quarter|
-      surveys = @reform_surveys.select{|x| x.quarter_id == quarter.id}
+    @verdicts.each do |verdict|
+      surveys = @reform_surveys.select{|x| x.verdict_id == verdict.id}
 
       surveys.each do |survey|
         reform = @reforms.select{|x| x.id == survey.reform_id}.first
@@ -203,7 +228,7 @@ class RootController < ApplicationController
         next unless reform
 
         gon.charts << {
-          id: "reform-government-#{quarter.slug}-#{reform.slug}",
+          id: "reform-government-#{verdict.slug}-#{reform.slug}",
           color: reform.color.to_hash,
           title: nil,
           score: survey.government_overall_score.to_f,
@@ -211,7 +236,7 @@ class RootController < ApplicationController
         }
 
         gon.charts << {
-          id: "reform-stakeholder-#{quarter.slug}-#{reform.slug}",
+          id: "reform-stakeholder-#{verdict.slug}-#{reform.slug}",
           color: reform.color.to_hash,
           title: nil,
           score: survey.stakeholder_overall_score.to_f,
@@ -223,192 +248,18 @@ class RootController < ApplicationController
 
   def reform_show
     begin
-      @quarter = Quarter.published.with_expert_survey.friendly.find(params[:quarter_id])
+      @verdict = Verdict.published.friendly.find(params[:verdict_id])
+      # @quarter = Quarter.published.with_expert_survey.friendly.find(params[:quarter_id])
       @reform = Reform.with_survey_data.active.with_color.friendly.find(params[:reform_id])
-      @reform_survey = ReformSurvey.for_reform(@reform.id).in_quarter(@quarter.id).first if @quarter && @reform
+      @reform_survey = ReformSurvey.for_reform(@reform.id).in_verdict(@verdict.id).published.first if @verdict && @reform
 
-      if @reform.nil? || @quarter.nil? || @reform_survey.nil?
+      if @reform.nil? || @verdict.nil? || @reform_survey.nil?
         redirect_to reforms_path,
                 alert: t('shared.msgs.does_not_exist')
       end
 
-      @active_reforms = Reform.active_reforms_array
-      @active_quarters = Quarter.active_quarters_array
-      @methodology_government = PageContent.find_by(name: 'methodology_government')
-      @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
-      @news = News.by_reform_quarter(@quarter.id, @reform.id)
-
-      gon.linked_reforms_quarters = Quarter.linked_reforms
-      gon.chart_download = highchart_export_config
-      gon.change_icons = view_context.change_icons
-
-      @quarter_ids = Quarter.with_reform(@reform.id).published.recent.pluck(:id)
-
-      government_time_series = Chart.new(
-        Quarter.reform_survey_data_for_charting(
-          @reform.id,
-          type: 'government',
-          id: 'reform-government-history',
-          quarter_ids: @quarter_ids
-        ),
-        request.path
-      )
-
-      stakeholder_time_series = Chart.new(
-        Quarter.reform_survey_data_for_charting(
-          @reform.id,
-          type: 'stakeholder',
-          id: 'reform-stakeholder-history',
-          quarter_ids: @quarter_ids
-        ),
-        request.path
-      )
-
-      charts = [
-        government_time_series,
-        stakeholder_time_series
-      ]
-
-      gon.charts = charts.map(&:to_hash)
-
-      government_color = government_time_series.to_hash[:color]
-
-      government_overall_gauge = Chart.new({
-        id: 'reform-government-overall',
-        color: government_color,
-        title: I18n.t('shared.categories.overall'),
-        score: @reform_survey.government_overall_score.to_f,
-        change: @reform_survey.government_overall_change
-      })
-
-      government_institutional_gauge = Chart.new({
-        id: 'reform-government-institutional-setup',
-        title: I18n.t('shared.categories.initial_setup'),
-        score: @reform_survey.government_category1_score.to_f,
-        change: @reform_survey.government_category1_change
-      })
-
-      government_capacity_gauge = Chart.new({
-        id: 'reform-government-capacity-building',
-        title: I18n.t('shared.categories.capacity_building'),
-        score: @reform_survey.government_category2_score.to_f,
-        change: @reform_survey.government_category2_change
-      })
-
-      government_infrastructure_gauge = Chart.new({
-        id: 'reform-government-infrastructure-budgeting',
-        title: I18n.t('shared.categories.infastructure_budgeting'),
-        score: @reform_survey.government_category3_score.to_f,
-        change: @reform_survey.government_category3_change
-      })
-
-      government_legislation_gauge = Chart.new({
-        id: 'reform-government-legislation-regulations',
-        title: I18n.t('shared.categories.legislation_regulation'),
-        score: @reform_survey.government_category4_score.to_f,
-        change: @reform_survey.government_category4_change
-      })
-
-      stakeholder_overall_gauge = Chart.new({
-        id: 'reform-stakeholder-overall',
-        color: government_color,
-        title: t('shared.categories.overall'),
-        score: @reform_survey.stakeholder_overall_score.to_f,
-        change: @reform_survey.stakeholder_overall_change
-      })
-
-      stakeholder_performance_gauge = Chart.new({
-        id: 'reform-stakeholder-performance',
-        color: government_color,
-        title: t('shared.categories.performance'),
-        score: @reform_survey.stakeholder_category1_score.to_f,
-        change: @reform_survey.stakeholder_category1_change
-      })
-
-      stakeholder_goals_gauge = Chart.new({
-        id: 'reform-stakeholder-goals',
-        color: government_color,
-        title: t('shared.categories.goals'),
-        score: @reform_survey.stakeholder_category2_score.to_f,
-        change: @reform_survey.stakeholder_category2_change
-      })
-
-      stakeholder_progress_gauge = Chart.new({
-        id: 'reform-stakeholder-progress',
-        color: government_color,
-        title: t('shared.categories.progress'),
-        score: @reform_survey.stakeholder_category3_score.to_f,
-        change: @reform_survey.stakeholder_category3_change
-      })
-
-      if @reform_survey.present?
-        [
-          government_overall_gauge.to_hash,
-          government_institutional_gauge.to_hash,
-          government_capacity_gauge.to_hash,
-          government_infrastructure_gauge.to_hash,
-          government_legislation_gauge.to_hash,
-          stakeholder_overall_gauge.to_hash,
-          stakeholder_performance_gauge.to_hash,
-          stakeholder_goals_gauge.to_hash,
-          stakeholder_progress_gauge.to_hash
-        ].each { |chart| gon.charts << chart }
-      end
-
-      reform_government_gauge_group = ChartGroup.new(
-        [
-          government_overall_gauge,
-          government_institutional_gauge,
-          government_capacity_gauge,
-          government_infrastructure_gauge,
-          government_legislation_gauge
-        ],
-        id: 'reform-government-gauge-group',
-        title: I18n.t(
-          'root.reform_show.gauge_group.title',
-          name: @reform.name
-        ),
-        subtitle: I18n.t(
-          'root.reform_show.gauge_group.government.subtitle',
-          quarter: @quarter.time_period
-        ),
-        page_path: request.path
-      )
-
-      reform_stakeholder_gauge_group = ChartGroup.new(
-        [
-          stakeholder_overall_gauge,
-          stakeholder_performance_gauge,
-          stakeholder_goals_gauge,
-          stakeholder_progress_gauge
-        ],
-        id: 'reform-stakeholder-gauge-group',
-        title: I18n.t(
-          'root.reform_show.gauge_group.title',
-          name: @reform.name
-        ),
-        subtitle: I18n.t(
-          'root.reform_show.gauge_group.stakeholder.subtitle',
-          quarter: @quarter.time_period
-        ),
-        page_path: request.path
-      )
-
-      gon.chartGroups = [
-        reform_government_gauge_group,
-        reform_stakeholder_gauge_group
-      ]
-
-      @share_image_paths = [
-        government_time_series,
-        stakeholder_time_series,
-        reform_government_gauge_group,
-        reform_stakeholder_gauge_group
-      ].select(&:png_image_exists?).map(&:png_image_path)
-
-      @external_indicators = @reform.external_indicators.published.sorted
-
-      gon.charts += @external_indicators.map(&:format_for_charting)
+      # this is in app controler
+      set_reform_show_variables
 
     rescue ActiveRecord::RecordNotFound  => e
       redirect_to reforms_path,
@@ -416,21 +267,19 @@ class RootController < ApplicationController
     end
   end
 
-  def review_board
-    @expert_text = PageContent.find_by(name: 'review_board_text')
-    @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
+  def reform_verdicts
+    @verdict_text = PageContent.find_by(name: 'verdict')
 
-    @quarters = Quarter.published.recent.with_expert_survey
-    @experts = Expert.active.sorted
+    @verdicts = Verdict.published.recent
 
     gon.chart_download = highchart_export_config
     gon.change_icons = view_context.change_icons
 
     charts = [
       Chart.new(
-        Quarter.expert_survey_data_for_charting(
+        Verdict.verdict_data_for_charting(
           overall_score_only: true,
-          id: 'expert-history'
+          id: 'verdict-history'
         ),
         request.path
       )
@@ -440,100 +289,246 @@ class RootController < ApplicationController
 
     @share_image_paths = charts.select(&:png_image_exists?).map(&:png_image_path)
 
-    @quarters.each do |quarter|
+    @verdicts.each do |verdict|
       gon.charts << {
-        id: quarter.slug,
+        id: verdict.slug,
         title: nil,
-        score: quarter.expert_survey.overall_score.to_f,
-        change: quarter.expert_survey.overall_change
+        score: verdict.overall_score.to_f,
+        change: verdict.overall_change
       }
     end
-
   end
 
-  def review_board_show
+  def reform_verdict_show
     begin
-      @quarter = Quarter.published.with_expert_survey.friendly.find(params[:id])
+      @verdict = Verdict.published.friendly.find(params[:id])
 
-      if @quarter.nil?
+      if @verdict.nil?
         redirect_to review_board_path,
                 alert: t('shared.msgs.does_not_exist')
       end
 
-      @active_quarters = Quarter.active_quarters_array
-      @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
-      @news = News.by_expert_quarter(@quarter.id)
+      @active_verdicts = Verdict.active_verdicts_array
+      @news = @verdict.news
+      @reforms = Reform.with_survey_data.active.with_color.sorted
+      @reform_surveys = ReformSurvey.in_verdict(@verdict.id).published
+      @methodology_government = PageContent.find_by(name: 'methodology_government')
+      @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
 
       gon.chart_download = highchart_export_config
       gon.change_icons = view_context.change_icons
 
-      expert_history_chart = Chart.new(
-        Quarter.expert_survey_data_for_charting(id: 'expert-history'),
+      verdict_history_chart = Chart.new(
+        Verdict.verdict_data_for_charting(id: 'verdict-history'),
         request.path
       )
 
-      expert_overall_gauge = Chart.new({
+      verdict_overall_gauge = Chart.new({
         id: 'overall',
         title: I18n.t('shared.categories.overall'),
-        score: @quarter.expert_survey.overall_score.to_f,
-        change: @quarter.expert_survey.overall_change
+        score: @verdict.overall_score.to_f,
+        change: @verdict.overall_change
       })
 
-      expert_performance_gauge = Chart.new({
+      verdict_performance_gauge = Chart.new({
         id: 'performance',
         title: I18n.t('shared.categories.performance'),
-        score: @quarter.expert_survey.category1_score.to_f,
-        change: @quarter.expert_survey.category1_change
+        score: @verdict.category1_score.to_f,
+        change: @verdict.category1_change
       })
 
-      expert_goals_gauge = Chart.new({
-        id: 'goals',
-        title: I18n.t('shared.categories.goals'),
-        score: @quarter.expert_survey.category2_score.to_f,
-        change: @quarter.expert_survey.category2_change
-      })
-
-      expert_progress_gauge = Chart.new({
+      verdict_progress_gauge = Chart.new({
         id: 'progress',
         title: I18n.t('shared.categories.progress'),
-        score: @quarter.expert_survey.category3_score.to_f,
-        change: @quarter.expert_survey.category3_change
+        score: @verdict.category2_score.to_f,
+        change: @verdict.category2_change
       })
 
-      expert_gauge_group = ChartGroup.new(
+      verdict_outcome_gauge = Chart.new({
+        id: 'outcome',
+        title: I18n.t('shared.categories.outcome'),
+        score: @verdict.category3_score.to_f,
+        change: @verdict.category3_change
+      })
+
+      verdict_gauge_group = ChartGroup.new(
         [
-          expert_overall_gauge,
-          expert_performance_gauge,
-          expert_goals_gauge,
-          expert_progress_gauge
+          verdict_overall_gauge,
+          verdict_performance_gauge,
+          verdict_progress_gauge,
+          verdict_outcome_gauge
         ],
-        id: 'expert-gauge-group',
+        id: 'verdict-gauge-group',
         title: I18n.t(
-          'root.review_board_show.gauge_group.title',
-          quarter: @quarter.time_period),
+          'root.reform_verdict_show.gauge_group.title',
+          time: @verdict.title),
         page_path: request.path
       )
 
       gon.charts = [
-        expert_history_chart.to_hash,
-        expert_overall_gauge.to_hash,
-        expert_performance_gauge.to_hash,
-        expert_goals_gauge.to_hash,
-        expert_progress_gauge.to_hash
+        verdict_history_chart.to_hash,
+        verdict_overall_gauge.to_hash,
+        verdict_performance_gauge.to_hash,
+        verdict_progress_gauge.to_hash,
+        verdict_outcome_gauge.to_hash
       ]
 
       gon.chartGroups = [
-        expert_gauge_group.to_hash
+        verdict_gauge_group.to_hash
       ]
 
       @share_image_paths = [
-        expert_history_chart,
-        expert_gauge_group
+        verdict_history_chart,
+        verdict_gauge_group
       ].select(&:png_image_exists?).map(&:png_image_path)
 
+      @reform_surveys.each do |survey|
+        reform = @reforms.select{|x| x.id == survey.reform_id}.first
+
+        next unless reform
+
+        gon.charts << {
+          id: "reform-government-#{@verdict.slug}-#{reform.slug}",
+          color: reform.color.to_hash,
+          title: nil,
+          score: survey.government_overall_score.to_f,
+          change: survey.government_overall_change
+        }
+
+        gon.charts << {
+          id: "reform-stakeholder-#{@verdict.slug}-#{reform.slug}",
+          color: reform.color.to_hash,
+          title: nil,
+          score: survey.stakeholder_overall_score.to_f,
+          change: survey.stakeholder_overall_change
+        }
+      end
+
     rescue ActiveRecord::RecordNotFound => e
-      redirect_to review_board_path,
+      redirect_to reform_verdicts_path,
                 alert: t('shared.msgs.does_not_exist')
     end
   end
+
+  # def review_board
+  #   @expert_text = PageContent.find_by(name: 'review_board_text')
+  #   @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
+
+  #   @quarters = Quarter.published.recent.with_expert_survey
+  #   @experts = Expert.active.sorted
+
+  #   gon.chart_download = highchart_export_config
+  #   gon.change_icons = view_context.change_icons
+
+  #   charts = [
+  #     Chart.new(
+  #       Quarter.expert_survey_data_for_charting(
+  #         overall_score_only: true,
+  #         id: 'expert-history'
+  #       ),
+  #       request.path
+  #     )
+  #   ]
+
+  #   gon.charts = charts.map(&:to_hash)
+
+  #   @share_image_paths = charts.select(&:png_image_exists?).map(&:png_image_path)
+
+  #   @quarters.each do |quarter|
+  #     gon.charts << {
+  #       id: quarter.slug,
+  #       title: nil,
+  #       score: quarter.expert_survey.overall_score.to_f,
+  #       change: quarter.expert_survey.overall_change
+  #     }
+  #   end
+
+  # end
+
+  # def review_board_show
+  #   begin
+  #     @quarter = Quarter.published.with_expert_survey.friendly.find(params[:id])
+
+  #     if @quarter.nil?
+  #       redirect_to review_board_path,
+  #               alert: t('shared.msgs.does_not_exist')
+  #     end
+
+  #     @active_quarters = Quarter.active_quarters_array
+  #     @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
+  #     @news = News.by_expert_quarter(@quarter.id)
+
+  #     gon.chart_download = highchart_export_config
+  #     gon.change_icons = view_context.change_icons
+
+  #     expert_history_chart = Chart.new(
+  #       Quarter.expert_survey_data_for_charting(id: 'expert-history'),
+  #       request.path
+  #     )
+
+  #     expert_overall_gauge = Chart.new({
+  #       id: 'overall',
+  #       title: I18n.t('shared.categories.overall'),
+  #       score: @quarter.expert_survey.overall_score.to_f,
+  #       change: @quarter.expert_survey.overall_change
+  #     })
+
+  #     expert_performance_gauge = Chart.new({
+  #       id: 'performance',
+  #       title: I18n.t('shared.categories.performance'),
+  #       score: @quarter.expert_survey.category1_score.to_f,
+  #       change: @quarter.expert_survey.category1_change
+  #     })
+
+  #     expert_goals_gauge = Chart.new({
+  #       id: 'goals',
+  #       title: I18n.t('shared.categories.goals'),
+  #       score: @quarter.expert_survey.category2_score.to_f,
+  #       change: @quarter.expert_survey.category2_change
+  #     })
+
+  #     expert_progress_gauge = Chart.new({
+  #       id: 'progress',
+  #       title: I18n.t('shared.categories.progress'),
+  #       score: @quarter.expert_survey.category3_score.to_f,
+  #       change: @quarter.expert_survey.category3_change
+  #     })
+
+  #     expert_gauge_group = ChartGroup.new(
+  #       [
+  #         expert_overall_gauge,
+  #         expert_performance_gauge,
+  #         expert_goals_gauge,
+  #         expert_progress_gauge
+  #       ],
+  #       id: 'expert-gauge-group',
+  #       title: I18n.t(
+  #         'root.review_board_show.gauge_group.title',
+  #         quarter: @quarter.time_period),
+  #       page_path: request.path
+  #     )
+
+  #     gon.charts = [
+  #       expert_history_chart.to_hash,
+  #       expert_overall_gauge.to_hash,
+  #       expert_performance_gauge.to_hash,
+  #       expert_goals_gauge.to_hash,
+  #       expert_progress_gauge.to_hash
+  #     ]
+
+  #     gon.chartGroups = [
+  #       expert_gauge_group.to_hash
+  #     ]
+
+  #     @share_image_paths = [
+  #       expert_history_chart,
+  #       expert_gauge_group
+  #     ].select(&:png_image_exists?).map(&:png_image_path)
+
+  #   rescue ActiveRecord::RecordNotFound => e
+  #     redirect_to review_board_path,
+  #               alert: t('shared.msgs.does_not_exist')
+  #   end
+  # end
+
 end

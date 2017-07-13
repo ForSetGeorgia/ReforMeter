@@ -26,13 +26,13 @@ show_admin_links ||= false
 
           <span class='headerControlsRow-item'>
 
-            <label class='labeledSelect-label' for='change-reform-page-quarter-select'>
+            <label class='labeledSelect-label' for='change-reform-page-verdict-select'>
               <%= t('shared.common.change_reform') %>:
             </label>
 
             <span class='labeledSelect-select'>
 
-              <select id='change-reform-page-quarter-select' class='js-become-select2 js-reform-page-reform-select'>
+              <select id='change-reform-page-verdict-select' class='js-become-select2 js-reform-page-reform-select'>
 
                 <% @active_reforms.each do |active_reform| %>
                   <option value='<%= active_reform[1] %>' <% if @reform.slug == active_reform[1] %>selected<% end %>><%= active_reform[0] %></option>
@@ -52,7 +52,7 @@ show_admin_links ||= false
 
         <span class='headerControlsRow-item'>
 
-          <% if @active_quarters %>
+          <% if @active_verdicts %>
 
             <label class='labeledSelect-label' for='change-reform-page-reform-select'>
               <%= t('shared.common.change_time') %>:
@@ -60,10 +60,10 @@ show_admin_links ||= false
 
             <span class='labeledSelect-select'>
 
-              <select id='change-reform-page-reform-select' class='js-become-select2 js-reform-page-quarter-select'>
+              <select id='change-reform-page-reform-select' class='js-become-select2 js-reform-page-verdict-select'>
 
-                <% @active_quarters.each do |active_quarter| %>
-                  <option value='<%= active_quarter[1] %>' <% if @quarter.slug == active_quarter[1] %>selected<% end %>><%= active_quarter[0] %></option>
+                <% @active_verdicts.each do |active_verdict| %>
+                  <option value='<%= active_verdict[1] %>' <% if @verdict.slug == active_verdict[1] %>selected<% end %>><%= active_verdict[0] %></option>
                 <% end %>
 
               </select>
@@ -76,7 +76,7 @@ show_admin_links ||= false
 
         <span class='headerControlsRow-item mod-left-padding'>
 
-          <% if @active_reforms.present? || @active_quarters.present? %>
+          <% if @active_reforms.present? || @active_verdicts.present? %>
             <button class='loadButton js-load-new-reform-page' data-new-url-base='<%= reforms_path %>'>
               <%= t('shared.actions.load') %>
             </button>
@@ -97,12 +97,23 @@ show_admin_links ||= false
         <%= render partial: 'shared/show_actions',
               locals: {
                 hide_object_name: true,
-                object: Quarter.new,
-                index_path: admin_quarters_path(q: @quarter.slug),
-                show_path: admin_quarter_reform_survey_path(quarter_id: @quarter.slug, id: @reform_survey),
-                edit_path: edit_admin_quarter_reform_survey_path(quarter_id: @quarter.slug, id: @reform_survey),
+                object: Verdict.new,
+                index_path: admin_verdicts_path(v: @verdict.slug),
+                show_path: admin_verdict_reform_survey_path(verdict_id: @verdict.slug, id: @reform_survey),
+                edit_path: edit_admin_verdict_reform_survey_path(verdict_id: @verdict.slug, id: @reform_survey),
                       }
         %>
+      </div>
+    <% end %>
+
+    <% if @reform_survey.report.exists? %>
+      <div class='downloadBox-button mod-inline mod-pdf mod-pdf-small mod-pull-right mod-padding'>
+        <%= link_to @reform_survey.report.url,
+                  target: :blank,
+                   class: 'js-report' do %>
+          <%= t('.download') %>
+          <%= inline_svg("download_pdf.svg") %>
+        <% end %>
       </div>
     <% end %>
 
@@ -157,75 +168,120 @@ show_admin_links ||= false
 
     </section>
 
-    <% if @quarter_ids.present? && @quarter_ids.length > 1 %>
+  </div>
 
-      <div>
+</div>
 
-        <ul class='tabList mod-with-separator js-act-as-tab-list'>
+<div class='contentSection mod-remove-above-margin'>
 
-          <li class='tabList-item'>
-            <button class='tabList-item-button mod-primary is-selected js-act-as-tab-list-button' data-selects-tab-content-panel-id='government_history_chart'>
-              <%= t('.header.government_history') %>
-            </button>
-          </li>
+  <% if @verdict_ids.present? && @verdict_ids.length > 1 %>
 
-          <li class='tabList-item'>
-            <button class='tabList-item-button js-act-as-tab-list-button' data-selects-tab-content-panel-id='government_methodology'>
-              <%= t('.header.methodology') %>
-            </button>
-          </li>
+    <header class='contentSection-header mod-no-padding'>
+
+      <% @tab_options = [
+          {
+            id: 'government_history_chart',
+            text: t('.header.government_history'),
+            is_selected: true
+          },
+          {
+            id: 'government_methodology',
+            text: t('.header.methodology')
+          }
+        ]
+      %>
+
+      <div class='tabListSelectContainer js-act-as-tab-list-select-container'>
+
+        <ul class='tabList mod-header js-act-as-tab-list'>
+
+          <% @tab_options.each do |tab_option| %>
+
+            <% if tab_option[:show_conditional].nil? || tab_option[:show_conditional] %>
+
+              <li class='tabList-item'>
+
+                <button class='tabList-item-button <%= 'is-selected' if tab_option[:is_selected] %> js-act-as-tab-list-button' data-selects-tab-content-panel-id='<%= tab_option[:id] %>'>
+                  <%= tab_option[:text] %>
+                </button>
+
+              </li>
+
+            <% end %>
+
+          <% end %>
 
         </ul>
 
-        <div class="tabContent js-act-as-tab-content">
+        <div class='headerControlsRow'>
 
-          <div class='tabContent-panel is-selected js-act-as-tab-content-panel' id='government_history_chart'>
+          <span class='headerControlsRow-item'>
 
-            <% exportID = random_string %>
+            <label for='reforms-tab-list-select'>
+              <%= t('shared.actions.view') %>:
+            </label>
 
-            <%= render partial: 'shared/chart_export_button',
-                       locals: {
-                         exportID: exportID
-                       } %>
+            <select class='reform js-become-select2 js-act-as-tab-list-select' id='reforms-tab-list-select'>
 
-            <div class='js-become-highchart' data-chart-type='percentage-history-time-series' data-id='reform-government-history' data-exportable-by-id='<%= exportID %>'></div>
+              <% @tab_options.each do |tab_option| %>
 
-          </div>
+                <option
+                  <%= 'selected' if tab_option[:is_selected] %>
+                  value="<%= tab_option[:id] %>"
+                >
+                  <%= tab_option[:text] %>
+                </option>
 
-          <div class='tabContent-panel js-act-as-tab-content-panel' id='government_methodology'>
-            <% if @methodology_government %>
-              <div>
-                <%= simple_format_no_tags(@methodology_government.content) %>
-              </div>
-            <% else %>
-              <p>
-               <%= t('.no_methodology') %>
-              </p>
-            <% end %>
-          </div>
+              <% end %>
+
+            </select>
+
+          </span>
 
         </div>
+
       </div>
 
-    <% else %>
+    </header>
 
-      <h2 class='heading'>
-        <%= t('.header.methodology') %>
-      </h2>
+  <% end %>
 
-      <% if @methodology_government %>
-        <div>
-          <%= simple_format_no_tags(@methodology_government.content) %>
+  <% if @verdict_ids.present? && @verdict_ids.length > 1 %>
+
+    <div class='contentSection-body mod-no-top-border'>
+
+      <div class="tabContent js-act-as-tab-content">
+
+        <div class='tabContent-panel is-selected js-act-as-tab-content-panel' id='government_history_chart'>
+
+          <% exportID = random_string %>
+
+          <%= render partial: 'shared/chart_export_button',
+                     locals: {
+                       exportID: exportID
+                     } %>
+
+          <div class='js-become-highchart' data-chart-type='percentage-history-time-series' data-id='reform-government-history' data-exportable-by-id='<%= exportID %>'></div>
+
         </div>
-      <% else %>
-        <p>
-         <%= t('.no_methodology') %>
-        </p>
-      <% end %>
 
-    <% end %>
+        <div class='tabContent-panel js-act-as-tab-content-panel' id='government_methodology'>
+          <% if @methodology_government %>
+            <div>
+              <%= simple_format_no_tags(@methodology_government.content) %>
+            </div>
+          <% else %>
+            <p>
+             <%= t('.no_methodology') %>
+            </p>
+          <% end %>
+        </div>
 
-  </div>
+      </div>
+
+    </div>
+
+  <% end %>
 
 </div>
 
@@ -274,9 +330,9 @@ show_admin_links ||= false
 
               <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-performance'></div>
 
-              <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-goals'></div>
-
               <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-progress'></div>
+
+              <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-outcome'></div>
 
             </div>
 
@@ -288,61 +344,110 @@ show_admin_links ||= false
           </div>
         <% end %>
 
-        <section>
+      </div>
 
-          <% if @quarter_ids.present? && @quarter_ids.length > 1 %>
+    </div>
 
-            <ul class='tabList mod-with-separator js-act-as-tab-list'>
+    <div class='contentSection mod-remove-above-margin'>
 
-              <li class='tabList-item'>
-                <button class='tabList-item-button mod-primary is-selected js-act-as-tab-list-button' data-selects-tab-content-panel-id='stakeholder_history_chart'>
-                  <%= t('.header.stakeholder_history') %>
-                </button>
-              </li>
+      <header class='contentSection-header mod-no-padding'>
 
-              <li class='tabList-item'>
-                <button class='tabList-item-button js-act-as-tab-list-button' data-selects-tab-content-panel-id='stakeholder_methodology'>
-                  <%= t('.header.methodology') %>
-                </button>
-              </li>
+        <% @has_verdicts = @verdict_ids.present? && @verdict_ids.length > 1 %>
 
-            </ul>
+        <% @tab_options = [
+            {
+              id: 'stakeholder_history_chart',
+              text: t('.header.stakeholder_history'),
+              is_selected: true,
+              show_conditional: @has_verdicts
+            },
+            {
+              id: 'stakeholder_methodology',
+              text: t('.header.methodology'),
+              is_selected: !@has_verdicts
+            },
+            {
+              id: 'stakeholders',
+              text: t('.header.stakeholders')
+            }
+          ]
+        %>
 
-            <div class="tabContent js-act-as-tab-content">
+        <div class='tabListSelectContainer js-act-as-tab-list-select-container'>
 
-              <div class='tabContent-panel is-selected js-act-as-tab-content-panel' id='stakeholder_history_chart'>
+          <ul class='tabList mod-header js-act-as-tab-list'>
 
-                <% exportID = random_string %>
+            <% @tab_options.each do |tab_option| %>
 
-                <%= render partial: 'shared/chart_export_button',
-                           locals: {
-                             exportID: exportID
-                           } %>
+              <% if tab_option[:show_conditional].nil? || tab_option[:show_conditional] %>
 
-                <div class='js-become-highchart' data-chart-type='rating-history-time-series' data-id='reform-stakeholder-history' data-exportable-by-id='<%= exportID %>'></div>
+                <li class='tabList-item'>
 
-              </div>
+                  <button class='tabList-item-button <%= 'is-selected' if tab_option[:is_selected] %> js-act-as-tab-list-button' data-selects-tab-content-panel-id='<%= tab_option[:id] %>'>
+                    <%= tab_option[:text] %>
+                  </button>
 
-              <div class='tabContent-panel js-act-as-tab-content-panel' id='stakeholder_methodology'>
-                <% if @methodology_stakeholder %>
-                  <div>
-                    <%= simple_format_no_tags(@methodology_stakeholder.content) %>
-                  </div>
-                <% else %>
-                  <p>
-                   <%= t('.no_methodology') %>
-                  </p>
+                </li>
+
+              <% end %>
+
+            <% end %>
+
+          </ul>
+
+          <div class='headerControlsRow'>
+
+            <span class='headerControlsRow-item'>
+
+              <label for='reforms-tab-list-select'>
+                <%= t('shared.actions.view') %>:
+              </label>
+
+              <select class='reform js-become-select2 js-act-as-tab-list-select' id='reforms-tab-list-select'>
+
+                <% @tab_options.each do |tab_option| %>
+
+                  <option
+                    <%= 'selected' if tab_option[:is_selected] %>
+                    value="<%= tab_option[:id] %>"
+                  >
+                    <%= tab_option[:text] %>
+                  </option>
+
                 <% end %>
-              </div>
+
+              </select>
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </header>
+
+      <div class='contentSection-body mod-no-top-border'>
+
+        <div class="tabContent js-act-as-tab-content">
+
+          <% if @has_verdicts %>
+
+            <div class='tabContent-panel is-selected js-act-as-tab-content-panel' id='stakeholder_history_chart'>
+
+              <% exportID = random_string %>
+
+              <%= render partial: 'shared/chart_export_button',
+                         locals: {
+                           exportID: exportID
+                         } %>
+
+              <div class='js-become-highchart' data-chart-type='rating-history-time-series' data-id='reform-stakeholder-history' data-exportable-by-id='<%= exportID %>'></div>
 
             </div>
 
-          <% else %>
+          <% end %>
 
-            <h2 class='heading'>
-              <%= t('.header.methodology') %>
-            </h2>
-
+          <div class='tabContent-panel <%= 'is-selected' unless @has_verdicts %> js-act-as-tab-content-panel' id='stakeholder_methodology'>
             <% if @methodology_stakeholder %>
               <div>
                 <%= simple_format_no_tags(@methodology_stakeholder.content) %>
@@ -352,10 +457,47 @@ show_admin_links ||= false
                <%= t('.no_methodology') %>
               </p>
             <% end %>
+          </div>
 
-          <% end %>
+          <div class='tabContent-panel js-act-as-tab-content-panel' id='stakeholders'>
+            <ul class='expertList'>
 
-        </section>
+              <% if @stakeholders.each do |expert| %>
+
+                <li class='expertList-item js-act-as-expert-item'>
+
+                  <div>
+
+                    <h4 class='expertList-item-heading'>
+                      <%= expert.name %>
+                    </h4>
+
+                    <% if expert.bio %>
+
+                      <div class='expertList-item-description'>
+
+                        <%= simple_format(expert.bio) %>
+
+                      </div>
+
+                    <% end %>
+
+                  </div>
+
+                </li>
+
+              <% end.empty? %>
+
+                <p>
+                 <%= t('.no_stakeholders') %>
+                </p>
+
+              <% end %>
+
+            </ul>
+          </div>
+
+        </div>
 
       </div>
 
@@ -374,6 +516,12 @@ show_admin_links ||= false
         </header>
 
         <div class='contentSection-body mod-vertical-padding'>
+
+          <% if @outcome %>
+              <div>
+                <%= simple_format_no_tags(@outcome.content) %>
+              </div>
+          <% end %>
 
           <% @external_indicators.each do |external_indicator| %>
 

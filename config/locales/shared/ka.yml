@@ -14,7 +14,7 @@ ka:
       edit: რედაქტირება
       load: ჩატვირთვა
       log_in: შესვლა
-      manage_data: Manage Data
+      manage_data: მონაცემების მართვა
       publish: გამოქვეყნება
       unpublish: გამოქვეყნების გაუქმება
       view: ნახვა
@@ -30,7 +30,8 @@ ka:
     categories:
       capacity_building: კომპეტენციის გაძლიერება
       change: ცვლილება
-      goals: მიზნები
+      # goals: მიზნები
+      outcome: შედეგები
       government: მთავრობა
       government_survey: მთავრობის ანგარიში
       infastructure_budgeting: ინფრასტრუქტურა და ბიუჯეტი
@@ -72,6 +73,8 @@ ka:
         subtitle_government: მთავრობის ანგარიშების ქრონიკა
         subtitle_stakeholder: შეფასებების ქრონიკა
         title: 'რეფორმა: %{name}'
+      verdict:
+        title: რეფორმვერდიქტის ისტორია
     common:
       account: ანგარიში
       actions: მოქმედებები
@@ -83,8 +86,8 @@ ka:
       jumpstart:
         slogan: JumpStart Georgia - ჩვენ გაწვდით ინფორმაციას მონაცემებით და დიზაინით
       move_row:
-        down: Move the row down
-        up: Move the row up
+        down: ქვედა რიგში ჩასვლა
+        up: ზედა რიგში ასვლა
       name: რეფორმეტრი
       'no': არა
       percent: პროცენტი (%)
@@ -101,31 +104,33 @@ ka:
       no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
     external_indicators:
       chart_types:
-        bar: Bar
-        line: Line
+        bar: სვეტოვანი
+        line: წრფივი
       indicator_types:
-        basic: Basic
-        composite: Composite
-        country: Country
+        basic: ძირითადი
+        composite: რთული
+        country: ქვეყანა
       scale_types:
-        number: Number
-        percent: Percent
+        number: რიცხვი
+        percent: პროცენტი
     labels:
       translated_field: "%{field} (%{language})"
     links:
       admin: ადმინის სექცია
-      experts: საბჭოს წევრები
-      external_indicators: External Indicators
+      experts: წევრები
+      external_indicators: გარე ინდიკატორები
       page_contents: გვერდის ტექსტის რედაქტირება
       quarters: მეოთხედები
       reform_colors: რეფორმის ფერები
       reforms: რეფორმები
+      reports: რეპორტები
+      verdicts:  რეფორმვერდიქტები
     locale:
       long:
         en: English
         ka: ქართული
     msgs:
-      all_reform_surveys_exist: "%{quarter}-ის ყველა რეფორმა უკვე არსებობს, არ არის საჭირო დამატებითი კითხვარების დამატება."
+      all_reform_surveys_exist: "%{verdict}-ის ყველა რეფორმა უკვე არსებობს, არ არის საჭირო დამატებითი კითხვარების დამატება."
       does_not_exist: თქვენ ცდილობთ ისეთ გვერდზე შეშვლას, რომელიც არ არსებობს.
       fail_published: "%{obj} ვერ გამოქვეყნდა შემდეგი მიზეზით: %{msg}"
       fail_unpublished: "%{obj}-ს გამოქვეყნება ვერ გაუქმნდა შემდეგი მიზეზით: %{msg}"
@@ -144,9 +149,35 @@ ka:
         government_history: მთავრობის ანგარიშების ქრონიკა
         government_summary: მთავრობის მიხედვით
         methodology: მეთოდოლოგია
+        stakeholders: დაინტერესებული მხარეები
         stakeholder_history: შეფასებების ქრონიკა
         stakeholder_summary: დაინტერესებულ მხარეთა მიხედვით
       no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
+      no_stakeholders: დაინტერესე ბული მხარეებსი შესახებ ჩანაწერი არ არის.
+      download: ანგარიშის ჩამოტვირთვა
+    expert_types:
+      steering_committee: მმართველი საბჭო
+      stakeholder: დაინტერესებული პირი
+      executive_team: აღმასრულებელი გუნდი
+    verdict_show:
+      header:
+        chart: რეფორმვერდიქტის ისტორია
+        methodology: მეთოდოლოგია
+        table: რეფორმის შედეგები
+      no_data: ბოდიში, ამ დროისთვის რეფორმის შესახებ მონაცემები არ არის. 
+      no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
+      table_header:
+        government: მთავრობა
+        reform: რეფორმა
+        stakeholder: დაინტერესებული პირი
+        summary: შეჯამება
+    move_row:
+      up: ველის ზემოთ აწევა
+      down: ველის ქვემოთ ჩამოწევა
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+  date:
+    formats:
+      default: ! '%Y-%m-%d'
+      time_period: ! '%b %Y'

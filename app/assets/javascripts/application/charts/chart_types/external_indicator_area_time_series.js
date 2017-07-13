@@ -8,11 +8,14 @@ function highchartsExternalIndicatorAreaTimeSeries(chartData) {
   if (typeof(chartData.displayTitle) === 'undefined') chartData.displayTitle = true;
   if (typeof(chartData.displaySubtitle) === 'undefined') chartData.displaySubtitle = true;
 
+  styleBenchmarkLineIfExists(chartData)
+
   var options = {
     chart: {
       // Makes room for the yAxis plot band labels
       spacingLeft: spacingLeft,
-      type: 'areaspline'
+      type: 'areaspline',
+      height: '300'
     },
     exporting: {
       chartOptions: {
@@ -25,9 +28,6 @@ function highchartsExternalIndicatorAreaTimeSeries(chartData) {
           }
         )
       }
-    },
-    legend: {
-      enabled: false
     },
     plotOptions: {
       areaspline: {
@@ -66,18 +66,11 @@ function highchartsExternalIndicatorAreaTimeSeries(chartData) {
         }
       }
     ),
-    tooltip: {
-      formatter: function() {
-        indexBoxes.update(this);
-
-        return externalIndicatorChart.tooltipFormatter(this.points[0]);
-      },
-      style: {
-        fontSize: '2em',
-        fontWeight: '600'
-      },
-      useHTML: true
-    },
+    tooltip: getHighchartsTooltip(chartData, {
+      preFormatterCallback: function(tooltipData) {
+        indexBoxes.update(tooltipData);
+      }
+    }),
     yAxis: {
       min: chartData.min,
       max: chartData.max,

@@ -1,13 +1,16 @@
 <% model_class = ExternalIndicator %>
 <% page_title t('.title', name: @external_indicator.title) %>
 <% object = @external_indicator %>
+<% obj_singular_name = t("activerecord.models.#{object.model_name.singular}", count: 1) %>
 
 <div class='actions-container'>
   <%= render partial: 'shared/edit_actions',
         locals: {
           object: @external_indicator,
           index_path: admin_external_indicators_path,
-          show_path: admin_external_indicator_path(@external_indicator)
+          show_path: admin_external_indicator_path(@external_indicator),
+          extra: {title: t('shared.actions.with_obj.edit', obj: obj_singular_name), 
+                  path: edit_admin_external_indicator_path(@external_indicator)}
                 }
   %>
 </div>
@@ -33,10 +36,7 @@
               </th>
               <% if object.is_composite? || object.is_basic? %>
                 <th>
-                  <%= t('shared.labels.translated_field',
-                           field: t('activerecord.attributes.external_indicator_time.overall_value'),
-                           language: enabled_locale_name)
-                  %><abbr title="required">*</abbr>
+                  <%= t('activerecord.attributes.external_indicator_time.overall_value') %><abbr title="required">*</abbr>
                   <% col_count += 1 %>
                 </th>
                 <% object.indices.sorted.each do |index| %>
@@ -48,10 +48,18 @@
               <% elsif object.is_country? %>
                 <% object.countries.sorted.each do |country| %>
                   <th>
+
                     <%= country.name %><abbr title="required">*</abbr>
                     <% col_count += 1 %>
                   </th>
                 <% end %>
+              <% end %>
+
+              <% if object.has_benchmark? %>
+                <th>
+                  <%= object.benchmark_title %><abbr title="required">*</abbr>
+                  <% col_count += 1 %>
+                </th>
               <% end %>
 
               <th>

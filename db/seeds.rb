@@ -50,11 +50,11 @@ PageContent.find_or_create_by(name: 'home_page_about') do |pc|
     pc.content = '<p>Reforms are where changes are made in order to improve something.</p>'
 end
 # review board methodology
-PageContent.find_or_create_by(name: 'methodology_review_board') do |pc|
-    puts 'creating page content for methodology review board'
-    pc.title = 'Review Board Survey Methodology'
-    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
-end
+# PageContent.find_or_create_by(name: 'methodology_review_board') do |pc|
+#     puts 'creating page content for methodology review board'
+#     pc.title = 'Review Board Survey Methodology'
+#     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
+# end
 # government methodology
 PageContent.find_or_create_by(name: 'methodology_government') do |pc|
     puts 'creating page content for methodology government'
@@ -80,11 +80,11 @@ PageContent.find_or_create_by(name: 'reform_text') do |pc|
     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
 end
 # review board text
-PageContent.find_or_create_by(name: 'review_board_text') do |pc|
-    puts 'creating page content for review board text'
-    pc.title = 'Review Board'
-    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
-end
+# PageContent.find_or_create_by(name: 'review_board_text') do |pc|
+#     puts 'creating page content for review board text'
+#     pc.title = 'Review Board'
+#     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
+# end
 # download text
 PageContent.find_or_create_by(name: 'download_text') do |pc|
     puts 'creating page content for download text'
@@ -92,11 +92,11 @@ PageContent.find_or_create_by(name: 'download_text') do |pc|
     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
 end
 # download review board text
-PageContent.find_or_create_by(name: 'download_review_board_text') do |pc|
-    puts 'creating page content for download review board text'
-    pc.title = 'Review Board'
-    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit.</p>'
-end
+# PageContent.find_or_create_by(name: 'download_review_board_text') do |pc|
+#     puts 'creating page content for download review board text'
+#     pc.title = 'Review Board'
+#     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit.</p>'
+# end
 # download reform text
 PageContent.find_or_create_by(name: 'download_reform_text') do |pc|
     puts 'creating page content for download reform text'
@@ -112,7 +112,7 @@ end
 # download reports text
 PageContent.find_or_create_by(name: 'download_report_text') do |pc|
     puts 'creating page content for download report text'
-    pc.title = 'Quarterly Reports'
+    pc.title = 'Reports'
     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit.</p>'
 end
 # contact intro text
@@ -121,6 +121,33 @@ PageContent.find_or_create_by(name: 'contact_text') do |pc|
     pc.title = 'Contact'
     pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit.</p>'
 end
+# general methodology
+PageContent.find_or_create_by(name: 'methodology_general') do |pc|
+    puts 'creating page content for general methodology'
+    pc.title = 'Methodology'
+    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
+end
+# reform outcome
+PageContent.find_or_create_by(name: 'outcome') do |pc|
+    puts 'creating page content for reform outcome'
+    pc.title = 'Outcome'
+    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
+end
+# reformverdict
+PageContent.find_or_create_by(name: 'verdict') do |pc|
+    puts 'creating page content for verdict'
+    pc.title = 'ReformVerdict'
+    pc.content = '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p> <p>Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam.</p>'
+end
+
+# disclaimer
+PageContent.find_or_create_by(name: 'disclaimer') do |pc|
+    puts 'creating page content for disclaimer'
+    pc.title = 'Disclaimer'
+    pc.content_en = '<p>This application is made possible by the support of the American People through the United States Agency for International Development (USAID). The contents of this application are the responsibility of International School of Economics at Tbilisi State University (ISET) Policy Institute and do not necessarily reflect the views of USAID or the United States Government.</p>'
+    pc.content_ka = '<p>ამ კომპიუტერული პროგრამის შექმნა შესაძლებელი გახდა ამერიკელი ხალხის მიერ ამერიკის შეერთებული შტატების საერთაშორისო განვითარების სააგენტოს (USAID)  მეშვეობით გაწეული დახმარების შედეგად. მის შინაარსზე  პასუხისმგებელია თბილისის სახელმწიფო უნივერსიტეტის ეკონომიკის საერთაშორისო სკოლის კვლევითი ინსტიტუტი (ISET Policy Institute) და შეიძლება არ ემთხვეოდეს USAID-ის ან ამერიკის შეერთებული შტატების მთავრობის პოზიციას.</p>'
+end
+
 
 
 
@@ -146,12 +173,17 @@ if ENV['delete_test_data'].present? || ENV['load_test_data'].present?
   Reform.destroy_all
   Expert.destroy_all
   ExternalIndicator.destroy_all
-  News.destroy_all
+  # News.destroy_all
+  Report.destroy_all
+  Verdict.destroy_all
 end
 
 
 # if the env variable of load_test_data exists, load the data
 if ENV['load_test_data'].present?
+  path = "#{Rails.root}/db/test_report_files/"
+  img_path = "#{Rails.root}/db/test_image_files/"
+
   puts 'LOADING TEST DATA'
 
   # create reform
@@ -162,36 +194,45 @@ if ENV['load_test_data'].present?
   reform4 = Reform.create(name_en: 'Pension System', name_ka: 'საპენსიო სისტემა', summary: 'This is the pension system reform.', reform_color_id: rc_colors.delete_at(rand(rc_colors.length)).id)
   reform5 = Reform.create(name_en: 'Land Registration', name_ka: 'მიწის რეგისტრაცია', summary: 'This is the land registration reform.', reform_color_id: rc_colors.delete_at(rand(rc_colors.length)).id)
 
-  # create board members
-  puts 'creating board members'
-  exp1 = Expert.create(name: 'Giorgi Gamkharashvili', bio: 'Giorgi Gamkharashvili is cool cat from Sesame Street.')
-  exp2 = Expert.create(name: 'Mariam Macharashvili', bio: 'Mariam Macharashvili doesn\'t know how to get to Sesame Street.')
-  exp3 = Expert.create(name: 'Irakli Sultanishvili', bio: 'Irakli Sultanishvili was born and raised on Sesame Street.')
+  # create members
+  puts 'creating members'
+  exp1 = Expert.create(name: 'Giorgi Gamkharashvili', bio: 'Giorgi Gamkharashvili is cool cat from Sesame Street.', expert_type: Expert::EXPERT_TYPES[:steering_committee])
+  exp2 = Expert.create(name: 'Mariam Macharashvili', bio: 'Mariam Macharashvili doesn\'t know how to get to Sesame Street.', expert_type: Expert::EXPERT_TYPES[:steering_committee])
+  exp3 = Expert.create(name: 'Irakli Sultanishvili', bio: 'Irakli Sultanishvili was born and raised on Sesame Street.', expert_type: Expert::EXPERT_TYPES[:executive_team])
+  exp4 = Expert.create(name: 'Mariam Gamkharashvili', bio: 'Mariam Gamkharashvili is cool cat from Sesame Street.', expert_type: Expert::EXPERT_TYPES[:executive_team])
+  exp5 = Expert.create(name: 'Irakli Macharashvili', bio: 'Irakli Macharashvili doesn\'t know how to get to Sesame Street.', expert_type: Expert::EXPERT_TYPES[:stakeholder], reform_id: reform1.id)
+  exp6 = Expert.create(name: 'Giorgi Gamkharashvili', bio: 'Giorgi Gamkharashvili was born and raised on Sesame Street.', expert_type: Expert::EXPERT_TYPES[:stakeholder], reform_id: reform1.id)
+  exp7 = Expert.create(name: 'Mariam Sultanishvili', bio: 'Mariam Sultanishvili doesn\'t know how to get to Sesame Street.', expert_type: Expert::EXPERT_TYPES[:stakeholder], reform_id: reform2.id)
 
-  # create quarters
-  puts 'creating quarters'
-  path = "#{Rails.root}/db/test_report_files/"
+  # create reports
   report_en = File.open(path + 'sample_report1.pdf')
-  q2 = Quarter.create(year: 2015, quarter: 2, report: report_en, summary_good: 'this is awesome!', summary_bad: 'this is not good!')
-  q3 = Quarter.create(year: 2015, quarter: 3, report: report_en, summary_good: 'this is ok!', summary_bad: 'no progress has been made!')
-  q4 = Quarter.create(year: 2015, quarter: 4, report: report_en, summary_good: 'good effort!', summary_bad: 'are you even working?!')
+  report_ka = File.open(path + 'sample_report2.pdf')
+  Report.create(title_en: '2016 Phase 2', title_ka: '2016 Phase 2', report_en: report_ka, report_ka: report_en, report_date: '2017-01-01')
+  Report.create(title_en: '2017 Phase 1', title_ka: '2017 Phase 1',report_en: report_en, report_ka: report_ka, report_date: '2017-07-01')
 
-  # create board member surveys
-  puts 'creating expert surveys'
-  es = q2.create_expert_survey(overall_score: 6.4, category1_score: 6, category2_score: 8, category3_score: 5,
-                              summary: 'Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.', details: '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus.</p><p> Ferri commune voluptatibus ne sed. Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam. Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam. Causae dolores reformidans ea pri, usu pericula forensibus in, utroque nusquam explicari no sit.</p>')
-  es.experts << exp1
-  es.experts << exp2
 
-  es = q3.create_expert_survey(overall_score: 5.36, category1_score: 5.8, category2_score: 6, category3_score: 4.5,
-                              summary: 'sit amet, te duo probo timeam', details: '<p>Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus. Ferri commune voluptatibus ne sed. </p><p>Id sea labitur liberavisse voluptatibus. Populo consetetur repudiandae ad nam.</p>')
-  es.experts << exp2
-  es.experts << exp3
+  # # create quarters
+  # puts 'creating quarters'
+  # q2 = Quarter.create(year: 2015, quarter: 2, report_en: report_en, report_ka: report_ka, summary_good: 'this is awesome!', summary_bad: 'this is not good!')
+  # q3 = Quarter.create(year: 2015, quarter: 3, report_en: report_en, report_ka: report_ka, summary_good: 'this is ok!', summary_bad: 'no progress has been made!')
+  # q4 = Quarter.create(year: 2015, quarter: 4, report_en: report_en, report_ka: report_ka, summary_good: 'good effort!', summary_bad: 'are you even working?!')
 
-  es = q4.create_expert_survey(overall_score: 6.82, category1_score: 6.5, category2_score: 8.3, category3_score: 5.5,
-                              summary: 'Lorem ipsum dolor sit amet, te duo probo timeam salutandi, iriure nostrud periculis et sit. Cu nostro alienum per, et usu porro inermis civibus, ad mei porro ceteros voluptatibus. Lorem ipsum dolor sit amet, te duo probo timeam salutandi.', details: '<p>Regione complectitur mel ea, in veri eripuit vix. Ius idque impedit periculis at. Ex sea tota vidit prima, adhuc accusamus cu eam. Iuvaret fabellas ea vel, ne eum mundi incorrupte dissentiunt. Congue ridens temporibus at eam. </p><p>Causae dolores reformidans ea pri, usu pericula forensibus in, utroque nusquam explicari no sit.</p>')
-  es.experts << exp1
-  es.experts << exp3
+  # create verdicts
+  puts 'creating verdicts'
+  v1 = Verdict.create(overall_score: 6.4, category1_score: 6, category2_score: 8, category3_score: 5,
+                              title_en: '2016 Phase 1', title_ka: '2016 Phase 1',
+                              summary_en: 'this is a verdict summary',
+                              summary_ka: 'this is a verdict summary',
+                              is_public: true, time_period: '2016-06-30')
+  v2 = Verdict.create(overall_score: 5.36, category1_score: 5.8, category2_score: 6, category3_score: 4.5,
+                              title_en: '2016 Phase 2', title_ka: '2016 Phase 2',
+                              summary_en: 'this is a verdict summary',
+                              summary_ka: 'this is a verdict summary',
+                              is_public: true, time_period: '2016-12-31')
+
+  v1.news.create(title: 'This is verdict news', content: "this is verdict news for #{v1.time_period}", url: 'http://google.ge')
+  v1.news.create(title: 'This is more verdict news', content: 'this is additional news for #{v1.time_period} with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
+  v2.news.create(title: 'This is verdict news', content: "this is verdict news for #{v2.time_period}", url: 'http://google.ge')
 
   # create reform surveys
   puts 'creating reform surveys'
@@ -203,13 +244,13 @@ if ENV['load_test_data'].present?
     ],
     [
       [23.5, 30, 35, 62, 80, 5.6,6,6.8,4.2],
-      [35, 42, 38, 63, 80, 5.36, 5.8, 6, 4.5],
-      [46.9, 53, 41, 65, 82, 6.82, 6.5, 8.3, 5.5],
+      [35, 42, 38, 63, 80, 6.82, 6.5, 8.3, 5.5],
+      [46.9, 53, 41, 65, 82, 5.36, 5.8, 6, 4.5],
     ],
     [
-      [63, 50, 35, 62, 80, 5.6,6,6.8,4.2],
+      [63, 50, 35, 62, 80, 6.82, 6.5, 8.3, 5.5],
       [63, 52, 58, 63, 80, 5.36, 5.8, 6, 4.5],
-      [63, 73, 71, 63, 82, 6.82, 6.5, 8.3, 5.5],
+      [63, 73, 71, 63, 82, 5.6,6,6.8,4.2],
     ],
     [
       [33.5, 30, 35, 62, 80, 5.6,6,6.8,4.2],
@@ -224,57 +265,62 @@ if ENV['load_test_data'].present?
     rs2, rs3, rs4 = nil
     # do not create value for 3rd reform in q2
     if index != 2
-      rs2 = q2.reform_surveys.create(reform_id: id,
+      rs2 = ReformSurvey.create(reform_id: id, time_period: "2016-04-01", is_public: true, quarter_id: 1, verdict_id: v1.id,
               government_overall_score: reform_survey_scores[index][0][0],government_category1_score: reform_survey_scores[index][0][1],
               government_category2_score: reform_survey_scores[index][0][2],government_category3_score: reform_survey_scores[index][0][3],
               government_category4_score: reform_survey_scores[index][0][4], stakeholder_overall_score: reform_survey_scores[index][0][5],
               stakeholder_category1_score: reform_survey_scores[index][0][6],stakeholder_category2_score: reform_survey_scores[index][0][7],
               stakeholder_category3_score: reform_survey_scores[index][0][8],
-              summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>')
+              summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>',
+              report_en: report_en, report_ka: report_ka)
+
+      rs2.news.create(reform_id: id, title: 'This is reform news', content: "this is reform news for #{rs2.time_period}", url: 'http://google.ge')
+      rs2.news.create(reform_id: id, title: 'This is more reform news', content: 'this is additional news for #{rs2.time_period} with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
+
     end
 
     if index != 3
-      rs3 = q3.reform_surveys.create(reform_id: id,
+      rs3 = ReformSurvey.create(reform_id: id, time_period: "2016-07-01", is_public: true, quarter_id: 1, verdict_id: v2.id,
               government_overall_score: reform_survey_scores[index][1][0],government_category1_score: reform_survey_scores[index][1][1],
               government_category2_score: reform_survey_scores[index][1][2],government_category3_score: reform_survey_scores[index][1][3],
               government_category4_score: reform_survey_scores[index][1][4], stakeholder_overall_score: reform_survey_scores[index][1][5],
               stakeholder_category1_score: reform_survey_scores[index][1][6],stakeholder_category2_score: reform_survey_scores[index][1][7],
               stakeholder_category3_score: reform_survey_scores[index][1][8],
-              summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>')
+              summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>',
+              report_en: report_en, report_ka: report_ka)
 
-      rs4 = q4.reform_surveys.create(reform_id: id,
-              government_overall_score: reform_survey_scores[index][2][0],government_category1_score: reform_survey_scores[index][2][1],
-              government_category2_score: reform_survey_scores[index][2][2],government_category3_score: reform_survey_scores[index][2][3],
-              government_category4_score: reform_survey_scores[index][2][4], stakeholder_overall_score: reform_survey_scores[index][2][5],
-              stakeholder_category1_score: reform_survey_scores[index][2][6],stakeholder_category2_score: reform_survey_scores[index][2][7],
-              stakeholder_category3_score: reform_survey_scores[index][2][8],
-              summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>')
+      # rs4 = ReformSurvey.create(reform_id: id, time_period: "2016-10-01", is_public: true, quarter_id: 1, verdict_id: v2.id,
+      #         government_overall_score: reform_survey_scores[index][2][0],government_category1_score: reform_survey_scores[index][2][1],
+      #         government_category2_score: reform_survey_scores[index][2][2],government_category3_score: reform_survey_scores[index][2][3],
+      #         government_category4_score: reform_survey_scores[index][2][4], stakeholder_overall_score: reform_survey_scores[index][2][5],
+      #         stakeholder_category1_score: reform_survey_scores[index][2][6],stakeholder_category2_score: reform_survey_scores[index][2][7],
+      #         stakeholder_category3_score: reform_survey_scores[index][2][8],
+      #         summary: 'this is a summary', government_summary: '<p>this is a government summary</p>', stakeholder_summary: '<p>this is a stakeholder summary</p>')
     end
 
   end
 
   # publish the quarters
   # - have to do this after the survey results are created for they are required for published
-  q2.is_public = true
-  q2.save
-  q3.is_public = true
-  q3.save
-  q4.is_public = true
-  q4.save
+  # q2.is_public = true
+  # q2.save
+  # q3.is_public = true
+  # q3.save
+  # q4.is_public = true
+  # q4.save
 
 
   # create news
-  puts 'creating news'
-  path = "#{Rails.root}/db/test_image_files/"
-  News.create(quarter_id: q4.id, title: 'This is review board news', content: 'this is review board news for Q4 2015', url: 'http://google.ge')
-  News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
-  News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(path + '1.jpg'))
-  News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
-  News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(path + '1.jpg'))
-  News.create(quarter_id: q3.id, title: 'This is review board news', content: 'this is review board news for Q3 2015', url: 'http://google.ge', image: File.new(path + '2.jpg'))
-  News.create(quarter_id: q3.id, title: 'This is more review board news', content: 'this is more review board news for Q3 2015', url: 'http://google.ge', image: File.new(path + '3.jpg'))
-  News.create(quarter_id: q3.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge', image: File.new(path + '4.jpg'))
-  News.create(quarter_id: q3.id, reform_id: reform1.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
+  # puts 'creating news'
+  # News.create(quarter_id: q4.id, title: 'This is review board news', content: 'this is review board news for Q4 2015', url: 'http://google.ge')
+  # News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
+  # News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
+  # News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
+  # News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
+  # News.create(quarter_id: q3.id, title: 'This is review board news', content: 'this is review board news for Q3 2015', url: 'http://google.ge', image: File.new(img_path + '2.jpg'))
+  # News.create(quarter_id: q3.id, title: 'This is more review board news', content: 'this is more review board news for Q3 2015', url: 'http://google.ge', image: File.new(img_path + '3.jpg'))
+  # News.create(quarter_id: q3.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge', image: File.new(img_path + '4.jpg'))
+  # News.create(quarter_id: q3.id, reform_id: reform1.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
 
 
 
@@ -282,13 +328,17 @@ if ENV['load_test_data'].present?
   csv_path = "#{Rails.root}/db/test_external_indicator_files/"
   puts 'creating external indicators'
 
-  ei = ExternalIndicator.new(title: 'Growth of Total Factor Productivity', scale_type: 2, indicator_type: 2, chart_type: 2, is_public: true, description: 'This is the external indicator for the growth of total factor productivity.')
+  ei = ExternalIndicator.new(title: 'Growth of Total Factor Productivity', scale_type: 2, indicator_type: 2, chart_type: 2, is_public: true, description: 'This is the external indicator for the growth of total factor productivity.',
+                              benchmark_title_en: 'EU Average', benchmark_title_ka: 'EU Average', has_benchmark: true)
   csv_data = CSV.read(csv_path + 'growth.csv')
 
   # countries
   csv_data[0].each_with_index do |header, index|
     if index > 0
-      ei.countries.build(name: header, sort_order: index)
+      # if this is the last header, do not record because it is benchmark
+      if index < csv_data[0].length-1
+        ei.countries.build(name: header, sort_order: index)
+      end
     end
   end
 
@@ -307,7 +357,12 @@ if ENV['load_test_data'].present?
 
       row.each_with_index do |cell, c_index|
         if c_index > 0
-          time.data.build(country_id: ei.countries[c_index-1].id, value: row[c_index])
+          is_benchmark = row.length-1 == c_index && ei.has_benchmark?
+          time.data.build(
+            country_id: is_benchmark ? nil : ei.countries[c_index-1].id,
+            value: row[c_index],
+            is_benchmark: is_benchmark
+          )
         end
       end
     end
@@ -317,7 +372,8 @@ if ENV['load_test_data'].present?
   ei.reforms << reform1
 
 
-  ei = ExternalIndicator.new(title: 'How do people feel about the economy?', subtitle: 'Georgian Economic Sentiment Index (G-ESI)', description: 'A confidence index of +100 would indicate that economic agents (consumers and businesses) were much more confident about future prospects, while -100 would indicate that all survey respondents were much less confident about future prospects.', scale_type: 2, indicator_type: 3, chart_type: 2, min: -100, max: 100, show_on_home_page: true, sort_order: 2, is_public: true, use_decimals: true)
+  ei = ExternalIndicator.new(title: 'How do people feel about the economy?', subtitle: 'Georgian Economic Sentiment Index (G-ESI)', description: 'A confidence index of +100 would indicate that economic agents (consumers and businesses) were much more confident about future prospects, while -100 would indicate that all survey respondents were much less confident about future prospects.', scale_type: 2, indicator_type: 3, chart_type: 2, min: -100, max: 100, show_on_home_page: true, sort_order: 2, is_public: true, use_decimals: true,
+                              benchmark_title_en: 'Benchmark', benchmark_title_ka: 'Benchmark', has_benchmark: true)
   csv_data = CSV.read(csv_path + 'gesi.csv')
 
   # indices
@@ -347,7 +403,12 @@ if ENV['load_test_data'].present?
           if c_index == 1
             time.overall_value = row[c_index]
           else
-            time.data.build(index_id: ei.indices[c_index-2].id, value: row[c_index])
+            is_benchmark = row.length-1 == c_index && ei.has_benchmark?
+            time.data.build(
+              index_id: is_benchmark ? nil : ei.indices[c_index-2].id,
+              value: row[c_index],
+              is_benchmark: is_benchmark
+            )
           end
         end
       end
@@ -407,7 +468,8 @@ if ENV['load_test_data'].present?
 
 
 
-  ei = ExternalIndicator.new(title: 'Georgia Growth of Total Factor Productivity', scale_type: 2, indicator_type: 1, chart_type: 1, is_public: true)
+  ei = ExternalIndicator.new(title: 'Georgia Growth of Total Factor Productivity', scale_type: 2, indicator_type: 1, chart_type: 1, is_public: true,
+                              benchmark_title_en: 'EU Average', benchmark_title_ka: 'EU Average', has_benchmark: true)
   csv_data = CSV.read(csv_path + 'geo_growth.csv')
 
   # times
@@ -425,7 +487,11 @@ if ENV['load_test_data'].present?
 
       row.each_with_index do |cell, c_index|
         if c_index > 0
-          time.data.build(value: row[c_index])
+          is_benchmark = row.length-1 == c_index && ei.has_benchmark?
+          time.data.build(
+            value: row[c_index],
+            is_benchmark: is_benchmark
+          )
         end
       end
     end
@@ -437,13 +503,17 @@ if ENV['load_test_data'].present?
   ei.reforms << reform3
 
 
-  ei = ExternalIndicator.new(title: 'Line Chart Total Factor Productivity', subtitle: 'This is the very loooooong subtitle of Line Chart Total Factor Productivity', scale_type: 2, indicator_type: 2, chart_type: 1, is_public: true)
+  ei = ExternalIndicator.new(title: 'Line Chart Total Factor Productivity', subtitle: 'This is the very loooooong subtitle of Line Chart Total Factor Productivity', scale_type: 2, indicator_type: 2, chart_type: 1, is_public: true,
+                              benchmark_title_en: 'EU Average', benchmark_title_ka: 'EU Average', has_benchmark: true)
   csv_data = CSV.read(csv_path + 'growth.csv')
 
   # countries
   csv_data[0].each_with_index do |header, index|
     if index > 0
-      ei.countries.build(name: header, sort_order: index)
+      # if this is the last header, do not record because it is benchmark
+      if index < csv_data[0].length-1
+        ei.countries.build(name: header, sort_order: index)
+      end
     end
   end
 
@@ -462,7 +532,12 @@ if ENV['load_test_data'].present?
 
       row.each_with_index do |cell, c_index|
         if c_index > 0
-          time.data.build(country_id: ei.countries[c_index-1].id, value: row[c_index])
+          is_benchmark = row.length-1 == c_index && ei.has_benchmark?
+          time.data.build(
+            country_id: is_benchmark ? nil : ei.countries[c_index-1].id,
+            value: row[c_index],
+            is_benchmark: is_benchmark
+          )
         end
       end
     end

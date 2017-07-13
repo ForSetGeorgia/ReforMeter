@@ -5,10 +5,13 @@ function highchartsExternalIndicatorLineTimeSeries(chartData) {
   if (typeof(chartData.displayTitle) === 'undefined') chartData.displayTitle = true;
   if (typeof(chartData.displaySubtitle) === 'undefined') chartData.displaySubtitle = true;
 
+  styleBenchmarkLineIfExists(chartData)
+
   var options = {
     chart: {
       // Makes room for the yAxis plot band labels
-      spacingLeft: spacingLeft
+      spacingLeft: spacingLeft,
+      height: '300'
     },
     colors: externalIndicatorChart.colors,
     exporting: {
@@ -38,14 +41,6 @@ function highchartsExternalIndicatorLineTimeSeries(chartData) {
         }
       }
     ),
-    tooltip: {
-      formatter: function() {
-        return highchartTimeSeriesTooltipFormatter.call(
-          this,
-          chartData
-        );
-      }
-    },
     yAxis: {
       plotBands: externalIndicatorChart.plotBands(chartData.plot_bands, false),
       title: {

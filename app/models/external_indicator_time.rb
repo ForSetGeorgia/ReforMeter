@@ -31,17 +31,24 @@ class ExternalIndicatorTime < AddMissingTranslation
   #######################
   ## SCOPES
   scope :sorted, -> { order(sort_order: :asc) }
-
+  # get unique array of external indicator ids with records
+  def self.external_indicator_ids
+    pluck(:external_indicator_id).uniq
+  end
 
   #######################
   #######################
   private
 
-  def has_required_translations?(trans)
-    trans.name.present?
-  end
+  # def has_required_translations?(trans)
+  #   trans.name.present?
+  # end
 
-  def add_missing_translations(default_trans)
-    self.name = default_trans.name if self["name_#{Globalize.locale}"].blank?
+  # def add_missing_translations(default_trans)
+  #   self.name = default_trans.name if self["name_#{Globalize.locale}"].blank?
+  # end
+
+  def required_translation_fields
+    return ['name']
   end
 end

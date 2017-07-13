@@ -30,7 +30,8 @@ en:
     categories:
       capacity_building: Capacity Building
       change: Change
-      goals: Goals
+      # goals: Goals
+      outcome: Outcome
       government: Government
       government_survey: Government Report
       infastructure_budgeting: Infastructure & Budgeting
@@ -72,6 +73,8 @@ en:
         subtitle_government: Government History
         subtitle_stakeholder: Stakeholder History
         title: 'Reform: %{name}'
+      verdict:
+        title: ReformVerdict History
     common:
       account: Account
       actions: Actions
@@ -114,18 +117,20 @@ en:
       translated_field: "%{field} (%{language})"
     links:
       admin: Admin Section
-      experts: Board Members
+      experts: Members
       external_indicators: External Indicators
       page_contents: Edit Page Text
       quarters: Quarters
       reform_colors: Reform Colors
       reforms: Reforms
+      reports: Reports
+      verdicts: ReformVerdicts
     locale:
       long:
         en: English
         ka: ქართული
     msgs:
-      all_reform_surveys_exist: A survey for each reform in %{quarter} already exists, so no more surveys need to be added.
+      all_reform_surveys_exist: A survey for each reform in %{verdict} already exists, so no more surveys need to be added.
       does_not_exist: You tried to access a page that does not exist.
       fail_published: "%{obj} was not successfully published due to the following: %{msg}"
       fail_unpublished: "%{obj} was not successfully unpublished due to the following: %{msg}"
@@ -144,9 +149,35 @@ en:
         government_history: Government History
         government_summary: According to the Government
         methodology: Methodology
+        stakeholders: Stakeholders
         stakeholder_history: Stakeholder History
         stakeholder_summary: According to the Stakeholders
       no_methodology: No methodology is on record.
+      no_stakeholders: No stakeholders are on record.
+      download: Download Report
+    expert_types:
+      steering_committee: Steering Committee
+      stakeholder: Stakeholder
+      executive_team: Executive Team
+    verdict_show:
+      header:
+        chart: ReformVerdict History
+        methodology: Methodology
+        table: Reform Results
+      no_data: Sorry, but at this time there is no reform data on record.
+      no_methodology: No methodology is on record.
+      table_header:
+        government: Government
+        reform: Reform
+        stakeholder: Stakeholder
+        summary: Summary
+    move_row:
+      up: Move the row up
+      down: Move the row down
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+  date:
+    formats:
+      default: ! '%Y-%m-%d'
+      time_period: '%b %Y'

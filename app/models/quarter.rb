@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: quarters
+#
+#  id                     :integer          not null, primary key
+#  quarter                :integer          not null
+#  year                   :integer          not null
+#  is_public              :boolean          default(FALSE)
+#  slug                   :string(255)      not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  report_en_file_name    :string(255)
+#  report_en_content_type :string(255)
+#  report_en_file_size    :integer
+#  report_en_updated_at   :datetime
+#  report_ka_file_name    :string(255)
+#  report_ka_content_type :string(255)
+#  report_ka_file_size    :integer
+#  report_ka_updated_at   :datetime
+#
+
   # == Schema Information
 #
 # Table name: quarters
@@ -15,16 +36,9 @@ require 'csv'
 class Quarter < ActiveRecord::Base
 
   #######################
-  ## ATTACHED FILE
-  has_attached_file :report,
-                    :url => "/system/quarterly_reports/:quarter_slug/:basename_:locale.:extension",
-                    :use_timestamp => false
-
-  #######################
   ## TRANSLATIONS
 
-  translates :summary_good, :summary_bad,
-    :report_file_name, :report_file_size, :report_content_type, :report_updated_at, :fallbacks_for_empty_translations => true
+  translates :summary_good, :summary_bad, :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
@@ -37,6 +51,16 @@ class Quarter < ActiveRecord::Base
   accepts_nested_attributes_for :reform_surveys, reject_if: :all_blank
 
   #######################
+  ## ATTACHED FILE
+  has_attached_file :report_en,
+                    :url => "/system/quarterly_reports/:quarter_slug/en/:basename.:extension",
+                    :use_timestamp => false
+
+  has_attached_file :report_ka,
+                    :url => "/system/quarterly_reports/:quarter_slug/ka/:basename.:extension",
+                    :use_timestamp => false
+
+  #######################
   ## VALIDATIONS
 
   validates :quarter, :year, :slug, presence: :true
@@ -45,7 +69,8 @@ class Quarter < ActiveRecord::Base
   validates_inclusion_of :quarter, in: 1..4
   validates_inclusion_of :year, in: 2015..2115
 
-  validates_attachment_content_type :report, :content_type => 'application/pdf'
+  validates_attachment_content_type :report_en, :content_type => 'application/pdf'
+  validates_attachment_content_type :report_ka, :content_type => 'application/pdf'
   validate :check_if_can_publish
 
 
@@ -55,7 +80,7 @@ class Quarter < ActiveRecord::Base
   # - at least one reform
   def check_if_can_publish
     if self.is_public_changed? and self.is_public?
-      if !self.report.exists?
+      if !self.report_en.exists? && !self.report_ka.exists?
         errors.add(:base, I18n.t('errors.messages.publish.report') )
       end
 
@@ -92,7 +117,7 @@ class Quarter < ActiveRecord::Base
 
   # for locale sensitive transliteration with friendly_id
   def normalize_friendly_id(input)
-    input.to_s.to_slug.normalize.to_s
+    input.to_s.to_url
   end
 
   #######################
@@ -281,8 +306,13 @@ class Quarter < ActiveRecord::Base
           data: quarters.map{|x| {y: x.expert_survey.category1_score.to_f, change: x.expert_survey.category1_change}}
         }
         # category 2
+        # hash[:series] << {
+        #   name: I18n.t('shared.categories.goals'),
+        #   dashStyle: 'shortDash',
+        #   data: quarters.map{|x| {y: x.expert_survey.category2_score.to_f, change: x.expert_survey.category2_change}}
+        # }
         hash[:series] << {
-          name: I18n.t('shared.categories.goals'),
+          name: I18n.t('shared.categories.outcome'),
           dashStyle: 'shortDash',
           data: quarters.map{|x| {y: x.expert_survey.category2_score.to_f, change: x.expert_survey.category2_change}}
         }
@@ -342,6 +372,11 @@ class Quarter < ActiveRecord::Base
     if options[:type] == 'stakeholder'
       hash[:type] = options[:type]
       hash[:subtitle] = I18n.t('shared.chart_titles.reform.subtitle_stakeholder')
+      hash[:translations] = {
+        behind: I18n.t('shared.chart_rating_categories.reforms.behind'),
+        on_track: I18n.t('shared.chart_rating_categories.reforms.on_track'),
+        ahead: I18n.t('shared.chart_rating_categories.reforms.ahead')
+      }
     else # government
       hash[:type] = 'government'
       hash[:subtitle] = I18n.t('shared.chart_titles.reform.subtitle_government')
@@ -437,13 +472,17 @@ class Quarter < ActiveRecord::Base
             dashStyle: 'longDash',
             data: surveys.map{|x| {y: x.nil? ? nil : x.stakeholder_category1_score.to_f, change: x.nil? ? nil : x.stakeholder_category1_change}}}
           # category 2
+          # hash[:series] << {
+          #   name: I18n.t('shared.categories.goals'),
+          #   dashStyle: 'shortDash',
+          #   data: surveys.map{|x| {y: x.nil? ? nil : x.stakeholder_category2_score.to_f, change: x.nil? ? nil : x.stakeholder_category2_change}}}
           hash[:series] << {
-            name: I18n.t('shared.categories.goals'),
+            name: I18n.t('shared.categories.progress'),
             dashStyle: 'shortDash',
             data: surveys.map{|x| {y: x.nil? ? nil : x.stakeholder_category2_score.to_f, change: x.nil? ? nil : x.stakeholder_category2_change}}}
           # category 3
           hash[:series] << {
-            name: I18n.t('shared.categories.progress'),
+            name: I18n.t('shared.categories.outcome'),
             dashStyle: 'dot',
             data: surveys.map{|x| {y: x.nil? ? nil : x.stakeholder_category3_score.to_f, change: x.nil? ? nil : x.stakeholder_category3_change}}}
         end
@@ -509,6 +548,12 @@ class Quarter < ActiveRecord::Base
     if reform
       reform_id = reform.id
     end
+  end
+
+  def report(locale=I18n.locale)
+    locale = locale.to_sym
+    locale = I18n.locale if !I18n.available_locales.include?(locale)
+    return locale == :en ? report_en : report_ka
   end
 
 end

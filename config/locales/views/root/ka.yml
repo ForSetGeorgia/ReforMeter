@@ -6,14 +6,24 @@ ka:
       methodology: მეთოდოლოგია
       partners: პარტნიორები
       sponsors_donors: სპონსორები და დონორები
-      title: შესახებ
+      title: პროექტის შესახებ
+      no_steering_committee: ჩანაწერში მმართველი საბჭოს წევრები არ არიან
+      no_executive_team: ჩანაწერში განმახორციელებელი გუნდის წევრები არ არიან.
+      steering_committee: მმართველი საბჭო
+      executive_team: აღმასრულებელი გუნდი
+      address: მისამართი
+      email: ელ-ფოსტა
+      phone: ტელეფონის ნომერი
+      fax: ფაქსი
     download_data_and_reports:
       choose: არჩევა
       download: გადმოწერა
       title: ჩამოტვირთეთ მონაცემები და ანგარიშები
     economic_effects:
-      associated_reforms: რეფორმები, რომლებიც გავლენას ახდენენ ამ იდიკატორზე
+      associated_reforms: რეფორმები, რომლებიც გავლენას ახდენენ ამ ინდიკატორზე
       select_indicator: გადადი ინდიკატორზე
+      filter_reform: გაფილტრე რეფორმა
+      choose: აირჩიეთ...
       title: ეკონომიკური ეფექტები
     index:
       big_link:
@@ -21,19 +31,20 @@ ka:
         find_out_why: გაიგე რატომ
         reforms: გაიგე მეტი რეფორმებზე
         review_board: გაიცანი შეფასების საბჭო
+        about: ვინ ვართ ჩვენ
       economy_effects: რა გავლენას ახდენს რეფორმები ეკონომიკაზე
       external_indicators_link: ყველა ეკონომიკური ეფექტის ნახვა
-      heading: რა მდგომარეობაა საქართველოში?
-      primary_gauge_description: საქართველოში რეფორმების პროგრესის შეფასების ქულა
+      heading: როგორ ვითარდება საქართველო?
+      primary_gauge_description: რეფორმვერდიქტი
       reform_status: რეფორმების მდგომარეობა
       reforms_link: ყველა რეფორმის ნახვა
-      subheading: რეფორმების პროგრესის საზომი
+      subheading: ეკონომიკური რეფორმების შეფასება
     reform_show:
       gauge_group:
         government:
-          subtitle: მთავრობა, %{quarter}
+          subtitle: მთავრობა, %{verdict}
         stakeholder:
-          subtitle: დაინტერესებული პირი, %{quarter}
+          subtitle: დაინტერესებული პირი, %{verdict}
         title: 'რეფორმა: %{name}'
       title: 'რეფორმა: %{name}-ის %{time}-სთვის'
     reforms:
@@ -41,7 +52,7 @@ ka:
         chart: ქრონოლოგია
         methodology: მეთოდოლოგია
         table: შედეგები
-      no_data: ბოდიშს გიხდით, ამ დროისთვის არ არსებობს საბჭოს წევრთა მონაცემთა ჩანაწერი.
+      no_data: ბოდიში, მაგრამ ამ დროისთვის რეფორმის შესახებ მონაცემები არ არის.
       no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
       table_header:
         government: მთავრობა
@@ -50,21 +61,35 @@ ka:
         summary: შეჯამება
         time: დროის მონაკვეთი
       title: რეფორმები
-    review_board:
+    reform_verdicts:
       header:
-        chart: ქრონოლოგია
-        experts: ექსპერტები
-        methodology: მეთოდოლოგია
+        chart: თაიმლაინი
         table: შედეგები
-      no_data: ბოდიშს გიხდით, ამ დროისთვის არ არსებობს საბჭოს წევრთა მონაცემთა ჩანაწერი.
-      no_experts: არ არსებობს საბჭოს წევრებზე ჩანაწერი.
-      no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
+      no_data: ბოდიში, ამ დროისთვის რეფორმის განაჩენი არ ასრებობს.
       table_header:
-        overall: ზოგადი შეფასება
+        overall: საერთო ქულა
         summary: შეჯამება
-        time: დროის მონაკვეთი
-      title: შეფასების საბჭო
-    review_board_show:
+        time: დროის პერიოდი
+      title: რეფორმვერდიქტი
+    reform_verdict_show:
       gauge_group:
-        title: საბჭოს დასკვნით %{quarter}-ისთვის
-      title: საბჭოს დასკვნით %{time}-ისთვის
+        title: რეფორმვერდიქტის %{time}
+      title: "რეფორმვერდიქტი: %{title}"
+    # review_board:
+    #   header:
+    #     chart: ქრონოლოგია
+    #     experts: ექსპერტები
+    #     methodology: მეთოდოლოგია
+    #     table: შედეგები
+    #   no_data: ბოდიშს გიხდით, ამ დროისთვის არ არსებობს საბჭოს წევრთა მონაცემთა ჩანაწერი.
+    #   no_experts: არ არსებობს საბჭოს წევრებზე ჩანაწერი.
+    #   no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
+    #   table_header:
+    #     overall: ზოგადი შეფასება
+    #     summary: შეჯამება
+    #     time: დროის მონაკვეთი
+    #   title: შეფასების საბჭო
+    # review_board_show:
+    #   gauge_group:
+    #     title: საბჭოს დასკვნით %{quarter}-ისთვის
+    #   title: საბჭოს დასკვნით %{time}-ისთვის

@@ -54,19 +54,19 @@ page_title t('.title')
 
         <span class='headerControlsRow-item'>
 
-          <% if @quarters %>
+          <% if @verdicts %>
 
-            <label for="quarter">
+            <label for="verdict">
               <%= t('shared.common.change_time') %>:
             </label>
 
-            <select class='quarter js-become-select2 js-filter-reforms-by-quarter' id="quarter">
+            <select class='verdict js-become-select2 js-filter-reforms-by-verdict' id="verdict">
 
               <option selected><%= t('shared.common.all') %></option>
 
-              <% @quarters.each do |quarter| %>
+              <% @verdicts.each do |verdict| %>
 
-                <option value="<%= quarter.slug %>"><%= quarter.time_period %></option>
+                <option value="<%= verdict.slug %>"><%= verdict.title %></option>
 
               <% end %>
 
@@ -90,7 +90,7 @@ page_title t('.title')
       </div>
     <% end %>
 
-    <% if !(@quarters.present? && @reforms.present? && @reform_surveys.present?) %>
+    <% if !(@verdicts.present? && @reforms.present? && @reform_surveys.present?) %>
 
       <p class="alert alert-warning">
         <%= t('.no_data') %>
@@ -102,35 +102,79 @@ page_title t('.title')
 
 </div>
 
-<% if @quarters.present? && @reforms.present? && @reform_surveys.present? %>
+<% if @verdicts.present? && @reforms.present? && @reform_surveys.present? %>
   <div class='contentSection'>
 
     <header class='contentSection-header mod-no-padding'>
 
-      <ul class='tabList mod-header js-act-as-tab-list'>
+      <% @tab_options = [
+          {
+            id: 'history',
+            text: t('.header.table'),
+            is_selected: true
+          },
+          {
+            id: 'chart',
+            text: t('.header.chart'),
+            show_conditional: @verdicts.length > 1
+          },
+          {
+            id: 'methodology',
+            text: t('.header.methodology')
+          }
+        ]
+      %>
 
-        <li class='tabList-item'>
+      <div class='tabListSelectContainer js-act-as-tab-list-select-container'>
 
-          <button class='tabList-item-button is-selected js-act-as-tab-list-button' data-selects-tab-content-panel-id='history'>
-            <%= t('.header.table') %>
-          </button>
+        <ul class='tabList mod-header js-act-as-tab-list'>
 
-        </li>
+          <% @tab_options.each do |tab_option| %>
 
-        <li class='tabList-item'>
-          <button class='tabList-item-button js-act-as-tab-list-button' data-selects-tab-content-panel-id='chart'>
-            <%= t('.header.chart') %>
-          </button>
-        </li>
+            <% if tab_option[:show_conditional].nil? || tab_option[:show_conditional] %>
 
-        <li class='tabList-item'>
-          <button class='tabList-item-button js-act-as-tab-list-button' data-selects-tab-content-panel-id='methodology'>
-            <%= t('.header.methodology') %>
-          </button>
-        </li>
+              <li class='tabList-item'>
 
+                <button class='tabList-item-button <%= 'is-selected' if tab_option[:is_selected] %> js-act-as-tab-list-button' data-selects-tab-content-panel-id='<%= tab_option[:id] %>'>
+                  <%= tab_option[:text] %>
+                </button>
 
-      </ul>
+              </li>
+
+            <% end %>
+
+          <% end %>
+
+        </ul>
+
+        <div class='headerControlsRow'>
+
+          <span class='headerControlsRow-item'>
+
+            <label for='reforms-tab-list-select'>
+              <%= t('shared.actions.view') %>:
+            </label>
+
+            <select class='reform js-become-select2 js-act-as-tab-list-select' id='reforms-tab-list-select'>
+
+              <% @tab_options.each do |tab_option| %>
+
+                <option
+                  <%= 'selected' if tab_option[:is_selected] %>
+                  value="<%= tab_option[:id] %>"
+                >
+                  <%= tab_option[:text] %>
+                </option>
+
+              <% end %>
+
+            </select>
+
+          </span>
+
+        </div>
+
+      </div>
 
     </header>
 
@@ -150,7 +194,7 @@ page_title t('.title')
                   <%= t('.table_header.time') %>
                 </th>
 
-                <th class='chartsTable-cell mod-head'>
+                <th class='chartsTable-cell mod-head mod-reform-name'>
                   <%= t('.table_header.reform') %>
                 </th>
 
@@ -172,9 +216,9 @@ page_title t('.title')
 
             <tbody class='chartsTable-body'>
 
-              <% @quarters.each do |quarter| %>
+              <% @verdicts.each do |verdict| %>
 
-                <% surveys = @reform_surveys.select{|x| x.quarter_id == quarter.id} %>
+                <% surveys = @reform_surveys.select{|x| x.verdict_id == verdict.id} %>
 
                 <% if surveys.present? %>
 
@@ -186,11 +230,11 @@ page_title t('.title')
 
                       <tr class='chartsTable-row js-act-as-reform-table-row'>
 
-                        <td class='chartsTable-cell mod-first-column mod-important-text js-act-as-quarter-name'>
-                          <%= link_to(quarter.time_period,
+                        <td class='chartsTable-cell mod-first-column mod-important-text js-act-as-verdict-name'>
+                          <%= link_to(verdict.title,
                                       reform_show_path(
                                         reform_id: reform.slug,
-                                        quarter_id: quarter.slug),
+                                        verdict_id: verdict.slug),
                                       class: 'chartsTable-cell-link') %>
                         </td>
 
@@ -198,7 +242,7 @@ page_title t('.title')
                           <%= link_to(reform.name,
                                       reform_show_path(
                                         reform_id: reform.slug,
-                                        quarter_id: quarter.slug),
+                                        verdict_id: verdict.slug),
                                       class: 'chartsTable-cell-link') %>
                         </td>
 
@@ -207,7 +251,7 @@ page_title t('.title')
                           <p class='chartsTable-cell-text'>
 
                             <span class='chartsTable-cell-text-score'>
-                              <%= survey.government_overall_score %>
+                              <%= "#{survey.government_overall_score}%" %>
                             </span>
 
                             <span class='chartsTable-cell-text-changeIcon'>
@@ -220,9 +264,9 @@ page_title t('.title')
 
                             <%= link_to(reform_show_path(
                                           reform_id: reform.slug,
-                                          quarter_id: quarter.slug)) do %>
+                                          verdict_id: verdict.slug)) do %>
 
-                              <div class='js-become-highchart solidGauge mod-small mod-white-border' data-chart-type='small-solid-gauge' data-id='reform-government-<%= quarter.slug %>-<%= reform.slug %>'></div>
+                              <div class='js-become-highchart solidGauge mod-small mod-white-border' data-chart-type='small-solid-gauge' data-id='reform-government-<%= verdict.slug %>-<%= reform.slug %>'></div>
 
                             <% end %>
 
@@ -248,9 +292,9 @@ page_title t('.title')
 
                             <%= link_to(reform_show_path(
                                           reform_id: reform.slug,
-                                          quarter_id: quarter.slug)) do %>
+                                          verdict_id: verdict.slug)) do %>
 
-                              <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-<%= quarter.slug %>-<%= reform.slug %>'></div>
+                              <div class='js-become-highchart meterGauge mod-small' data-chart-type='small-meter-gauge' data-id='reform-stakeholder-<%= verdict.slug %>-<%= reform.slug %>'></div>
 
                             <% end %>
 
@@ -259,7 +303,7 @@ page_title t('.title')
                         </td>
 
                         <td class='chartsTable-cell mod-summary'>
-                          <%= strip_tags_nbsp(reform.summary) %>
+                          <%= strip_tags_nbsp(survey.summary) %>
                         </td>
 
                       </tr>
@@ -278,17 +322,51 @@ page_title t('.title')
 
         </div>
 
-        <div class='tabContent-panel js-act-as-tab-content-panel' id='chart'>
+        <% if @verdicts.length > 1 %>
 
-          <% exportID = random_string %>
+          <div class='tabContent-panel js-act-as-tab-content-panel' id='chart'>
 
-          <%= render partial: 'shared/chart_export_button',
-                     locals: {
-                       exportID: exportID
-                     } %>
+            <div>
 
-          <div class='js-become-highchart' data-chart-type='percentage-colorful-reforms-history-time-series' data-id='reforms-history-series' data-exportable-by-id='<%= exportID %>'></div>
-        </div>
+              <h2 class='heading mod-content-side-padding mod-top-margin'>
+                <%= @government_chart.to_hash[:subtitle] %>
+              </h2>
+
+              <div>
+                <% exportID = random_string %>
+
+                <%= render partial: 'shared/chart_export_button',
+                locals: {
+                  exportID: exportID
+                  } %>
+
+                  <div class='js-become-highchart' data-chart-type='percentage-colorful-reforms-history-time-series' data-id='reforms-government-history-series' data-exportable-by-id='<%= exportID %>'></div>
+              </div>
+
+            </div>
+
+            <div>
+
+              <h2 class='heading mod-content-side-padding mod-top-margin'>
+                <%= @stakeholder_chart.to_hash[:subtitle] %>
+              </h2>
+
+              <div>
+                <% exportID = random_string %>
+
+                <%= render partial: 'shared/chart_export_button',
+                locals: {
+                  exportID: exportID
+                  } %>
+
+                  <div class='js-become-highchart' data-chart-type='reforms-stakeholder-history-series' data-id='reforms-stakeholder-history-series' data-exportable-by-id='<%= exportID %>'></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
 
         <div class='tabContent-panel mod-content-padding js-act-as-tab-content-panel' id='methodology'>
           <% if @methodology_government || @methodology_stakeholder %>

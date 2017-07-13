@@ -11,6 +11,7 @@
     padding: 22px $padding-main-content;
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     @media (min-width: $widthHeaderControlsBecomeHorizontal) {
       flex-direction: row;
@@ -69,7 +70,23 @@
     flex-direction: column;
   }
 
+  .contentSection-body.mod-fill-vertical-space {
+    /*height: 100%;*/
 
+    // Safari behaves differently in this case from Chrome and Firefox.
+    // If height: 100%; is applied, it calculates the height to be 0px.
+    // We want to keep height: 100% on all non-Safari browsers,
+    // so this is a workaround for Safari.
+    // Note: If you're reading this when CSS Grid has come around to all
+    // browsers, then just replace this hack with the Grid :)
+    &.safari-only {
+      height: initial;
+    }
+
+    @media (min-width: 800px){
+      height: 100%;
+    }
+  }
 
 .contentSection.mod-overlap-top-image {
   @media (min-width: $width-content-overlap-top-image) {
@@ -78,14 +95,66 @@
 
   .contentSection-header {
     @media (min-width: $width-content-overlap-top-image) {
-      padding-top: 0;
-      padding-bottom: 0;
-      height: $height-content-heading;
+      min-height: $height-content-heading;
     }
   }
+}
+
+.contentSection.mod-remove-above-margin {
+  margin-top: -20px;
 }
 
 .contentSection.mod-flex-column {
   display: flex;
   flex-direction: column;
+}
+
+$triangle-primary-dimension: .45em;
+$triangle-secondary-dimension: $triangle-primary-dimension * 2/3;
+$triangle-horizontal-text-offset: $triangle-primary-dimension * 2;
+
+.contentSection.mod-accordion {
+  button.contentSection-header {
+    > .heading {
+      padding-left: $triangle-horizontal-text-offset;
+      position: relative;
+      text-align: left;
+
+      // Triangle icon pointing down
+      &:before {
+        content:"\A";
+        display: inline-block;
+        border-style: solid;
+        color: inherit;
+        border-width: $triangle-primary-dimension $triangle-secondary-dimension 0 $triangle-secondary-dimension;
+        border-color: currentColor transparent transparent transparent;
+        position: absolute;
+        top: $triangle-primary-dimension * 8/10;
+        left: 0px;
+      }
+    }
+
+    &:hover {
+      color: $color-brand;
+
+      & > .heading {
+        color: inherit;
+      }
+    }
+  }
+
+  &:not(.is-expanded) {
+    button.contentSection-header {
+      background-color: #EDEDED;
+
+      > .heading {
+        // Triangle icon pointing to the right
+        &:before {
+          border-width: $triangle-secondary-dimension 0 $triangle-secondary-dimension $triangle-primary-dimension;
+          border-color: transparent transparent transparent currentColor;
+          vertical-align: text-top;
+        }
+      }
+    }
+  }
 }

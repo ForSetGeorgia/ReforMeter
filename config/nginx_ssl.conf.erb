@@ -56,7 +56,7 @@ server {
   # and avoid clickjacking http://en.wikipedia.org/wiki/Clickjacking
   # if you need to allow [i]frames, you can use SAMEORIGIN or even set an uri with ALLOW-FROM uri
   # https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options
-  add_header X-Frame-Options DENY;
+  # add_header X-Frame-Options DENY;
 
   ###########################################
   ###########################################
@@ -68,9 +68,9 @@ server {
   # control buffer overflow attacks
   # https://www.acunetix.com/blog/articles/nginx-server-security-hardening-configuration-1/
   client_body_buffer_size 10k;
-  client_header_buffer_size 1k;
+  client_header_buffer_size 8k;
   client_max_body_size 8m;
-  large_client_header_buffers 2 1k;
+  large_client_header_buffers 4 8k;
 
   # when serving user-supplied content, include a X-Content-Type-Options: nosniff header along with the Content-Type: header,
   # to disable content-type sniffing on some browsers.
@@ -84,7 +84,7 @@ server {
   # It is usually enabled by default anyway, so the role of this header is to re-enable the filter for
   # this particular website if it was disabled by the user.
   # https://www.owasp.org/index.php/List_of_useful_HTTP_headers
-  add_header X-XSS-Protection "1; mode=block";
+  # add_header X-XSS-Protection "1; mode=block";
 
   ###########################################
   ###########################################

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120090656) do
+ActiveRecord::Schema.define(version: 20170419105454) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -68,11 +68,13 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.datetime "avatar_updated_at"
     t.integer  "expert_type",         limit: 4
     t.integer  "reform_id",           limit: 4
+    t.integer  "sort_order",          limit: 2,   default: 1
   end
 
   add_index "experts", ["expert_type"], name: "index_experts_on_expert_type", using: :btree
   add_index "experts", ["is_active"], name: "index_experts_on_is_active", using: :btree
   add_index "experts", ["reform_id"], name: "index_experts_on_reform_id", using: :btree
+  add_index "experts", ["sort_order"], name: "index_experts_on_sort_order", using: :btree
 
   create_table "external_indicator_countries", force: :cascade do |t|
     t.integer  "external_indicator_id", limit: 4
@@ -100,10 +102,11 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.integer  "external_indicator_time_id", limit: 4
     t.integer  "country_id",                 limit: 4
     t.integer  "index_id",                   limit: 4
-    t.decimal  "value",                                precision: 5, scale: 2, null: false
+    t.decimal  "value",                                precision: 9, scale: 2,                 null: false
     t.integer  "change",                     limit: 4
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
+    t.boolean  "is_benchmark",                                                 default: false
   end
 
   add_index "external_indicator_data", ["country_id"], name: "index_external_indicator_data_on_country_id", using: :btree
@@ -191,6 +194,7 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.string   "subtitle",              limit: 255
     t.text     "description",           limit: 65535
     t.text     "data",                  limit: 65535
+    t.string   "benchmark_title",       limit: 255
   end
 
   add_index "external_indicator_translations", ["external_indicator_id"], name: "index_external_indicator_translations_on_external_indicator_id", using: :btree
@@ -209,6 +213,7 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.datetime "updated_at",                                  null: false
     t.integer  "sort_order",        limit: 4
     t.boolean  "use_decimals",                default: false
+    t.boolean  "has_benchmark",               default: false
   end
 
   add_index "external_indicators", ["sort_order"], name: "index_external_indicators_on_sort_order", using: :btree
@@ -240,9 +245,13 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.datetime "image_updated_at"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "reform_survey_id",   limit: 4
+    t.integer  "verdict_id",         limit: 4
   end
 
   add_index "news", ["quarter_id", "reform_id"], name: "index_news_on_quarter_id_and_reform_id", using: :btree
+  add_index "news", ["reform_survey_id"], name: "index_news_on_reform_survey_id", using: :btree
+  add_index "news", ["verdict_id"], name: "index_news_on_verdict_id", using: :btree
 
   create_table "news_translations", force: :cascade do |t|
     t.integer  "news_id",    limit: 4,     null: false
@@ -279,28 +288,32 @@ ActiveRecord::Schema.define(version: 20170120090656) do
   add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
 
   create_table "quarter_translations", force: :cascade do |t|
-    t.integer  "quarter_id",          limit: 4,   null: false
-    t.string   "locale",              limit: 255, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "summary_good",        limit: 255
-    t.string   "summary_bad",         limit: 255
-    t.string   "report_file_name",    limit: 255
-    t.string   "report_content_type", limit: 255
-    t.integer  "report_file_size",    limit: 4
-    t.datetime "report_updated_at"
+    t.integer  "quarter_id",   limit: 4,   null: false
+    t.string   "locale",       limit: 255, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "summary_good", limit: 255
+    t.string   "summary_bad",  limit: 255
   end
 
   add_index "quarter_translations", ["locale"], name: "index_quarter_translations_on_locale", using: :btree
   add_index "quarter_translations", ["quarter_id"], name: "index_quarter_translations_on_quarter_id", using: :btree
 
   create_table "quarters", force: :cascade do |t|
-    t.integer  "quarter",    limit: 1,                   null: false
-    t.integer  "year",       limit: 2,                   null: false
-    t.boolean  "is_public",              default: false
-    t.string   "slug",       limit: 255,                 null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "quarter",                limit: 1,                   null: false
+    t.integer  "year",                   limit: 2,                   null: false
+    t.boolean  "is_public",                          default: false
+    t.string   "slug",                   limit: 255,                 null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "report_en_file_name",    limit: 255
+    t.string   "report_en_content_type", limit: 255
+    t.integer  "report_en_file_size",    limit: 4
+    t.datetime "report_en_updated_at"
+    t.string   "report_ka_file_name",    limit: 255
+    t.string   "report_ka_content_type", limit: 255
+    t.integer  "report_ka_file_size",    limit: 4
+    t.datetime "report_ka_updated_at"
   end
 
   add_index "quarters", ["slug"], name: "index_quarters_on_slug", unique: true, using: :btree
@@ -333,19 +346,19 @@ ActiveRecord::Schema.define(version: 20170120090656) do
   add_index "reform_survey_translations", ["reform_survey_id"], name: "index_reform_survey_translations_on_reform_survey_id", using: :btree
 
   create_table "reform_surveys", force: :cascade do |t|
-    t.integer  "quarter_id",                   limit: 4,                         null: false
-    t.integer  "reform_id",                    limit: 4,                         null: false
-    t.decimal  "government_overall_score",               precision: 5, scale: 2, null: false
-    t.decimal  "government_category1_score",             precision: 5, scale: 2, null: false
-    t.decimal  "government_category2_score",             precision: 5, scale: 2, null: false
-    t.decimal  "government_category3_score",             precision: 5, scale: 2, null: false
-    t.decimal  "government_category4_score",             precision: 5, scale: 2, null: false
-    t.decimal  "stakeholder_overall_score",              precision: 5, scale: 2, null: false
-    t.decimal  "stakeholder_category1_score",            precision: 5, scale: 2, null: false
-    t.decimal  "stakeholder_category2_score",            precision: 5, scale: 2, null: false
-    t.decimal  "stakeholder_category3_score",            precision: 5, scale: 2, null: false
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.integer  "quarter_id",                   limit: 4
+    t.integer  "reform_id",                    limit: 4,                                           null: false
+    t.decimal  "government_overall_score",                 precision: 5, scale: 2,                 null: false
+    t.decimal  "government_category1_score",               precision: 5, scale: 2,                 null: false
+    t.decimal  "government_category2_score",               precision: 5, scale: 2,                 null: false
+    t.decimal  "government_category3_score",               precision: 5, scale: 2,                 null: false
+    t.decimal  "government_category4_score",               precision: 5, scale: 2,                 null: false
+    t.decimal  "stakeholder_overall_score",                precision: 5, scale: 2,                 null: false
+    t.decimal  "stakeholder_category1_score",              precision: 5, scale: 2,                 null: false
+    t.decimal  "stakeholder_category2_score",              precision: 5, scale: 2,                 null: false
+    t.decimal  "stakeholder_category3_score",              precision: 5, scale: 2,                 null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "government_overall_change",    limit: 4
     t.integer  "government_category1_change",  limit: 4
     t.integer  "government_category2_change",  limit: 4
@@ -355,10 +368,24 @@ ActiveRecord::Schema.define(version: 20170120090656) do
     t.integer  "stakeholder_category1_change", limit: 4
     t.integer  "stakeholder_category2_change", limit: 4
     t.integer  "stakeholder_category3_change", limit: 4
+    t.string   "report_en_file_name",          limit: 255
+    t.string   "report_en_content_type",       limit: 255
+    t.integer  "report_en_file_size",          limit: 4
+    t.datetime "report_en_updated_at"
+    t.string   "report_ka_file_name",          limit: 255
+    t.string   "report_ka_content_type",       limit: 255
+    t.integer  "report_ka_file_size",          limit: 4
+    t.datetime "report_ka_updated_at"
+    t.date     "time_period"
+    t.boolean  "is_public",                                                        default: false
+    t.integer  "verdict_id",                   limit: 4
   end
 
+  add_index "reform_surveys", ["is_public"], name: "index_reform_surveys_on_is_public", using: :btree
   add_index "reform_surveys", ["quarter_id"], name: "index_reform_surveys_on_quarter_id", using: :btree
   add_index "reform_surveys", ["reform_id"], name: "index_reform_surveys_on_reform_id", using: :btree
+  add_index "reform_surveys", ["time_period"], name: "index_reform_surveys_on_time_period", using: :btree
+  add_index "reform_surveys", ["verdict_id"], name: "index_reform_surveys_on_verdict_id", using: :btree
 
   create_table "reform_translations", force: :cascade do |t|
     t.integer  "reform_id",   limit: 4,     null: false
@@ -390,6 +417,40 @@ ActiveRecord::Schema.define(version: 20170120090656) do
   add_index "reforms", ["reform_color_id"], name: "index_reforms_on_reform_color_id", using: :btree
   add_index "reforms", ["slug"], name: "index_reforms_on_slug", unique: true, using: :btree
 
+  create_table "report_translations", force: :cascade do |t|
+    t.integer  "report_id",  limit: 4,   null: false
+    t.string   "locale",     limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "title",      limit: 255
+    t.string   "slug",       limit: 255
+  end
+
+  add_index "report_translations", ["locale"], name: "index_report_translations_on_locale", using: :btree
+  add_index "report_translations", ["report_id"], name: "index_report_translations_on_report_id", using: :btree
+  add_index "report_translations", ["slug"], name: "index_report_translations_on_slug", using: :btree
+  add_index "report_translations", ["title"], name: "index_report_translations_on_title", using: :btree
+
+  create_table "reports", force: :cascade do |t|
+    t.boolean  "is_active",                          default: true
+    t.string   "report_en_file_name",    limit: 255
+    t.string   "report_en_content_type", limit: 255
+    t.integer  "report_en_file_size",    limit: 4
+    t.datetime "report_en_updated_at"
+    t.string   "report_ka_file_name",    limit: 255
+    t.string   "report_ka_content_type", limit: 255
+    t.integer  "report_ka_file_size",    limit: 4
+    t.datetime "report_ka_updated_at"
+    t.string   "slug",                   limit: 255
+    t.date     "report_date"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
+  add_index "reports", ["is_active"], name: "index_reports_on_is_active", using: :btree
+  add_index "reports", ["report_date"], name: "index_reports_on_report_date", using: :btree
+  add_index "reports", ["slug"], name: "index_reports_on_slug", unique: true, using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at"
@@ -415,5 +476,41 @@ ActiveRecord::Schema.define(version: 20170120090656) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
+
+  create_table "verdict_translations", force: :cascade do |t|
+    t.integer  "verdict_id", limit: 4,     null: false
+    t.string   "locale",     limit: 255,   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "title",      limit: 255
+    t.string   "slug",       limit: 255
+    t.text     "summary",    limit: 65535
+  end
+
+  add_index "verdict_translations", ["locale"], name: "index_verdict_translations_on_locale", using: :btree
+  add_index "verdict_translations", ["slug"], name: "index_verdict_translations_on_slug", using: :btree
+  add_index "verdict_translations", ["title"], name: "index_verdict_translations_on_title", using: :btree
+  add_index "verdict_translations", ["verdict_id"], name: "index_verdict_translations_on_verdict_id", using: :btree
+
+  create_table "verdicts", force: :cascade do |t|
+    t.decimal  "overall_score",                precision: 5, scale: 2
+    t.decimal  "category1_score",              precision: 5, scale: 2
+    t.decimal  "category2_score",              precision: 5, scale: 1
+    t.decimal  "category3_score",              precision: 5, scale: 2
+    t.integer  "overall_change",   limit: 4
+    t.integer  "integer",          limit: 4
+    t.integer  "category1_change", limit: 4
+    t.integer  "category2_change", limit: 4
+    t.integer  "category3_change", limit: 4
+    t.boolean  "is_public",                                            default: false
+    t.string   "slug",             limit: 255
+    t.date     "time_period"
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+  end
+
+  add_index "verdicts", ["is_public"], name: "index_verdicts_on_is_public", using: :btree
+  add_index "verdicts", ["slug"], name: "index_verdicts_on_slug", using: :btree
+  add_index "verdicts", ["time_period"], name: "index_verdicts_on_time_period", using: :btree
 
 end

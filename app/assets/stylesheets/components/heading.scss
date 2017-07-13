@@ -13,6 +13,7 @@
     font-weight: 400;
     color: rgb(102, 102, 109);
     margin: 0;
+    line-height: 1.3;
   }
 
   .heading-iconTextContainer {
@@ -27,7 +28,7 @@
     vertical-align: middle;
   }
 
-  .heading-icon.mod-experts {
+  .heading-icon.mod-verdicts {
     max-width: 40px;
     max-height: 40px;
   }
@@ -54,4 +55,9 @@
 
 .heading.mod-no-transform {
   text-transform: none;
+}
+
+.heading.mod-content-side-padding {
+  padding-left: $padding-main-content;
+  padding-right: $padding-main-content;
 }

@@ -3,7 +3,7 @@
 # Table name: reform_surveys
 #
 #  id                           :integer          not null, primary key
-#  quarter_id                   :integer          not null
+#  quarter_id                   :integer
 #  reform_id                    :integer          not null
 #  government_overall_score     :decimal(5, 2)    not null
 #  government_category1_score   :decimal(5, 2)    not null
@@ -25,6 +25,17 @@
 #  stakeholder_category1_change :integer
 #  stakeholder_category2_change :integer
 #  stakeholder_category3_change :integer
+#  report_en_file_name          :string(255)
+#  report_en_content_type       :string(255)
+#  report_en_file_size          :integer
+#  report_en_updated_at         :datetime
+#  report_ka_file_name          :string(255)
+#  report_ka_content_type       :string(255)
+#  report_ka_file_size          :integer
+#  report_ka_updated_at         :datetime
+#  time_period                  :date
+#  is_public                    :boolean          default(FALSE)
+#  verdict_id                   :integer
 #
 
 class ReformSurvey < ActiveRecord::Base
@@ -37,13 +48,27 @@ class ReformSurvey < ActiveRecord::Base
   #######################
   ## RELATIONSHIPS
 
-  belongs_to :quarter
+  # belongs_to :quarter
   belongs_to :reform
+  belongs_to :verdict
+  has_many :news, -> { where.not(reform_survey_id: nil) }, dependent: :destroy
+
+  #######################
+  ## ATTACHED FILE
+  has_attached_file :report_en,
+                    :url => "/system/reform_survey_reports/:id/en/:basename.:extension",
+                    :use_timestamp => false
+
+  has_attached_file :report_ka,
+                    :url => "/system/reform_survey_reports/:id/ka/:basename.:extension",
+                    :use_timestamp => false
+
+  attr_accessor :delete_report_en, :delete_report_ka
 
   #######################
   ## VALIDATIONS
 
-  validates :quarter_id, :reform_id,
+  validates :time_period, :reform_id,
             :government_overall_score, :government_category1_score, :government_category2_score, :government_category3_score, :government_category4_score,
             :stakeholder_overall_score, :stakeholder_category1_score, :stakeholder_category2_score, :stakeholder_category3_score,
             presence: :true
@@ -52,17 +77,31 @@ class ReformSurvey < ActiveRecord::Base
   validates :stakeholder_overall_score, :stakeholder_category1_score, :stakeholder_category2_score, :stakeholder_category3_score, inclusion: {in: 0.0..10.0}
   # validates :government_overall_change, :government_category1_change, :government_category2_change, :government_category3_change, :government_category4_change,
   #             :stakeholder_overall_change, :stakeholder_category1_change, :stakeholder_category2_change, :stakeholder_category3_change, inclusion: {in: [-1, 0, 1]}
-  validates_uniqueness_of :reform_id, scope: :quarter_id
+  validates_uniqueness_of :reform_id, scope: :time_period
+  validates_attachment_content_type :report_en, :content_type => 'application/pdf'
+  validates_attachment_content_type :report_ka, :content_type => 'application/pdf'
 
   #######################
   ## CALLBACKS
 
   before_save :set_change_values
-  after_save :update_future_quarter
-  after_destroy :reset_future_quarter
+  after_save :update_future_survey
+  after_destroy :reset_future_survey
+  before_validation :delete_existing_report
 
   #######################
   ## SCOPES
+  scope :published, -> { where(is_public: true) }
+  scope :sorted, -> { order(time_period: :asc) }
+  scope :recent, -> { order(time_period: :desc) }
+
+  def self.next_survey(reform_id, time_period)
+    for_reform(reform_id).where('time_period > ?', time_period).sorted.first
+  end
+
+  def self.previous_survey(reform_id, time_period)
+    for_reform(reform_id).where('time_period < ?', time_period).recent.first
+  end
 
   def self.for_reform(reform_id)
     where(reform_id: reform_id)
@@ -72,33 +111,41 @@ class ReformSurvey < ActiveRecord::Base
     where.not(reform_id: reform_id)
   end
 
-  # get all surveys that are in the provided quarter id
-  def self.in_quarter(quarter_id)
-    in_quarters(quarter_id)
+  # get all surveys that are in the provided verdict id
+  def self.in_verdict(verdict_id)
+    in_verdicts(verdict_id)
   end
 
-  # get all surveys that are in the provided list of quarter ids
-  def self.in_quarters(quarter_ids)
-    where(quarter_id: quarter_ids).order(:quarter_id, :reform_id)
+  # get all surveys that are in the provided list of verdict ids
+  def self.in_verdicts(verdict_ids)
+    where(verdict_id: verdict_ids).order(:verdict_id, :reform_id)
   end
 
 
   # get the overall score and change for a quarter, reform and type (government or stakeholder)
   # format: {reform_id, score, change}
-  def self.overall_values_only(quarter_id, reform_id, type='government')
-    value = where(quarter_id: quarter_id, reform_id: reform_id)
-    if type == 'stakeholder'
-      value = value.select(:stakeholder_overall_score, :stakeholder_overall_change).first
-      return {reform_id: reform_id, score: value.stakeholder_overall_score.to_f, change: value.stakeholder_overall_change} if value.present?
-    else # government
-      value = value.select(:government_overall_score, :government_overall_change).first
-      return {reform_id: reform_id, score: value.government_overall_score.to_f, change: value.government_overall_change} if value.present?
-    end
-    return []
-  end
+  # def self.overall_values_only(quarter_id, reform_id, type='government')
+  #   value = where(quarter_id: quarter_id, reform_id: reform_id)
+  #   if type == 'stakeholder'
+  #     value = value.select(:stakeholder_overall_score, :stakeholder_overall_change).first
+  #     return {reform_id: reform_id, score: value.stakeholder_overall_score.to_f, change: value.stakeholder_overall_change} if value.present?
+  #   else # government
+  #     value = value.select(:government_overall_score, :government_overall_change).first
+  #     return {reform_id: reform_id, score: value.government_overall_score.to_f, change: value.government_overall_change} if value.present?
+  #   end
+  #   return []
+  # end
 
   #######################
   ## METHODS
+
+  def report(locale=I18n.locale)
+    locale = locale.to_sym
+    locale = I18n.locale if !I18n.available_locales.include?(locale)
+
+    return locale == :en ? report_en : report_ka
+  end
+
 
   # # compute the chagne value for government scores
   # # scores are percents
@@ -125,22 +172,20 @@ class ReformSurvey < ActiveRecord::Base
   #######################
   private
 
-  # set the change value when compared to the last quarter
+  # set the change value when compared to the last survey
   def set_change_values
-    # get the previous quarter
-    prev_q = Quarter.quarter_before(self.quarter_id)
-    prev_rs = ReformSurvey.for_reform(self.reform_id).in_quarter(prev_q.id).first if prev_q.present?
+    # get the previous survey
+    prev_rs = ReformSurvey.previous_survey(self.reform_id, self.time_period)
     compute_change_values(self, prev_rs)
 
     return true
   end
 
-  # if the next quarter has a survey for this reform
+  # if there is a time period after this one,
   # calculate its change values
-  def update_future_quarter
-    # get the next quarter
-    next_q = Quarter.quarter_after(self.quarter_id)
-    next_rs = ReformSurvey.for_reform(self.reform_id).in_quarter(next_q.id).first if next_q.present?
+  def update_future_survey
+    # get the next survey
+    next_rs = ReformSurvey.next_survey(self.reform_id, self.time_period)
     if next_rs.present?
       update_change_value(next_rs, self)
       next_rs.save
@@ -149,12 +194,11 @@ class ReformSurvey < ActiveRecord::Base
     return true
   end
 
-  # if the next quarter has a survey for this reform
+  # if there is a time period after this one,
   # reset its change values
-  def reset_future_quarter
-    # get the next quarter
-    next_q = Quarter.quarter_after(self.quarter_id)
-    next_rs = ReformSurvey.for_reform(self.reform_id).in_quarter(next_q.id).first if next_q.present?
+  def reset_future_survey
+    # get the next survey
+    next_rs = ReformSurvey.next_survey(self.reform_id, self.time_period)
     if next_rs.present?
       reset_change_value(next_rs)
       next_rs.save
@@ -163,12 +207,21 @@ class ReformSurvey < ActiveRecord::Base
     return true
   end
 
+  # remove the existing report if desired (delete_report_en/ka = 1)
+  # - it is possible that the user is also loading a new image,
+  #   so in that case (dirty) do not delete for it will delete the new file
+  def delete_existing_report
+    self.report_en.clear if delete_report_en == "1" and !self.report_en.dirty?
+    self.report_ka.clear if delete_report_ka == "1" and !self.report_ka.dirty?
+  end
+
+
   def compute_change_values(current_survey, previous_survey)
     if current_survey.present? && previous_survey.present?
       # found survey, so compute change
       update_change_value(current_survey, previous_survey)
     else
-      # previous quarter does not exist or survey does not exist,
+      # previous survey does not exist,
       # so cannot compute change values
       # so all changes values must be null
       reset_change_value(current_survey)

@@ -11,6 +11,8 @@
 #  image_updated_at   :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  reform_survey_id   :integer
+#  verdict_id         :integer
 #
 
 class News < AddMissingTranslation
@@ -35,14 +37,16 @@ class News < AddMissingTranslation
 
   #######################
   ## RELATIONSHIPS
-  belongs_to :reform
-  belongs_to :quarter
+  # belongs_to :reform
+  # belongs_to :quarter
+  belongs_to :reform_survey
+  belongs_to :verdict
 
 
   #######################
   ## VALIDATIONS
   # reform_id is optional because without it, it means it is for expert survey
-  validates :quarter_id, :title, :url, presence: :true
+  validates :title, :url, presence: :true
   validates_format_of :url, :with => URI::regexp(%w(http https))
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
@@ -51,27 +55,34 @@ class News < AddMissingTranslation
   #######################
   ## SCOPES
   scope :sorted, -> {order(title: :asc)}
+  scope :for_verdict, -> {where(reform_survey_id: nil)}
+  scope :for_reform_survey, -> {where.not(reform_survey_id: nil)}
 
-  # get news for a quarter and reform
-  def self.by_expert_quarter(quarter_id)
-    by_reform_quarter(quarter_id, nil)
-  end
+  # # get news for a quarter and reform
+  # def self.by_expert_quarter(quarter_id)
+  #   by_reform_quarter(quarter_id, nil)
+  # end
 
-  # get news for a quarter and reform
-  def self.by_reform_quarter(quarter_id, reform_id)
-    where(quarter_id: quarter_id, reform_id: reform_id)
-  end
+  # # get news for a quarter and reform
+  # def self.by_reform_quarter(quarter_id, reform_id)
+  #   where(quarter_id: quarter_id, reform_id: reform_id)
+  # end
 
 
   #######################
   #######################
   private
 
-  def has_required_translations?(trans)
-    trans.title.present?
+  # def has_required_translations?(trans)
+  #   trans.title.present?
+  # end
+
+  # def add_missing_translations(default_trans)
+  #   self.title = default_trans.title if self["title_#{Globalize.locale}"].blank?
+  # end
+
+  def required_translation_fields
+    return ['title']
   end
 
-  def add_missing_translations(default_trans)
-    self.title = default_trans.title if self["title_#{Globalize.locale}"].blank?
-  end
 end

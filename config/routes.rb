@@ -22,18 +22,39 @@ Rails.application.routes.draw do
           patch 'data', constraints: { format: :html }
         end
       end
-      resources :experts, except: :show, constraints: { format: :html }
+      resources :reports, except: :show, constraints: { format: :html }
+      resources :experts, except: :show, constraints: { format: :html } do
+        member do
+          post 'up', to: 'experts#up'
+          post 'down', to: 'experts#down'
+        end
+      end
       resources :reforms, except: :show, constraints: { format: :html }
       resources :reform_colors, except: :show, constraints: { format: :html }
-      resources :quarters, except: :show, constraints: { format: :html } do
+      # resources :quarters, except: :show, constraints: { format: :html } do
+      #   resources :news, except: :index, constraints: { format: :html }
+      #   resource :expert_survey, except: :index, constraints: { format: :html }
+      #   resources :reform_surveys, except: :index, constraints: { format: :html }
+      #   member do
+      #     post 'publish', constraints: { format: :html }
+      #     post 'unpublish', constraints: { format: :html }
+      #   end
+      # end
+
+      resources :verdicts, except: :show, constraints: { format: :html } do
         resources :news, except: :index, constraints: { format: :html }
-        resource :expert_survey, except: :index, constraints: { format: :html }
-        resources :reform_surveys, except: :index, constraints: { format: :html }
+        resources :reform_surveys, except: :index, constraints: { format: :html } do
+          member do
+            post 'publish', constraints: { format: :html }
+            post 'unpublish', constraints: { format: :html }
+          end
+        end
         member do
           post 'publish', constraints: { format: :html }
           post 'unpublish', constraints: { format: :html }
         end
       end
+      
       resources :page_contents, constraints: { format: :html }
       resources :users, constraints: { format: :html }
     end
@@ -45,9 +66,11 @@ Rails.application.routes.draw do
     get '/reforms' => 'root#reforms'
     # if there is no time period then send back to reforms page with reform as query string
     get '/reforms/:reform_id', to: redirect('/%{locale}/reforms?reform=%{reform_id}')
-    get '/reforms/:reform_id/:quarter_id' => 'root#reform_show', as: :reform_show
-    get '/review_board' => 'root#review_board'
-    get '/review_board/:id' => 'root#review_board_show', as: :review_board_show
+    get '/reforms/:reform_id/:verdict_id' => 'root#reform_show', as: :reform_show
+    # get '/review_board' => 'root#review_board'
+    # get '/review_board/:id' => 'root#review_board_show', as: :review_board_show
+    get '/reform_verdicts' => 'root#reform_verdicts'
+    get '/reform_verdicts/:id' => 'root#reform_verdict_show', as: :reform_verdict_show
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
 

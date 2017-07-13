@@ -3,7 +3,7 @@ set :user, 'reformeter'
 set :application, 'Reformeter'
 # easier to use https; if you use ssh then you have to create key on server
 set :repository, 'https://github.com/ForSetGeorgia/ReforMeter.git'
-set :branch, 'v2.0'
+set :branch, 'master'
 set :web_url, 'reformeter.iset-pi.ge'
 set :secondary_web_url, 'reformeter.jumpstart.ge'
 set :use_ssl, true

@@ -19,26 +19,47 @@
     justify-content: space-between;
     align-items: flex-start;
 
+
+
+    .socialLinks {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 20px;
+
+      .fb-page {
+        margin-bottom: 20px;
+      }
+
+      .addthis_sharing_toolbox {
+
+          a[role=button] {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+            border-radius: 3px !important;
+          }
+
+          .at-icon-wrapper, svg {
+            height: 27px !important;
+            width: 27px !important;  
+          }  
+      }
+
+    }
+
     @media (min-width: $footer-social-and-mobile-links-become-horizontal) {
-      align-items: center;
-      flex-direction: row;
-    }
+      
+      &, .socialLinks {
+        align-items: center;
+        flex-direction: row;
+      }
 
-    .appFooter-fb-like, .addthis_sharing_toolbox {
-      display: inline-block;
-    }
-
-    .addthis_sharing_toolbox {
-        a[role=button] {
-          border-radius: 3px !important;
-        }
-
-        .at-icon-wrapper, svg {
-          height: 27px !important;
-          width: 27px !important;  
-        }  
-
-        
+      .fb-page {
+        margin-right: 15px;
+        margin-bottom: 0;
+      }
+      
     }
 
   }

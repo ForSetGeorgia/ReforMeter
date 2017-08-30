@@ -123,6 +123,7 @@ ka:
       reforms: რეფორმები
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
+      download: Download
     locale:
       long:
         en: English
@@ -175,6 +176,7 @@ ka:
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+      date_only: '%Y-%m-%d'
   date:
     formats:
       default: ! '%Y-%m-%d'

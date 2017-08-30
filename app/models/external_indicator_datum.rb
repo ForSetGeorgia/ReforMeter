@@ -6,7 +6,7 @@
 #  external_indicator_time_id :integer
 #  country_id                 :integer
 #  index_id                   :integer
-#  value                      :decimal(5, 2)    not null
+#  value                      :decimal(9, 2)    not null
 #  change                     :integer
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null

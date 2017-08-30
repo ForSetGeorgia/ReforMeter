@@ -54,7 +54,13 @@ Rails.application.routes.draw do
           post 'unpublish', constraints: { format: :html }
         end
       end
-      
+
+      resources :newsletters, except: :show, constraints: { format: :html } do
+        collection do
+          get 'download', constraints: { format: :csv }
+        end
+      end
+
       resources :page_contents, constraints: { format: :html }
       resources :users, constraints: { format: :html }
     end

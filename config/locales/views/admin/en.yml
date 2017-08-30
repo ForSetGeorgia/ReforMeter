@@ -35,6 +35,7 @@ en:
         users: Manage who has access to edit the data on the site.
         reports: Upload reports the summarize what has happened during a time period.
         verdicts: Manage the data for a time period like overall score, reform surveys, and news.
+        newsletters: Manage the email addresses for the newsletter.
       title: Admin Section
     verdicts:
       index:

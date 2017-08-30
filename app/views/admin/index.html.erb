@@ -68,6 +68,15 @@
     <% end %>
     <% if current_user.is?(['super_admin', 'site_admin']) %>
       <div class="col-md-3">
+        <h3><%= t('activerecord.models.newsletters', count: 999) %></h3>
+        <p>
+          <%= t('.explanations.newsletters') %>
+        </p>
+        <%= link_to t('shared.actions.view'), admin_newsletters_path, class: 'btn btn-default' %>
+      </div>
+    <% end %>
+    <% if current_user.is?(['super_admin', 'site_admin']) %>
+      <div class="col-md-3">
         <h3><%= t('activerecord.models.user', count: 999) %></h3>
         <p>
           <%= t('.explanations.users') %>

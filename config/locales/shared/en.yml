@@ -123,6 +123,7 @@ en:
       reforms: Reforms
       reports: Reports
       verdicts: ReformVerdicts
+      download: Download
     locale:
       long:
         en: English
@@ -175,6 +176,7 @@ en:
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+      date_only: '%Y-%m-%d'
   date:
     formats:
       default: ! '%Y-%m-%d'

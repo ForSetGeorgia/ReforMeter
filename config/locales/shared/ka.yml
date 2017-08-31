@@ -139,6 +139,9 @@ ka:
       success_published: "%{obj} წარმატებით გამოქვეყნდა."
       success_unpublished: "%{obj}-ს წარმატებით გაუქმდა გამოქვეყნება."
       success_updated: "%{obj} წარმატებით განახლდა."
+      newsletter:
+        success: Thank you!
+        failure: An error occurred. Please try again.
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?

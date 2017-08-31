@@ -27,7 +27,7 @@ The following software/apps should be installed in order to use the application:
 
 ### Setting up dev box
 Run the following from the command line:
-1. git clone git@github.com:JumpStartGeorgia/ReforMeter.git
+1. git clone git@github.com:ForSetGeorgia/ReforMeter.git
 2. bundle install
 3. rake db:create
 4. rake db:seed load_test_data=true   (this loads test data into the tables)

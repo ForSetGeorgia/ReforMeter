@@ -83,8 +83,6 @@ en:
       change_time: Change Time Period
       description: ReforMeter measures the Georgian government's progress in implementing promised reforms.
       formatted_quarter: Q%{quarter}
-      jumpstart:
-        slogan: JumpStart Georgia - Informing Communities with Data and Design
       move_row:
         down: Move the row down
         up: Move the row up

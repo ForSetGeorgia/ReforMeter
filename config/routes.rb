@@ -80,6 +80,8 @@ Rails.application.routes.draw do
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
 
+    get '/newsletter_email/:email' => 'root#newsletter_email'
+
     root 'root#index'
 
     # handles /en/fake/path/whatever

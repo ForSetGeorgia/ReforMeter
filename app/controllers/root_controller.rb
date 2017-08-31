@@ -410,6 +410,18 @@ class RootController < ApplicationController
     end
   end
 
+  def newsletter_email
+    if params[:email].present?
+      newsletter = Newsletter.new(email: params[:email])
+
+      if newsletter.save
+        render json: {success: true, msg: I18n.t('shared.msgs.newsletter.success')}
+      else
+        render json: {success: false, msg: I18n.t('shared.msgs.newsletter.failure'), error: newsletter.errors}
+      end
+    end
+  end
+
   # def review_board
   #   @expert_text = PageContent.find_by(name: 'review_board_text')
   #   @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')

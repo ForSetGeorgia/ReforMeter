@@ -5,7 +5,6 @@ en:
       news:
         content: Content
         image: Image
-        quarter_id: Quarter
         reform_id: Reform
         title: Title
         url: URL to Story

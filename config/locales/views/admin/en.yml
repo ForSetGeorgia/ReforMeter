@@ -29,7 +29,6 @@ en:
         experts: Manage the member data like name, bio, and image.
         external_indicators: Manage the external indciator settings and data.
         page_contents: Manage content that appears on pages like about text, methodologies, etc.
-        quarters: Manage the data for quarters like quarterly report, review board survey, reform surveys, and news.
         reform_colors: Manage the list of colors that reforms can be.
         reforms: Manage reform data like name, summary, methodology, color, and show on homepage.
         users: Manage who has access to edit the data on the site.

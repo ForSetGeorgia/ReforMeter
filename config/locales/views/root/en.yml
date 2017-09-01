@@ -75,21 +75,3 @@ en:
       gauge_group:
         title: ReformVerdict for %{time}
       title: "ReformVerdict: %{title}"
-    # review_board:
-    #   header:
-    #     chart: Timeline
-    #     experts: Board Members
-    #     methodology: Methodology
-    #     table: Results
-    #   no_data: Sorry, but at this time there is no review board data on record.
-    #   no_experts: No board members are on record.
-    #   no_methodology: No methodology is on record.
-    #   table_header:
-    #     overall: Overall Score
-    #     summary: Summary
-    #     time: Time Period
-    #   title: Review Board
-    # review_board_show:
-    #   gauge_group:
-    #     title: Review Board for %{quarter}
-    #   title: According to the Review Board for %{time}

@@ -169,11 +169,10 @@ end
 if ENV['delete_test_data'].present? || ENV['load_test_data'].present?
   # first clear all data
   puts 'deleting data in database (quarter, reform, experts, survey data, etc)'
-  Quarter.destroy_all
   Reform.destroy_all
   Expert.destroy_all
   ExternalIndicator.destroy_all
-  # News.destroy_all
+  News.destroy_all
   Report.destroy_all
   Verdict.destroy_all
 end
@@ -210,12 +209,6 @@ if ENV['load_test_data'].present?
   Report.create(title_en: '2016 Phase 2', title_ka: '2016 Phase 2', report_en: report_ka, report_ka: report_en, report_date: '2017-01-01')
   Report.create(title_en: '2017 Phase 1', title_ka: '2017 Phase 1',report_en: report_en, report_ka: report_ka, report_date: '2017-07-01')
 
-
-  # # create quarters
-  # puts 'creating quarters'
-  # q2 = Quarter.create(year: 2015, quarter: 2, report_en: report_en, report_ka: report_ka, summary_good: 'this is awesome!', summary_bad: 'this is not good!')
-  # q3 = Quarter.create(year: 2015, quarter: 3, report_en: report_en, report_ka: report_ka, summary_good: 'this is ok!', summary_bad: 'no progress has been made!')
-  # q4 = Quarter.create(year: 2015, quarter: 4, report_en: report_en, report_ka: report_ka, summary_good: 'good effort!', summary_bad: 'are you even working?!')
 
   # create verdicts
   puts 'creating verdicts'
@@ -299,29 +292,6 @@ if ENV['load_test_data'].present?
     end
 
   end
-
-  # publish the quarters
-  # - have to do this after the survey results are created for they are required for published
-  # q2.is_public = true
-  # q2.save
-  # q3.is_public = true
-  # q3.save
-  # q4.is_public = true
-  # q4.save
-
-
-  # create news
-  # puts 'creating news'
-  # News.create(quarter_id: q4.id, title: 'This is review board news', content: 'this is review board news for Q4 2015', url: 'http://google.ge')
-  # News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
-  # News.create(quarter_id: q4.id, reform_id: reform3.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
-  # News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
-  # News.create(quarter_id: q4.id, reform_id: reform2.id, title: 'This is more reform news', content: 'this is additional review board news for Q4 2015 with image!', url: 'http://google.ge', image: File.new(img_path + '1.jpg'))
-  # News.create(quarter_id: q3.id, title: 'This is review board news', content: 'this is review board news for Q3 2015', url: 'http://google.ge', image: File.new(img_path + '2.jpg'))
-  # News.create(quarter_id: q3.id, title: 'This is more review board news', content: 'this is more review board news for Q3 2015', url: 'http://google.ge', image: File.new(img_path + '3.jpg'))
-  # News.create(quarter_id: q3.id, reform_id: reform2.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge', image: File.new(img_path + '4.jpg'))
-  # News.create(quarter_id: q3.id, reform_id: reform1.id, title: 'This is reform news', content: "this is #{reform3.name} reform news for Q4 2015", url: 'http://google.ge')
-
 
 
   # external indicators

@@ -82,7 +82,6 @@ ka:
       change_reform: რეფორმის შეცვლა
       change_time: დროის მონაკვეთის შეცვლა
       description: რეფორმეტრი ზომავს საქართველოს მთავრობის  მიერ განხორციელებული რეფორმების პროგრესს.
-      formatted_quarter: კვ.%{quarter}
       move_row:
         down: ქვედა რიგში ჩასვლა
         up: ზედა რიგში ასვლა
@@ -118,7 +117,6 @@ ka:
       experts: წევრები
       external_indicators: გარე ინდიკატორები
       page_contents: გვერდის ტექსტის რედაქტირება
-      quarters: მეოთხედები
       reform_colors: რეფორმის ფერები
       reforms: რეფორმები
       reports: რეპორტები

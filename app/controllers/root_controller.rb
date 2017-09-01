@@ -5,8 +5,6 @@ class RootController < ApplicationController
     @external_indicators = ExternalIndicator.published.for_home_page.with_time_periods
     @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
 
-    # @quarter = Quarter.published.with_expert_survey.latest
-
     gon.change_icons = view_context.change_icons
 
     gon.charts = []
@@ -102,7 +100,6 @@ class RootController < ApplicationController
 
     @reforms = Reform.active.sorted
     # @verdict = Verdict.published.recent
-#    @quarters = Quarter.published.recent
     @external_indicators = ExternalIndicator.published.sorted.with_time_periods
     @reports = Report.active.sorted
 
@@ -185,7 +182,6 @@ class RootController < ApplicationController
     @reform_text = PageContent.find_by(name: 'reform_text')
     @methodology_government = PageContent.find_by(name: 'methodology_government')
     @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
-    # @quarters = Quarter.published.recent
     @verdicts = Verdict.published.recent
     @reforms = Reform.with_survey_data.active.with_color.sorted
     @reform_surveys = ReformSurvey.in_verdicts(@verdicts.map{|x| x.id}).published if @verdicts.present?
@@ -249,7 +245,6 @@ class RootController < ApplicationController
   def reform_show
     begin
       @verdict = Verdict.published.friendly.find(params[:verdict_id])
-      # @quarter = Quarter.published.with_expert_survey.friendly.find(params[:quarter_id])
       @reform = Reform.with_survey_data.active.with_color.friendly.find(params[:reform_id])
       @reform_survey = ReformSurvey.for_reform(@reform.id).in_verdict(@verdict.id).published.first if @verdict && @reform
 
@@ -409,126 +404,5 @@ class RootController < ApplicationController
                 alert: t('shared.msgs.does_not_exist')
     end
   end
-
-  # def review_board
-  #   @expert_text = PageContent.find_by(name: 'review_board_text')
-  #   @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
-
-  #   @quarters = Quarter.published.recent.with_expert_survey
-  #   @experts = Expert.active.sorted
-
-  #   gon.chart_download = highchart_export_config
-  #   gon.change_icons = view_context.change_icons
-
-  #   charts = [
-  #     Chart.new(
-  #       Quarter.expert_survey_data_for_charting(
-  #         overall_score_only: true,
-  #         id: 'expert-history'
-  #       ),
-  #       request.path
-  #     )
-  #   ]
-
-  #   gon.charts = charts.map(&:to_hash)
-
-  #   @share_image_paths = charts.select(&:png_image_exists?).map(&:png_image_path)
-
-  #   @quarters.each do |quarter|
-  #     gon.charts << {
-  #       id: quarter.slug,
-  #       title: nil,
-  #       score: quarter.expert_survey.overall_score.to_f,
-  #       change: quarter.expert_survey.overall_change
-  #     }
-  #   end
-
-  # end
-
-  # def review_board_show
-  #   begin
-  #     @quarter = Quarter.published.with_expert_survey.friendly.find(params[:id])
-
-  #     if @quarter.nil?
-  #       redirect_to review_board_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #     end
-
-  #     @active_quarters = Quarter.active_quarters_array
-  #     @methodology_review_board = PageContent.find_by(name: 'methodology_review_board')
-  #     @news = News.by_expert_quarter(@quarter.id)
-
-  #     gon.chart_download = highchart_export_config
-  #     gon.change_icons = view_context.change_icons
-
-  #     expert_history_chart = Chart.new(
-  #       Quarter.expert_survey_data_for_charting(id: 'expert-history'),
-  #       request.path
-  #     )
-
-  #     expert_overall_gauge = Chart.new({
-  #       id: 'overall',
-  #       title: I18n.t('shared.categories.overall'),
-  #       score: @quarter.expert_survey.overall_score.to_f,
-  #       change: @quarter.expert_survey.overall_change
-  #     })
-
-  #     expert_performance_gauge = Chart.new({
-  #       id: 'performance',
-  #       title: I18n.t('shared.categories.performance'),
-  #       score: @quarter.expert_survey.category1_score.to_f,
-  #       change: @quarter.expert_survey.category1_change
-  #     })
-
-  #     expert_goals_gauge = Chart.new({
-  #       id: 'goals',
-  #       title: I18n.t('shared.categories.goals'),
-  #       score: @quarter.expert_survey.category2_score.to_f,
-  #       change: @quarter.expert_survey.category2_change
-  #     })
-
-  #     expert_progress_gauge = Chart.new({
-  #       id: 'progress',
-  #       title: I18n.t('shared.categories.progress'),
-  #       score: @quarter.expert_survey.category3_score.to_f,
-  #       change: @quarter.expert_survey.category3_change
-  #     })
-
-  #     expert_gauge_group = ChartGroup.new(
-  #       [
-  #         expert_overall_gauge,
-  #         expert_performance_gauge,
-  #         expert_goals_gauge,
-  #         expert_progress_gauge
-  #       ],
-  #       id: 'expert-gauge-group',
-  #       title: I18n.t(
-  #         'root.review_board_show.gauge_group.title',
-  #         quarter: @quarter.time_period),
-  #       page_path: request.path
-  #     )
-
-  #     gon.charts = [
-  #       expert_history_chart.to_hash,
-  #       expert_overall_gauge.to_hash,
-  #       expert_performance_gauge.to_hash,
-  #       expert_goals_gauge.to_hash,
-  #       expert_progress_gauge.to_hash
-  #     ]
-
-  #     gon.chartGroups = [
-  #       expert_gauge_group.to_hash
-  #     ]
-
-  #     @share_image_paths = [
-  #       expert_history_chart,
-  #       expert_gauge_group
-  #     ].select(&:png_image_exists?).map(&:png_image_path)
-
-  #   rescue ActiveRecord::RecordNotFound => e
-  #     redirect_to review_board_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #   end
-  # end
 
 end

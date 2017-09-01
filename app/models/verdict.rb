@@ -141,17 +141,6 @@ class Verdict < ActiveRecord::Base
           end
         end
       end
-
-    # else
-
-    #   header = %w{quarter year time_period overall_score performance_score goals_score progress_score}
-    #   CSV.generate do |csv|
-    #     csv << header
-
-    #     published.recent.with_expert_survey.each do |q|
-    #       csv << [q.quarter, q.year, q.time_period, q.expert_survey.overall_score, q.expert_survey.category1_score, q.expert_survey.category2_score, q.expert_survey.category3_score]
-    #     end
-    #   end
     end
   end
 

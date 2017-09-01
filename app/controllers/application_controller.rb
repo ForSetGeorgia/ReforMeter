@@ -25,9 +25,6 @@ class ApplicationController < ActionController::Base
     # Used by share buttons in footer
     @addthis_id = ENV['ADDTHIS_ID']
 
-    # indicate which year can be the first year for data
-#    @quarter_start_year = 2015
-
     # get the disclaimer text
     @disclaimer = PageContent.find_by(name: 'disclaimer')
 
@@ -59,21 +56,6 @@ class ApplicationController < ActionController::Base
     filename.strip.to_url.gsub(' ', '_').gsub(/[\\ \/ \: \* \? \" \< \> \| \, \. ]/,'')
   end
 
-
-  # get the quarter
-  # def get_quarter
-  #   begin
-  #     @quarter = Quarter.friendly.find(params[:quarter_id])
-
-  #     if @quarter.nil?
-  #       redirect_to admin_quarters_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #     end
-  #   rescue ActiveRecord::RecordNotFound  => e
-  #     redirect_to admin_quarters_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #   end
-  # end
 
   # get the verdict
   def get_verdict

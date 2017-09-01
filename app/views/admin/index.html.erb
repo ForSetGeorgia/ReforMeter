@@ -57,6 +57,15 @@
         <%= link_to t('shared.actions.view'), admin_reports_path, class: 'btn btn-default' %>
       </div>
     <% end %>
+    <% if current_user.is?(['super_admin', 'site_admin']) %>
+      <div class="col-md-3">
+        <h3><%= t('shared.links.newsletters') %></h3>
+        <p>
+          <%= t('.explanations.newsletters') %>
+        </p>
+        <%= link_to t('shared.actions.view'), admin_newsletters_path, class: 'btn btn-default' %>
+      </div>
+    <% end %>
     <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
       <div class="col-md-3">
         <h3><%= t('shared.links.page_contents') %></h3>
@@ -64,15 +73,6 @@
           <%= t('.explanations.page_contents') %>
         </p>
         <%= link_to t('shared.actions.view'), admin_page_contents_path, class: 'btn btn-default' %>
-      </div>
-    <% end %>
-    <% if current_user.is?(['super_admin', 'site_admin']) %>
-      <div class="col-md-3">
-        <h3><%= t('activerecord.models.newsletters', count: 999) %></h3>
-        <p>
-          <%= t('.explanations.newsletters') %>
-        </p>
-        <%= link_to t('shared.actions.view'), admin_newsletters_path, class: 'btn btn-default' %>
       </div>
     <% end %>
     <% if current_user.is?(['super_admin', 'site_admin']) %>

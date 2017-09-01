@@ -124,6 +124,7 @@ en:
       reports: Reports
       verdicts: ReformVerdicts
       download: Download
+      newsletters: Newsletter Emails
     locale:
       long:
         en: English

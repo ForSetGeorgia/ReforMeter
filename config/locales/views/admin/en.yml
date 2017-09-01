@@ -34,7 +34,8 @@ en:
         reforms: Manage reform data like name, summary, methodology, color, and show on homepage.
         users: Manage who has access to edit the data on the site.
         reports: Upload reports the summarize what has happened during a time period.
-        verdicts: Manage the data for a time period like overall score, reform surveys, and news.
+        verdicts: Manage the data for a time period like overall score, and reform surveys.
+        news: Manage the news.
       title: Admin Section
     verdicts:
       index:

@@ -51,7 +51,6 @@ class ReformSurvey < ActiveRecord::Base
   # belongs_to :quarter
   belongs_to :reform
   belongs_to :verdict
-  has_many :news, -> { where.not(reform_survey_id: nil) }, dependent: :destroy
 
   #######################
   ## ATTACHED FILE

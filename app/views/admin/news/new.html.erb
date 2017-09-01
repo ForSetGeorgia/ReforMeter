@@ -5,9 +5,8 @@
 <div class='actions-container'>
   <%= render partial: 'shared/new_actions',
         locals: {
-          hide_object_name: true,
-          object: Verdict.new,
-          index_path: admin_verdicts_path(v: @verdict.slug)
+          object: @news,
+          index_path: admin_news_index_path
                 }
   %>
 </div>

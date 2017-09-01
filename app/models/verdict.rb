@@ -29,7 +29,6 @@ class Verdict < ActiveRecord::Base
 
   #######################
   ## RELATIONSHIPS
-  has_many :news, -> { where(reform_survey_id: nil) }, dependent: :destroy
   has_many :reform_surveys
   has_many :reforms, through: :reform_surveys
 
@@ -74,7 +73,6 @@ class Verdict < ActiveRecord::Base
   scope :sorted, -> { order(time_period: :asc) }
   scope :recent, -> { order(time_period: :desc) }
   scope :with_reform_surveys, -> {includes(reform_surveys: [:translations] )}
-  scope :with_news, -> {includes(news: [:translations] )}
 
   def self.next_survey(time_period)
     where('time_period > ?', time_period).sorted.first
@@ -476,7 +474,7 @@ class Verdict < ActiveRecord::Base
     return true
   end
 
-  # if there is a time period after this one, 
+  # if there is a time period after this one,
   # calculate its change values
   def update_future_survey
     # get the next survey
@@ -489,7 +487,7 @@ class Verdict < ActiveRecord::Base
     return true
   end
 
-  # if there is a time period after this one, 
+  # if there is a time period after this one,
   # reset its change values
   def reset_future_survey
     # get the next survey
@@ -542,7 +540,7 @@ class Verdict < ActiveRecord::Base
         change = 0
       end
     end
-    
+
     return change
   end
 

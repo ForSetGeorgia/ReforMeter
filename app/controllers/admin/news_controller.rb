@@ -1,33 +1,31 @@
 class Admin::NewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_news, only: [:show, :edit, :update, :destroy]
-  before_action :get_verdict
-  before_action :load_reform_surveys, only: [:new, :edit, :create, :update]
   authorize_resource
 
-  # GET /admin/verdicts/news
-  # GET /admin/verdicts/news.json
+  # GET /admin/news
+  # GET /admin/news.json
   def index
-    @news = News.all
+    @news = News.sorted
   end
 
-  # GET /admin/verdicts/news/1
-  # GET /admin/verdicts/news/1.json
+  # GET /admin/news/1
+  # GET /admin/news/1.json
   def show
   end
 
-  # GET /admin/verdicts/news/new
+  # GET /admin/news/new
   def new
     @news = News.new
     @news.reform_survey_id = params[:reform_survey_id] if params[:reform_survey_id].present?
   end
 
-  # GET /admin/verdicts/news/1/edit
+  # GET /admin/news/1/edit
   def edit
   end
 
-  # POST /admin/verdicts/news
-  # POST /admin/verdicts/news.json
+  # POST /admin/news
+  # POST /admin/news.json
   def create
     @news = News.new(news_params)
 
@@ -41,8 +39,8 @@ class Admin::NewsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /admin/verdicts/news/1
-  # PATCH/PUT /admin/verdicts/news/1.json
+  # PATCH/PUT /admin/news/1
+  # PATCH/PUT /admin/news/1.json
   def update
     respond_to do |format|
       if @news.update(news_params)
@@ -54,8 +52,8 @@ class Admin::NewsController < ApplicationController
     end
   end
 
-  # DELETE /admin/verdicts/news/1
-  # DELETE /admin/verdicts/news/1.json
+  # DELETE /admin/news/1
+  # DELETE /admin/news/1.json
   def destroy
     @news.destroy
     respond_to do |format|
@@ -76,7 +74,4 @@ class Admin::NewsController < ApplicationController
       params.require(:news).permit(*permitted)
     end
 
-    def load_reform_surveys
-      @reform_survey_array = @verdict.reform_surveys.map{|x| [x.reform.name, x.id]}
-    end
 end

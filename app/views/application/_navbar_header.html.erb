@@ -106,6 +106,9 @@
                 <li><%= link_to t('shared.links.reports'), admin_reports_path %></li>
               <% end %>
               <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
+                <li><%= link_to t('shared.links.news'), admin_news_index_path %></li>
+              <% end %>
+              <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
                 <li><%= link_to t('shared.links.page_contents'), admin_page_contents_path %></li>
               <% end %>
               <% if current_user.is?(['super_admin', 'site_admin']) %>

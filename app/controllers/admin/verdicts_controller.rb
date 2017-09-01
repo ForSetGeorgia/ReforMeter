@@ -9,7 +9,7 @@ class Admin::VerdictsController < ApplicationController
     @verdicts = Verdict.recent.all_verdicts_array
     params[:v] = nil if !@verdicts.map{|x| x[1]}.include?(params[:v])
     params[:v] = @verdicts[0][1] if params[:v].nil? && @verdicts.present?
-    @verdict = Verdict.with_reform_surveys.with_news.friendly.find(params[:v]) if params[:v].present?
+    @verdict = Verdict.with_reform_surveys.friendly.find(params[:v]) if params[:v].present?
   end
 
   # GET /admin/verdicts/1
@@ -114,5 +114,5 @@ class Admin::VerdictsController < ApplicationController
     # set the date for the datepicker
     def set_date
       gon.time_period = @verdict.time_period.strftime('%m/%d/%Y %H:%M') if !@verdict.time_period.nil?
-    end    
+    end
 end

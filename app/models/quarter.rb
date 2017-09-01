@@ -127,7 +127,6 @@ class Quarter < ActiveRecord::Base
   scope :oldest, -> {order(year: :asc, quarter: :asc)}
   scope :with_expert_survey, -> {includes(expert_survey: [:translations] )}
   scope :with_reform_surveys, -> {includes(reform_surveys: [:translations] )}
-  scope :with_news, -> {includes(news: [:translations] )}
 
   # get the latest quarter
   def self.latest

@@ -110,50 +110,6 @@
         </div>
       </div>
 
-
-
-      <div class="form-survey-item">
-        <div class="form-survey-news">
-          <div class="form-survey-header">
-            <strong><%=t 'activerecord.attributes.verdict.news' %>:</strong>
-            &nbsp;&nbsp;
-            <%= link_to t('shared.actions.add'),
-                    new_admin_verdict_news_path(@verdict),
-                    class: 'btn btn-primary btn-sm' %>
-          </div>
-          <%
-            news = @verdict.news
-            if news.present?
-          %>
-
-            <% news.each do |news_item| %>
-              <div class="form-news-item">
-                <div class="row">
-                  <div class="col-md-5">
-                    <%= news_item.title %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= link_to t('shared.actions.view'),
-                          admin_verdict_news_path(@verdict, news_item),
-                          class: 'btn btn-default btn-sm' %>
-                    <%= link_to t('shared.actions.edit'),
-                          edit_admin_verdict_news_path(@verdict, news_item),
-                          class: 'btn btn-default btn-sm' %>
-                    <%= link_to t('shared.actions.destroy'),
-                          admin_verdict_news_path(@verdict, news_item),
-                          method: :delete,
-                          data: { confirm: t('shared.prompts.confirm') },
-                          class: 'btn btn-danger btn-sm' %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-
-          <% end %>
-
-        </div>
-      </div>
-
     </div>
 
     <div role="tabpanel" class="tab-pane-verdicts tab-pane <%= reform_survey_active == true ? 'active' : '' %>" id="reform-surveys">
@@ -205,7 +161,7 @@
               </div>
               <div class="col-md-2">
                 <%= format_boolean_flag(reform_survey.is_public) %>
-      
+
                 <% if reform_survey.is_public %>
                   <%= link_to t('shared.actions.unpublish'),
                           unpublish_admin_verdict_reform_survey_path(@verdict, reform_survey),
@@ -235,43 +191,6 @@
               </div>
             </div>
 
-            <div class="form-survey-news">
-              <div class="form-survey-header">
-                <strong><%=t 'activerecord.attributes.verdict.news' %>:</strong>
-                &nbsp;&nbsp;
-                <%= link_to t('shared.actions.add'),
-                        new_admin_verdict_news_path(@verdict, reform_survey_id: reform_survey.id),
-                        class: 'btn btn-primary btn-sm' %>
-              </div>
-              <%
-                news = reform_survey.news
-                if news.present?
-              %>
-
-                <% news.each do |news_item| %>
-                  <div class="form-news-item">
-                    <div class="row">
-                      <div class="col-md-5">
-                        <%= news_item.title %>
-                      </div>
-                      <div class="col-md-3">
-                        <%= link_to t('shared.actions.view'),
-                              admin_verdict_news_path(@verdict, news_item),
-                              class: 'btn btn-default btn-sm' %>
-                        <%= link_to t('shared.actions.edit'),
-                              edit_admin_verdict_news_path(@verdict, news_item, t: 'reform_survey'),
-                              class: 'btn btn-default btn-sm' %>
-                        <%= link_to t('shared.actions.destroy'),
-                              admin_verdict_news_path(@verdict, news_item, t: 'reform_survey'),
-                              method: :delete,
-                              data: { confirm: t('shared.prompts.confirm') },
-                              class: 'btn btn-danger btn-sm' %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
           </div>
         <% end %>
       <% end %>

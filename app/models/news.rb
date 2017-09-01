@@ -54,7 +54,7 @@ class News < AddMissingTranslation
 
   #######################
   ## SCOPES
-  scope :sorted, -> {order(title: :asc)}
+  scope :sorted, -> {with_translations(I18n.locale).order(title: :asc)}
   scope :for_verdict, -> {where(reform_survey_id: nil)}
   scope :for_reform_survey, -> {where.not(reform_survey_id: nil)}
 

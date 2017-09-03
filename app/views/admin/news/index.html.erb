@@ -17,7 +17,11 @@
     <tr>
       <th></th>
 
+      <th><%=t 'activerecord.attributes.news.date' %></th>
       <th><%=t 'activerecord.attributes.news.title' %></th>
+      <th><%=t 'activerecord.attributes.news.summary' %></th>
+      <th><%=t 'activerecord.attributes.news.reform_id' %></th>
+      <th><%=t 'activerecord.attributes.news.is_public' %></th>
 
       <th class='action-col'><%=t 'shared.common.actions' %></th>
     </tr>
@@ -32,7 +36,11 @@
                       class: 'btn btn-default' %>
         </td>
 
+        <td><%= l news.date if news.date.present? %></td>
         <td><%= news.title %></td>
+        <td><%= news.summary %></td>
+        <td><%= news.reform.name if news.reform.present? %></td>
+        <td><%= format_boolean_flag(news.is_public) %></td>
 
         <td>
           <%= if can? :edit, news

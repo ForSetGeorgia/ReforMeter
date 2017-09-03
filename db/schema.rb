@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901121050) do
+ActiveRecord::Schema.define(version: 20170903175133) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -237,30 +237,31 @@ ActiveRecord::Schema.define(version: 20170901121050) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "news", force: :cascade do |t|
-    t.integer  "quarter_id",         limit: 4
     t.integer  "reform_id",          limit: 4
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "reform_survey_id",   limit: 4
-    t.integer  "verdict_id",         limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "is_public",                      default: false
+    t.date     "date"
+    t.integer  "media_type",         limit: 1
   end
 
-  add_index "news", ["quarter_id", "reform_id"], name: "index_news_on_quarter_id_and_reform_id", using: :btree
-  add_index "news", ["reform_survey_id"], name: "index_news_on_reform_survey_id", using: :btree
-  add_index "news", ["verdict_id"], name: "index_news_on_verdict_id", using: :btree
+  add_index "news", ["date"], name: "index_news_on_date", using: :btree
+  add_index "news", ["is_public"], name: "index_news_on_is_public", using: :btree
 
   create_table "news_translations", force: :cascade do |t|
-    t.integer  "news_id",    limit: 4,     null: false
-    t.string   "locale",     limit: 255,   null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "title",      limit: 255
-    t.text     "content",    limit: 65535
-    t.string   "url",        limit: 255
+    t.integer  "news_id",     limit: 4,     null: false
+    t.string   "locale",      limit: 255,   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "title",       limit: 255
+    t.text     "content",     limit: 65535
+    t.string   "url",         limit: 255
+    t.text     "summary",     limit: 65535
+    t.text     "video_embed", limit: 65535
   end
 
   add_index "news_translations", ["locale"], name: "index_news_translations_on_locale", using: :btree

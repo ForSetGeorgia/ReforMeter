@@ -1,12 +1,13 @@
 class Admin::NewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_news, only: [:show, :edit, :update, :destroy]
+  before_action :load_types, only: [:new, :edit, :create, :update]
   authorize_resource
 
   # GET /admin/news
   # GET /admin/news.json
   def index
-    @news = News.sorted
+    @news = News.sorted.include_reforms
   end
 
   # GET /admin/news/1
@@ -17,7 +18,6 @@ class Admin::NewsController < ApplicationController
   # GET /admin/news/new
   def new
     @news = News.new
-    @news.reform_survey_id = params[:reform_survey_id] if params[:reform_survey_id].present?
   end
 
   # GET /admin/news/1/edit
@@ -31,7 +31,7 @@ class Admin::NewsController < ApplicationController
 
     respond_to do |format|
       if @news.save
-        format.html { redirect_to admin_verdicts_path(v: @verdict.slug, t: params[:news][:t]), notice: t('shared.msgs.success_created',
+        format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_created',
                             obj: t('activerecord.models.news', count: 1)) }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class Admin::NewsController < ApplicationController
   def update
     respond_to do |format|
       if @news.update(news_params)
-        format.html { redirect_to admin_verdicts_path(v: @verdict.slug, t: params[:news][:t]), notice: t('shared.msgs.success_updated',
+        format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_updated',
                             obj: t('activerecord.models.news', count: 1)) }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class Admin::NewsController < ApplicationController
   def destroy
     @news.destroy
     respond_to do |format|
-      format.html { redirect_to admin_verdicts_url(v: @verdict.slug, t: params[:news][:t]), notice: t('shared.msgs.success_destroyed',
+      format.html { redirect_to admin_news_url(@news), notice: t('shared.msgs.success_destroyed',
                             obj: t('activerecord.models.news', count: 1)) }
     end
   end
@@ -70,8 +70,19 @@ class Admin::NewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_params
-      permitted = News.globalize_attribute_names + [:verdict_id, :reform_survey_id, :image]
+      permitted = News.globalize_attribute_names + [:reform_id, :image, :is_public, :date, :media_type]
       params.require(:news).permit(*permitted)
+    end
+
+    def load_types
+      @media_types = []
+      News::MEDIA_TYPES.each do |key,value|
+        @media_types << [I18n.t("shared.news_media_types.#{key}"), value]
+      end
+      @media_types.sort_by!{|x| x[0]}
+
+      @reforms = Reform.active.sorted
+
     end
 
 end

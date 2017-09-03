@@ -3,7 +3,6 @@
 # Table name: news
 #
 #  id                 :integer          not null, primary key
-#  quarter_id         :integer
 #  reform_id          :integer
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
@@ -11,8 +10,9 @@
 #  image_updated_at   :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  reform_survey_id   :integer
-#  verdict_id         :integer
+#  is_public          :boolean          default(FALSE)
+#  date               :date
+#  media_type         :integer
 #
 
 class News < AddMissingTranslation
@@ -31,29 +31,39 @@ class News < AddMissingTranslation
 
   #######################
   ## TRANSLATIONS
-
-  translates :title, :content, :url, :fallbacks_for_empty_translations => true
+  translates :title, :content, :url, :summary, :video_embed,
+              :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
   ## RELATIONSHIPS
   belongs_to :reform
 
+  #######################
+  ## CONSTANTS
+  MEDIA_TYPES = {video: 1, slideshow: 2}
 
   #######################
   ## VALIDATIONS
   # reform_id is optional because without it, it means it is for expert survey
-  validates :title, :url, presence: :true
-  validates_format_of :url, :with => URI::regexp(%w(http https))
+  validates :title, :summary, :date, presence: :true
+  validates_format_of :url, :with => URI::regexp(%w(http https)),
+    unless: Proc.new { |x| x.url.blank? }
+  validates :media_type, inclusion: { in: MEDIA_TYPES.values },
+    unless: Proc.new { |x| x.media_type.blank? }
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..4.megabytes }
 
   #######################
   ## SCOPES
-  scope :sorted, -> {with_translations(I18n.locale).order(title: :asc)}
-  scope :for_verdict, -> {where(reform_survey_id: nil)}
-  scope :for_reform_survey, -> {where.not(reform_survey_id: nil)}
+  scope :published, -> { where(is_public: true) }
+  scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
+  scope :include_reforms, -> {includes :reform}
+
+  def self.by_reform(reform_id)
+    where(reform_id: reform_id)
+  end
 
 
   #######################

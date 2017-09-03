@@ -158,6 +158,9 @@ en:
       steering_committee: Steering Committee
       stakeholder: Stakeholder
       executive_team: Executive Team
+    news_media_types:
+      video: Embed Video
+      slideshow: Image Slideshow
     verdict_show:
       header:
         chart: ReformVerdict History

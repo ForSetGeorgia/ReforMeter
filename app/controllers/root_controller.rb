@@ -304,7 +304,6 @@ class RootController < ApplicationController
       end
 
       @active_verdicts = Verdict.active_verdicts_array
-      @news = @verdict.news
       @reforms = Reform.with_survey_data.active.with_color.sorted
       @reform_surveys = ReformSurvey.in_verdict(@verdict.id).published
       @methodology_government = PageContent.find_by(name: 'methodology_government')

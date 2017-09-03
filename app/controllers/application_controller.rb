@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
       @methodology_government = PageContent.find_by(name: 'methodology_government')
       @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
       @outcome = PageContent.find_by(name: 'outcome')
-      @news = @reform_survey.news
+      @news = @reform.news.published.sorted
       @stakeholders = Expert.stakeholders.by_reform(@reform.id).active.sorted
 
       gon.linked_reforms_verdicts = Verdict.linked_reforms

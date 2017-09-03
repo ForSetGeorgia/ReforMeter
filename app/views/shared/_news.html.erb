@@ -10,8 +10,7 @@
 
       <% if news.image.exists? %>
 
-        <%= link_to news.url,
-                    target: :blank do %>
+        <%= link_to news_show_path(news) do %>
 
           <%= image_tag(
                 news.image.url('360x200'),
@@ -26,8 +25,7 @@
         <h3 class='heading'>
 
           <%= link_to news.title,
-                      news.url,
-                      target: :blank,
+                      news_show_path(news),
                       class: 'link mod-no-decoration' %>
 
         </h3>

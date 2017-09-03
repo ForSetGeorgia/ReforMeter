@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903175133) do
+ActiveRecord::Schema.define(version: 20170903201944) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -247,10 +247,12 @@ ActiveRecord::Schema.define(version: 20170903175133) do
     t.boolean  "is_public",                      default: false
     t.date     "date"
     t.integer  "media_type",         limit: 1
+    t.string   "slug",               limit: 255
   end
 
   add_index "news", ["date"], name: "index_news_on_date", using: :btree
   add_index "news", ["is_public"], name: "index_news_on_is_public", using: :btree
+  add_index "news", ["slug"], name: "index_news_on_slug", unique: true, using: :btree
 
   create_table "news_translations", force: :cascade do |t|
     t.integer  "news_id",     limit: 4,     null: false
@@ -262,10 +264,12 @@ ActiveRecord::Schema.define(version: 20170903175133) do
     t.string   "url",         limit: 255
     t.text     "summary",     limit: 65535
     t.text     "video_embed", limit: 65535
+    t.string   "slug",        limit: 255
   end
 
   add_index "news_translations", ["locale"], name: "index_news_translations_on_locale", using: :btree
   add_index "news_translations", ["news_id"], name: "index_news_translations_on_news_id", using: :btree
+  add_index "news_translations", ["slug"], name: "index_news_translations_on_slug", using: :btree
   add_index "news_translations", ["title"], name: "index_news_translations_on_title", using: :btree
 
   create_table "newsletters", force: :cascade do |t|

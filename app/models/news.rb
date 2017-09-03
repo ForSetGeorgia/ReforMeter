@@ -13,6 +13,7 @@
 #  is_public          :boolean          default(FALSE)
 #  date               :date
 #  media_type         :integer
+#  slug               :string(255)
 #
 
 class News < AddMissingTranslation
@@ -31,7 +32,7 @@ class News < AddMissingTranslation
 
   #######################
   ## TRANSLATIONS
-  translates :title, :content, :url, :summary, :video_embed,
+  translates :title, :content, :url, :summary, :video_embed, :slug,
               :fallbacks_for_empty_translations => true
   globalize_accessors
 
@@ -54,6 +55,28 @@ class News < AddMissingTranslation
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..4.megabytes }
+
+  #######################
+  ## SLUG DEFINITION (friendly_id)
+
+  extend FriendlyId
+  friendly_id :slug_text, use: [:globalize, :history, :slugged]
+
+  # the slug text is the format: title - date
+  def slug_text
+    "#{self.title} - #{I18n.l(self.date)}"
+  end
+
+  # for genereate friendly_id
+  def should_generate_new_friendly_id?
+#    name_changed? || super
+    super
+  end
+
+  # for locale sensitive transliteration with friendly_id
+  def normalize_friendly_id(input)
+    input.to_s.to_url
+  end
 
   #######################
   ## SCOPES

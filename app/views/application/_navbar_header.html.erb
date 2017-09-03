@@ -47,8 +47,8 @@
 
       <li class='appHeader-nav-list-item'>
         <%= link_to t('.news'),
-                    about_path,
-                    class: "appHeader-nav-list-item-link#{nav_link_select_class_if_path([{controller: 'root', action: 'about'}])}" %>
+                    news_path,
+                    class: "appHeader-nav-list-item-link#{nav_link_select_class_if_path([{controller: 'root', action: 'news'}, {controller: 'root', action: 'news_show'}])}" %>
       </li>
 
       <li class='appHeader-nav-list-item'>

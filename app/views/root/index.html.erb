@@ -305,4 +305,21 @@
   </main>
 
 <% end %>
+
+
+<% if @news.present? %>
+  <h2><%= t('.latest_news') %></h2>
+  <% @news.each do |news| %>
+
+    <div>
+      <h2><%= link_to(news.title, news_show_path(news)) %></h2>
+      <br />
+      <%= I18n.l(news.date) if news.date.present? %>
+      <br />
+      <%= simple_format(news.summary) if news.summary.present? %>
+    </div>
+
+  <% end %>
+
+<% end %>
 </div>

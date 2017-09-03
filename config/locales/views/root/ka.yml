@@ -39,6 +39,7 @@ ka:
       reform_status: რეფორმების მდგომარეობა
       reforms_link: ყველა რეფორმის ნახვა
       subheading: ეკონომიკური რეფორმების შეფასება
+      latest_news: The Latest News
     reform_show:
       gauge_group:
         government:

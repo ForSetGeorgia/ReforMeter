@@ -4,6 +4,7 @@ class RootController < ApplicationController
     @verdict = Verdict.published.recent.first
     @external_indicators = ExternalIndicator.published.for_home_page.with_time_periods
     @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
+    @news = News.published.sorted.limit(4)
 
     gon.change_icons = view_context.change_icons
 

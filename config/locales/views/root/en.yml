@@ -75,3 +75,7 @@ en:
       gauge_group:
         title: ReformVerdict for %{time}
       title: "ReformVerdict: %{title}"
+    news:
+      title: News
+      no_data: Sorry, but at this time there is no news on record.
+    news_show:

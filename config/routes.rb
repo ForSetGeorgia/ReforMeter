@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     # get '/review_board/:id' => 'root#review_board_show', as: :review_board_show
     get '/reform_verdicts' => 'root#reform_verdicts'
     get '/reform_verdicts/:id' => 'root#reform_verdict_show', as: :reform_verdict_show
+    get '/news' => 'root#news'
+    get '/news/:id' => 'root#news_show', as: :news_show
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
 

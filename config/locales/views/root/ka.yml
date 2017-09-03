@@ -75,3 +75,7 @@ ka:
       gauge_group:
         title: რეფორმვერდიქტის %{time}
       title: "რეფორმვერდიქტი: %{title}"
+    news:
+      title: News
+      no_data: Sorry, but at this time there is no news on record.
+    news_show:

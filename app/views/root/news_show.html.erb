@@ -1,0 +1,5 @@
+<%
+page_title "#{@news.title} (#{I18n.l(@news.date)})"
+%>
+
+<%= simple_format(@news.content) if @news.content.present? %>

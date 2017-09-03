@@ -299,7 +299,7 @@ class RootController < ApplicationController
       @verdict = Verdict.published.friendly.find(params[:id])
 
       if @verdict.nil?
-        redirect_to review_board_path,
+        redirect_to reform_verdicts_path,
                 alert: t('shared.msgs.does_not_exist')
       end
 
@@ -400,6 +400,25 @@ class RootController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       redirect_to reform_verdicts_path,
+                alert: t('shared.msgs.does_not_exist')
+    end
+  end
+
+  def news
+    @news = News.published.sorted
+  end
+
+  def news_show
+    begin
+      @news = News.published.find(params[:id])
+
+      if @news.nil?
+        redirect_to news_path,
+                alert: t('shared.msgs.does_not_exist')
+      end
+
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to news_path,
                 alert: t('shared.msgs.does_not_exist')
     end
   end

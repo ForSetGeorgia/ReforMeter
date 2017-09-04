@@ -50,7 +50,7 @@
 
     @media (min-width: $footer-social-and-mobile-links-become-horizontal) {
 
-      &, .socialLinks {
+      & {
         align-items: center;
         flex-direction: row;
       }

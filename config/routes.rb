@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
 
-    get '/newsletter_email/:email' => 'root#newsletter_email'
+    post '/subscribe' => 'root#subscribe', as: :subscribe, constraints: { format: :json }
 
     root 'root#index'
 

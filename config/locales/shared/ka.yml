@@ -91,6 +91,10 @@ ka:
       percent: პროცენტი (%)
       sub_title: თითოეული რეფორმის კვალდაკვალ
       'yes': დიახ
+      subscribe:
+        join_newsletter: გამოიწერე სიახლეები
+        email_placeholder: ელექტრონული ფოსტა
+        submit: გამოიწერე
     expert_show:
       header:
         chart: შეფასების საბჭო ისტორია
@@ -143,6 +147,8 @@ ka:
       newsletter:
         success: Thank you!
         failure: An error occurred. Please try again.
+        upsss: 'Something went wrong, try later.'
+        enter_valid_email: 'Please enter a valid email address.'
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?

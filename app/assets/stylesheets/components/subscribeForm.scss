@@ -1,0 +1,56 @@
+.subscribeForm {
+  margin: 0 0 15px;
+  padding: 6px 10px 6px 0px;
+  min-height: 68px;
+  box-sizing: border-box;
+  @media (min-width: $width-show-navigation) {
+    margin-bottom: 20px;
+  }
+}
+.subscribeForm-label {
+  display: block;
+  font-size: 1.4rem;
+}
+.subscribeForm-email {
+  padding: 4px 10px 5px;
+  border: 1px solid #e9ebee;
+  font-size: 1.4rem;
+  vertical-align: top;
+  &:lang(ka) {
+    font-size: 1.4rem;
+  }
+  &.invalid {
+    border: 1px solid #ff9898;
+    box-shadow: 0px 0px 2px 0px #ff9898;
+  }
+}
+.subscribeForm-submit {
+  border: none;
+  font-size: 1.6rem;
+  background-color: #00AEEF;
+  border-radius: 3px;
+  color: white;
+  padding: 5px 20px 5px;
+  position: relative;
+  top: -1px;
+  &:lang(ka) {
+    font-size: 1.6rem;
+  }
+}
+.subscribeMessage {
+  display: block;
+  font-size: 1.2rem;
+  padding-left: 2px;
+  color: #e04744;
+  &:lang(ka) {
+    font-size: 1.2rem;
+  }
+}
+.subscribeMessageSuccess {
+  font-size: 2rem;
+  color: #1599d6;
+  &:lang(ka) {
+    font-size: 2rem;
+  }
+}
+

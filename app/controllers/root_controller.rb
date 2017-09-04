@@ -410,14 +410,16 @@ class RootController < ApplicationController
     end
   end
 
-  def newsletter_email
+  def subscribe
     if params[:email].present?
       newsletter = Newsletter.new(email: params[:email])
 
       if newsletter.save
         render json: {success: true, msg: I18n.t('shared.msgs.newsletter.success')}
       else
-        render json: {success: false, msg: I18n.t('shared.msgs.newsletter.failure'), error: newsletter.errors}
+        error_msg = newsletter.errors.full_messages
+        error_msg = I18n.t('shared.msgs.newsletter.failure') unless error_msg.present?
+        render json: {success: false, msg: error_msg}
       end
     end
   end

@@ -13,7 +13,7 @@ class Newsletter < ActiveRecord::Base
   #######################
   ## VALIDATIONS
 
-  validates :email, presence: :true
+  validates :email, presence: :true, uniqueness: true
   validates :email, format: { with: /\A(\S+)@(.+)\.(\S+)\z/ }
 
   #######################

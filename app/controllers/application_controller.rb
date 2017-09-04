@@ -50,6 +50,14 @@ class ApplicationController < ActionController::Base
         }
       }
     }
+
+    gon.subscribe_url = subscribe_path
+
+    gon.messages = {
+      upsss: I18n.t('shared.msgs.newsletter.upsss'),
+      enter_valid_email: I18n.t('shared.msgs.newsletter.enter_valid_email')
+    }
+
   end
 
   ##############################################

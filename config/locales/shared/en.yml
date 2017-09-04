@@ -91,6 +91,10 @@ en:
       percent: Percent (%)
       sub_title: Tracking Progress - One Reform at a Time
       'yes': 'Yes'
+      subscribe:
+        join_newsletter: Join Our Newsletter
+        email_placeholder: Your Email
+        submit: Subscribe
     expert_show:
       header:
         chart: Review Board History
@@ -143,6 +147,8 @@ en:
       newsletter:
         success: Thank you!
         failure: An error occurred. Please try again.
+        upsss: 'Something went wrong, try later.'
+        enter_valid_email: 'Please enter a valid email address.'
     prompts:
       confirm: Are you sure?
       forgot_password: Forgot your password?

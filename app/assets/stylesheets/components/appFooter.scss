@@ -36,13 +36,17 @@
 
           a[role=button] {
             margin-top: 0 !important;
-            margin-bottom: 10px !important;
+            // margin-bottom: 10px !important;
             border-radius: 3px !important;
           }
 
           .at-icon-wrapper, svg {
             height: 27px !important;
             width: 27px !important;
+          }
+
+          .at_flat_counter {
+            line-height: 28px !important;
           }
       }
 

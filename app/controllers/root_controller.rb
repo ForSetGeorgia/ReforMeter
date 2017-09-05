@@ -245,8 +245,12 @@ class RootController < ApplicationController
 
   def reform_show
     begin
-      @verdict = Verdict.published.friendly.find(params[:verdict_id])
       @reform = Reform.with_survey_data.active.with_color.friendly.find(params[:reform_id])
+      @verdict = Verdict.published.friendly.find(params[:verdict_id]) if params[:verdict_id].present?
+      if @reform.present? && @verdict.blank?
+        @verdict = @reform.verdicts.published.recent.first
+        params[:verdict_id] = @verdict.slug if @verdict.present?
+      end
       @reform_survey = ReformSurvey.for_reform(@reform.id).in_verdict(@verdict.id).published.first if @verdict && @reform
 
       if @reform.nil? || @verdict.nil? || @reform_survey.nil?

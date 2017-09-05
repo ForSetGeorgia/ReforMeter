@@ -4,6 +4,10 @@ module ApplicationHelper
     content_for(:page_title) { page_title.html_safe }
   end
 
+  def page_description(page_description)
+    content_for(:page_description) { page_description.html_safe }
+  end
+
   def current_url
     "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
   end
@@ -85,7 +89,7 @@ module ApplicationHelper
     end
     return locales
   end
-  
+
   def random_string
     ('a'..'z').to_a.shuffle[0,8].join
   end

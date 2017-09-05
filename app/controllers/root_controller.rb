@@ -406,12 +406,17 @@ class RootController < ApplicationController
   end
 
   def news
+    # filter_by = params[:filter_by]
+    # filter_by = :recent unless filter_by.present? && [:recent, :reform].index(filter_by)
+    @verdict = Verdict.published.recent.first
+    @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
     @news = News.published.sorted
   end
 
   def news_show
     begin
       @news = News.published.friendly.find(params[:id])
+      @share_image_paths = [@news.image.url('poster')]
 
       if @news.nil?
         redirect_to news_path,

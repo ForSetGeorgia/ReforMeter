@@ -22,12 +22,12 @@ class News < AddMissingTranslation
   has_attached_file :image,
                     :url => "/system/news/:id/:style.:extension",
                     :styles => {
-                        :'360x200' => {:geometry => "360x200#"},
-                        :'90x50' => {:geometry => "90x50#"}
+                        :'poster' => {:geometry => "360x200#"},
+                        :'thumbnail' => {:geometry => "90x50#"}
                     },
                     :convert_options => {
-                      :'360x200' => '-quality 85',
-                      :'90x50' => '-quality 85'
+                      :'poster' => '-quality 85',
+                      :'thumbnail' => '-quality 85'
                     }
 
   #######################

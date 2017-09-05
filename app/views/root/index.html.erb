@@ -109,7 +109,6 @@
       </div>
 
     </nav>
-
     <div class='homePage-reformsIndicatorsContainer'>
 
       <div class='homePage-reformsIndicatorsContainer-reforms'>
@@ -301,25 +300,41 @@
       </section>
 
     </div>
+    <% if @news.present? %>
+
+      <div class='homePage-newsSection'>
+        <div class='newsSection-header'>
+          <h2 class='heading'><%= t('.latest_news') %></h2>
+        </div>
+        <div class='newsSection-body'>
+          <% @news.each do |news| %>
+            <section>
+              <div class='newsSection-item'>
+                <div class="newsSection-item-header">
+                  <div class="newsSection-item-header-column">
+                    <%= link_to(news.title, news_show_path(news), class: 'link heading mod-no-transform') %>
+                  </div>
+                  <% if news.date.present?  %>
+                    <div class="newsSection-item-header-column">
+                      <div class="date"><%= I18n.l(news.date) %></div>
+                    </div>
+                  <% end %>
+                </div>
+                <p>
+                  <%= simple_format(news.summary) if news.summary.present? %>
+                </p>
+              </div>
+            </section>
+          <% end %>
+        </div>
+        <div class="newsSection-footer">
+          <a class="link" href="<%= news_path %>">View all News</a>
+        </div>
+      </div>
+    <% end %>
 
   </main>
 
 <% end %>
 
-
-<% if @news.present? %>
-  <h2><%= t('.latest_news') %></h2>
-  <% @news.each do |news| %>
-
-    <div>
-      <h2><%= link_to(news.title, news_show_path(news)) %></h2>
-      <br />
-      <%= I18n.l(news.date) if news.date.present? %>
-      <br />
-      <%= simple_format(news.summary) if news.summary.present? %>
-    </div>
-
-  <% end %>
-
-<% end %>
 </div>

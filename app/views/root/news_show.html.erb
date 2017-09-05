@@ -1,5 +1,34 @@
 <%
-page_title "#{@news.title} (#{I18n.l(@news.date)})"
+  page_title "#{@news.title} (#{I18n.l(@news.date)})"
+  page_description "#{@news.summary} (#{I18n.l(@news.date)})"
 %>
 
 <%= simple_format(@news.content) if @news.content.present? %>
+
+<% news = @news %>
+<section class="newsList-item" data-reform='<%= news.reform.slug %>'>
+  <% if news.date.present? %>
+    <div class="newsList-item-header-column">
+      <div class="date"><%= I18n.l(news.date) %></div>
+    </div>
+  <% end %>
+  <div class="newsList-item-content">
+    <% if news.image.exists? %>
+      <div class="newsList-item-content-column newsList-item-thumbnail">
+        <%= image_tag(news.image.url('poster'), { width: '200px'}) %>
+      </div>
+    <% end %>
+    <% if news.content.present? %>
+      <div class="newsList-item-content-column newsList-item-content">
+        <p><%= simple_format(news.content) %></p>
+      </div>
+    <% end %>
+    <div class="newsSection-footer">
+      <% if news.reform.present? %>
+        <a class="link" href="<%= reform_show_path(news.reform) %>">Reform</a>
+      <% end %>
+      <a class="link" href="<%= news_path %>">Source</a>
+      <a class="link" href="<%= news_path %>">View all News</a>
+    </div>
+  </div>
+</section>

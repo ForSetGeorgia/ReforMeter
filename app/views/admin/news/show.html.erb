@@ -29,7 +29,7 @@
   <dt><strong><%=t 'activerecord.attributes.news.url' %>:</strong></dt>
   <dd><%= link_to @news.url, @news.url if @news.url.present? %></dd>
   <dt><strong><%=t 'activerecord.attributes.news.image' %>:</strong></dt>
-  <dd><%= image_tag @news.image.url('360x200') if @news.image.exists? %></dd>
+  <dd><%= image_tag @news.image.url('poster') if @news.image.exists? %></dd>
 
   <dt><strong><%=t 'activerecord.attributes.news.reform_id' %>:</strong></dt>
   <dd><%= @news.reform.name if @news.reform_id.present? %></dd>

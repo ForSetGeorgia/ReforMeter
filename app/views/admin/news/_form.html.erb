@@ -37,7 +37,7 @@
         <label for="news_image" class=" control-label"><%= t('activerecord.attributes.news.image') %></label>
       </span>
       <% if @news.image.exists? %>
-        <%= image_tag(@news.image.url('90x50')) %>
+        <%= image_tag(@news.image.url('thumbnail')) %>
       <% end %>
       <span class="form-wrapper">
         <input accept=".jpg,.jpeg,.png,.gif" id="news_image" name="news[image]" type="file">

@@ -57,8 +57,8 @@ Rails.application.routes.draw do
     post '/download_data_and_reports' => 'root#download_data_and_reports'
     get '/reforms' => 'root#reforms'
     # if there is no time period then send back to reforms page with reform as query string
-    get '/reforms/:reform_id', to: redirect('/%{locale}/reforms?reform=%{reform_id}')
-    get '/reforms/:reform_id/:verdict_id' => 'root#reform_show', as: :reform_show
+    # get '/reforms/:reform_id', to: redirect('/%{locale}/reforms?reform=%{reform_id}')
+    get '/reforms/:reform_id/(:verdict_id)' => 'root#reform_show', as: :reform_show
     # get '/review_board' => 'root#review_board'
     # get '/review_board/:id' => 'root#review_board_show', as: :review_board_show
     get '/reform_verdicts' => 'root#reform_verdicts'

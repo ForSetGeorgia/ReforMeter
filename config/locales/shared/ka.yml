@@ -90,6 +90,10 @@ ka:
       percent: პროცენტი (%)
       sub_title: თითოეული რეფორმის კვალდაკვალ
       'yes': დიახ
+      subscribe:
+        join_newsletter: გამოიწერე სიახლეები
+        email_placeholder: ელექტრონული ფოსტა
+        submit: გამოიწერე
     expert_show:
       header:
         chart: შეფასების საბჭო ისტორია
@@ -122,6 +126,8 @@ ka:
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
       news: სიახლეები
+      download: Download
+      newsletters: Newsletter Emails
     locale:
       long:
         en: English
@@ -137,6 +143,11 @@ ka:
       success_published: "%{obj} წარმატებით გამოქვეყნდა."
       success_unpublished: "%{obj}-ს წარმატებით გაუქმდა გამოქვეყნება."
       success_updated: "%{obj} წარმატებით განახლდა."
+      newsletter:
+        success: Thank you!
+        failure: An error occurred. Please try again.
+        upsss: 'Something went wrong, try later.'
+        enter_valid_email: 'Please enter a valid email address.'
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?
@@ -177,6 +188,7 @@ ka:
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+      date_only: '%Y-%m-%d'
   date:
     formats:
       default: ! '%Y-%m-%d'

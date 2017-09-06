@@ -47,6 +47,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :newsletters, except: :show, constraints: { format: :html } do
+        collection do
+          get 'download', constraints: { format: :csv }
+        end
+      end
+
       resources :page_contents, constraints: { format: :html }
       resources :users, constraints: { format: :html }
     end
@@ -67,6 +73,8 @@ Rails.application.routes.draw do
     get '/news/:id' => 'root#news_show', as: :news_show
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
+
+    post '/subscribe' => 'root#subscribe', as: :subscribe, constraints: { format: :json }
 
     root 'root#index'
 

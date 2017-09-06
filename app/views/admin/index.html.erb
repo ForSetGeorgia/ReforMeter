@@ -57,6 +57,15 @@
         <%= link_to t('shared.actions.view'), admin_reports_path, class: 'btn btn-default' %>
       </div>
     <% end %>
+    <% if current_user.is?(['super_admin', 'site_admin']) %>
+      <div class="col-md-3">
+        <h3><%= t('shared.links.newsletters') %></h3>
+        <p>
+          <%= t('.explanations.newsletters') %>
+        </p>
+        <%= link_to t('shared.actions.view'), admin_newsletters_path, class: 'btn btn-default' %>
+      </div>
+    <% end %>
     <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
       <div class="col-md-3">
         <h3><%= t('shared.links.news') %></h3>

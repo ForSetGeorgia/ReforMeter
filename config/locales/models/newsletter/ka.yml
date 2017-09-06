@@ -1,0 +1,11 @@
+---
+ka:
+  activerecord:
+    attributes:
+      newsletter:
+        email: Email
+        created_at: Date Added
+    models:
+      newsletter:
+        one: Newsletter Email
+        other: Newsletter Emails

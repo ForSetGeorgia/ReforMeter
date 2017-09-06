@@ -12,7 +12,6 @@
 #  updated_at         :datetime         not null
 #  is_public          :boolean          default(FALSE)
 #  date               :date
-#  media_type         :integer
 #  slug               :string(255)
 #
 
@@ -41,17 +40,11 @@ class News < AddMissingTranslation
   belongs_to :reform
 
   #######################
-  ## CONSTANTS
-  MEDIA_TYPES = {video: 1, slideshow: 2}
-
-  #######################
   ## VALIDATIONS
   # reform_id is optional because without it, it means it is for expert survey
   validates :title, :summary, :date, presence: :true
   validates_format_of :url, :with => URI::regexp(%w(http https)),
     unless: Proc.new { |x| x.url.blank? }
-  validates :media_type, inclusion: { in: MEDIA_TYPES.values },
-    unless: Proc.new { |x| x.media_type.blank? }
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..4.megabytes }

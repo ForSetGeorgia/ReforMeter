@@ -167,9 +167,6 @@ ka:
       steering_committee: მმართველი საბჭო
       stakeholder: დაინტერესებული პირი
       executive_team: აღმასრულებელი გუნდი
-    news_media_types:
-      video: Embed Video
-      slideshow: Image Slideshow
     verdict_show:
       header:
         chart: რეფორმვერდიქტის ისტორია

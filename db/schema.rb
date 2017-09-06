@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903201944) do
+ActiveRecord::Schema.define(version: 20170906060028) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -246,7 +246,6 @@ ActiveRecord::Schema.define(version: 20170903201944) do
     t.datetime "updated_at",                                     null: false
     t.boolean  "is_public",                      default: false
     t.date     "date"
-    t.integer  "media_type",         limit: 1
     t.string   "slug",               limit: 255
   end
 

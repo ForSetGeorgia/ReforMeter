@@ -31,6 +31,9 @@
                          language: enabled_locale_name) %>
     <% end %>
 
+    <hr />
+
+    <h2><%= t('.media_heading') %></h2>
 
     <div class="file input optional form-group" id="news_image_input">
       <span class="form-label">
@@ -40,9 +43,45 @@
         <%= image_tag(@news.image.url('90x50')) %>
       <% end %>
       <span class="form-wrapper">
-        <input accept=".jpg,.jpeg,.png,.gif" id="news_image" name="news[image]" type="file">
+        <input accept=".jpg,.jpeg,.png" id="news_image" name="news[image]" type="file">
       </span>
     </div>
+
+    <h3><%= t('activerecord.models.news_slideshow', count: 999) %></h3>
+
+    <table class="table table-striped table-hover table-nonfluid table-news-slideshows">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <%= t('activerecord.attributes.news_slideshow.image') %><abbr title="required">*</abbr>
+          </th>
+          <th>
+            <%=t 'shared.common.actions' %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% object.news_slideshows.sorted.each do |slideshow| %>
+          <%= f.semantic_fields_for :news_slideshows, slideshow do |slide| %>
+            <%= render partial: 'news_slideshow_fields', locals: {f: slide, object: slideshow} %>
+          <% end %>
+        <% end %>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <%= link_to_add_association t('shared.actions.add'), f, :news_slideshows,
+                  :'data-association-insertion-node' => "table.table-news-slideshows tbody",
+                  :'data-association-insertion-method' => 'append',
+                  class: 'btn btn-primary' %>
+          </td>
+        </tr>
+      </tfoot>
+      </tbody>
+    </table>
+
+
+    <hr />
 
     <%= f.input :reform_id, as: :radio, collection: @reforms %>
 

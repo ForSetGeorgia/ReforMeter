@@ -59,3 +59,6 @@ en:
       index:
         view_en: "View English"
         view_ka: "View Georgian"
+    news:
+      form:
+        media_heading: Multimedia

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906060028) do
+ActiveRecord::Schema.define(version: 20170906063807) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -252,6 +252,20 @@ ActiveRecord::Schema.define(version: 20170906060028) do
   add_index "news", ["date"], name: "index_news_on_date", using: :btree
   add_index "news", ["is_public"], name: "index_news_on_is_public", using: :btree
   add_index "news", ["slug"], name: "index_news_on_slug", unique: true, using: :btree
+
+  create_table "news_slideshows", force: :cascade do |t|
+    t.integer  "news_id",            limit: 4
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "sort_order",         limit: 1,   default: 1
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "news_slideshows", ["news_id"], name: "index_news_slideshows_on_news_id", using: :btree
+  add_index "news_slideshows", ["sort_order"], name: "index_news_slideshows_on_sort_order", using: :btree
 
   create_table "news_translations", force: :cascade do |t|
     t.integer  "news_id",     limit: 4,     null: false
@@ -519,4 +533,5 @@ ActiveRecord::Schema.define(version: 20170906060028) do
   add_index "verdicts", ["slug"], name: "index_verdicts_on_slug", using: :btree
   add_index "verdicts", ["time_period"], name: "index_verdicts_on_time_period", using: :btree
 
+  add_foreign_key "news_slideshows", "news"
 end

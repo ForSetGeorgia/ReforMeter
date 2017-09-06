@@ -38,10 +38,11 @@ class News < AddMissingTranslation
   #######################
   ## RELATIONSHIPS
   belongs_to :reform
+  has_many :news_slideshows, dependent: :destroy
+  accepts_nested_attributes_for :news_slideshows, :reject_if => lambda { |x| x[:image].blank? && x[:id].blank?}, allow_destroy: true
 
   #######################
   ## VALIDATIONS
-  # reform_id is optional because without it, it means it is for expert survey
   validates :title, :summary, :date, presence: :true
   validates_format_of :url, :with => URI::regexp(%w(http https)),
     unless: Proc.new { |x| x.url.blank? }
@@ -76,6 +77,7 @@ class News < AddMissingTranslation
   scope :published, -> { where(is_public: true) }
   scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
   scope :include_reforms, -> {includes :reform}
+  scope :include_slideshows, -> {includes :news_slideshows}
 
   def self.by_reform(reform_id)
     where(reform_id: reform_id)

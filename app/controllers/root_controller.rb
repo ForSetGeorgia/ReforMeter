@@ -415,7 +415,7 @@ class RootController < ApplicationController
 
   def news_show
     begin
-      @news = News.published.friendly.find(params[:id])
+      @news = News.published.include_reforms.include_slideshows.friendly.find(params[:id])
 
       if @news.nil?
         redirect_to news_path,

@@ -59,3 +59,6 @@ ka:
       index:
         view_en: "იხილეთ ინგლისური"
         view_ka: "იხილეთ ქართული"
+    news:
+      form:
+        media_heading: Multimedia

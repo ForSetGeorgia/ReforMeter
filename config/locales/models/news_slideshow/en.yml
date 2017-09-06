@@ -1,0 +1,11 @@
+---
+en:
+  activerecord:
+    attributes:
+      news_slideshow:
+        image: Image
+        sort_order: Sort Order
+    models:
+      news_slideshow:
+        one: Slideshow
+        other: Slideshows

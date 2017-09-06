@@ -31,7 +31,7 @@ class News < AddMissingTranslation
 
   #######################
   ## TRANSLATIONS
-  translates :title, :content, :url, :summary, :video_embed, :slug,
+  translates :title, :content, :url, :summary, :slug,
               :fallbacks_for_empty_translations => true
   globalize_accessors
 

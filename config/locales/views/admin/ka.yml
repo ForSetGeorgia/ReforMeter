@@ -62,3 +62,4 @@ ka:
     news:
       form:
         media_heading: Multimedia
+        video_help: "Copy past the embed code for a video"

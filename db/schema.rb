@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906063807) do
+ActiveRecord::Schema.define(version: 20170906074605) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -242,11 +242,12 @@ ActiveRecord::Schema.define(version: 20170906063807) do
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.boolean  "is_public",                      default: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.boolean  "is_public",                        default: false
     t.date     "date"
     t.string   "slug",               limit: 255
+    t.text     "video_embed",        limit: 65535
   end
 
   add_index "news", ["date"], name: "index_news_on_date", using: :btree
@@ -268,16 +269,15 @@ ActiveRecord::Schema.define(version: 20170906063807) do
   add_index "news_slideshows", ["sort_order"], name: "index_news_slideshows_on_sort_order", using: :btree
 
   create_table "news_translations", force: :cascade do |t|
-    t.integer  "news_id",     limit: 4,     null: false
-    t.string   "locale",      limit: 255,   null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "title",       limit: 255
-    t.text     "content",     limit: 65535
-    t.string   "url",         limit: 255
-    t.text     "summary",     limit: 65535
-    t.text     "video_embed", limit: 65535
-    t.string   "slug",        limit: 255
+    t.integer  "news_id",    limit: 4,     null: false
+    t.string   "locale",     limit: 255,   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.string   "url",        limit: 255
+    t.text     "summary",    limit: 65535
+    t.string   "slug",       limit: 255
   end
 
   add_index "news_translations", ["locale"], name: "index_news_translations_on_locale", using: :btree

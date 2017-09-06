@@ -57,3 +57,15 @@ function setupNewsMove(){
   });
 
 }
+
+// show the embed video when the text changes
+function setupNewsVideoEmbed(){
+  $('textarea#news_video_embed').on('change', function(){
+    if ($(this).val().length > 0){
+      $('.js-show-video').html($(this).val());
+    } else {
+      // no text, so remove any video code
+      $('.js-show-video').html('');
+    }
+  });
+}

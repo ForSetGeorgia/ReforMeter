@@ -31,13 +31,19 @@
   <dt><strong><%=t 'activerecord.attributes.news.image' %>:</strong></dt>
   <dd><%= image_tag @news.image.url('360x200') if @news.image.exists? %></dd>
   <dt><strong><%=t 'activerecord.attributes.news.slideshow' %>:</strong></dt>
-  <% if @news.news_slideshows.present? %>
-    <% @news.news_slideshows.sorted.each do |slideshow| %>
-      <%= image_tag(slideshow.image.url('90x50')) %>
+  <dd>
+    <% if @news.news_slideshows.present? %>
+      <% @news.news_slideshows.sorted.each do |slideshow| %>
+        <%= image_tag(slideshow.image.url('90x50')) %>
+      <% end %>
     <% end %>
-  <% end %>
-
-  <dd><%= image_tag @news.image.url('360x200') if @news.image.exists? %></dd>
+  </dd>
+  <dt><strong><%=t 'activerecord.attributes.news.video_embed' %>:</strong></dt>
+  <dd>
+    <% if @news.video_embed.present? %>
+      <%= @news.video_embed.html_safe %>
+    <% end %>
+  </dd>
 
   <dt><strong><%=t 'activerecord.attributes.news.reform_id' %>:</strong></dt>
   <dd><%= @news.reform.name if @news.reform_id.present? %></dd>

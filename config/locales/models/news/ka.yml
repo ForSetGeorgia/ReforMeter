@@ -11,7 +11,7 @@ ka:
         summary: Summary
         is_public: Is Public?
         date: Date
-        video_embed: Video
+        video_embed: Embeded Video
     models:
       news:
         one: სიუჟეტი

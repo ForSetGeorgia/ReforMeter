@@ -43,36 +43,11 @@ page_title t('.title')
     </div>
   </header>
 
-  <div class='contentSection-body mod-no-padding'>
+  <div class='contentSection-body mod-no-padding news-list'>
 
     <% if @news.present? %>
       <% @news.each do |news| %>
-
-        <section class="newsList-item" data-reform='<%= news.reform.slug %>'>
-          <div class="newsList-item-header">
-            <div class="newsList-item-header-column">
-              <%= link_to(news.title, news_show_path(news), class: 'link heading mod-no-transform') %>
-            </div>
-            <% if news.date.present? %>
-              <div class="newsList-item-header-column">
-                <div class="date"><%= I18n.l(news.date) %></div>
-              </div>
-            <% end %>
-          </div>
-          <div class="newsList-item-content">
-            <% if news.image.exists? %>
-              <div class="newsList-item-content-column newsList-item-thumbnail">
-                <%= image_tag(news.image.url('poster'), { width: '200px'}) %>
-              </div>
-            <% end %>
-            <% if news.summary.present? %>
-              <div class="newsList-item-content-column newsList-item-summary">
-                <p><%= simple_format(news.summary) %></p>
-              </div>
-            <% end %>
-          </div>
-        </section>
-
+        <%= render partial: 'shared/news_block', locals: { news: news, with_poster: true, with_reform_id: true, with_title: true, with_summary: true } %>
       <% end %>
     <% else %>
       <p class="alert alert-warning">

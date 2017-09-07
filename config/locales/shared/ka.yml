@@ -18,6 +18,8 @@ ka:
       publish: გამოქვეყნება
       unpublish: გამოქვეყნების გაუქმება
       view: ნახვა
+      source: Source
+      reform: რეფორმა
       with_obj:
         cancel: "%{obj}-ის გაუქმება"
         create: "%{obj}-ის შექმნა"
@@ -90,6 +92,10 @@ ka:
       percent: პროცენტი (%)
       sub_title: თითოეული რეფორმის კვალდაკვალ
       'yes': დიახ
+      subscribe:
+        join_newsletter: გამოიწერე სიახლეები
+        email_placeholder: ელექტრონული ფოსტა
+        submit: გამოიწერე
     expert_show:
       header:
         chart: შეფასების საბჭო ისტორია
@@ -122,6 +128,8 @@ ka:
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
       news: სიახლეები
+      download: Download
+      newsletters: Newsletter Emails
     locale:
       long:
         en: English
@@ -137,6 +145,11 @@ ka:
       success_published: "%{obj} წარმატებით გამოქვეყნდა."
       success_unpublished: "%{obj}-ს წარმატებით გაუქმდა გამოქვეყნება."
       success_updated: "%{obj} წარმატებით განახლდა."
+      newsletter:
+        success: Thank you!
+        failure: An error occurred. Please try again.
+        upsss: 'Something went wrong, try later.'
+        enter_valid_email: 'Please enter a valid email address.'
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?
@@ -156,9 +169,6 @@ ka:
       steering_committee: მმართველი საბჭო
       stakeholder: დაინტერესებული პირი
       executive_team: აღმასრულებელი გუნდი
-    news_media_types:
-      video: Embed Video
-      slideshow: Image Slideshow
     verdict_show:
       header:
         chart: რეფორმვერდიქტის ისტორია
@@ -177,6 +187,7 @@ ka:
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+      date_only: '%Y-%m-%d'
   date:
     formats:
       default: ! '%Y-%m-%d'

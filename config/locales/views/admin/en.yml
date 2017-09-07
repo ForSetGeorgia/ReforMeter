@@ -35,6 +35,7 @@ en:
         reports: Upload reports the summarize what has happened during a time period.
         verdicts: Manage the data for a time period like overall score, and reform surveys.
         news: Manage the news.
+        newsletters: Manage the email addresses for the newsletter.
       title: Admin Section
     verdicts:
       index:
@@ -58,3 +59,7 @@ en:
       index:
         view_en: "View English"
         view_ka: "View Georgian"
+    news:
+      form:
+        media_heading: Multimedia
+        video_help: "Copy past the embed code for a video"

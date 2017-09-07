@@ -306,7 +306,7 @@ function setupExternalIndicatorCocoon(){
 // move table rows up and down to change order
 function setupExternalIndicatorMove(){
 
-  $('tr.nested-fields a.move-up').on('click', function(){
+  $('table').on('click', 'tr.nested-fields a.move-up', function(){
     var $row = $(this).closest('tr');
 
     // cannot use jquery next for cocoon puts hidden fields in between
@@ -327,7 +327,7 @@ function setupExternalIndicatorMove(){
     return false;
   });
 
-  $('tr.nested-fields a.move-down').on('click', function(){
+  $('table').on('click', 'tr.nested-fields a.move-down', function(){
     var $row = $(this).closest('tr');
 
     // cannot use jquery next for cocoon puts hidden fields in between

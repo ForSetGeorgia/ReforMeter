@@ -70,16 +70,13 @@ class Admin::NewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_params
-      permitted = News.globalize_attribute_names + [:reform_id, :image, :is_public, :date, :media_type]
+      permitted = News.globalize_attribute_names + [:reform_id, :image, :is_public, :date, :video_embed,
+        news_slideshows_attributes: [:id, :_destroy, :sort_order, :image, :news_id],
+      ]
       params.require(:news).permit(*permitted)
     end
 
     def load_types
-      @media_types = []
-      News::MEDIA_TYPES.each do |key,value|
-        @media_types << [I18n.t("shared.news_media_types.#{key}"), value]
-      end
-      @media_types.sort_by!{|x| x[0]}
 
       @reforms = Reform.active.sorted
 

@@ -35,6 +35,7 @@ ka:
         reports: ატვირთე რეპორტი რომ შეაჯამო რა მოხდა დროის ამ პერიოდში.
         verdicts: მართე ისეთი მონაცემები, დროის ამ პერიოდისთვის, როგროიცაა საერთო ქულა, და რეფორმის კვლევა.
         news: Manage the news.
+        newsletters: Manage the email addresses for the newsletter.
       title: ადმინის სექცია
     verdicts:
       index:
@@ -58,3 +59,7 @@ ka:
       index:
         view_en: "იხილეთ ინგლისური"
         view_ka: "იხილეთ ქართული"
+    news:
+      form:
+        media_heading: Multimedia
+        video_help: "Copy past the embed code for a video"

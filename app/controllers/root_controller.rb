@@ -419,7 +419,8 @@ class RootController < ApplicationController
 
   def news_show
     begin
-      @news = News.published.friendly.find(params[:id])
+      @news = News.published.include_reforms.include_slideshows.friendly.find(params[:id])
+      # @news = News.published.friendly.find(params[:id])
       @share_image_paths = [@news.image.url('poster')]
 
       if @news.nil?
@@ -430,6 +431,20 @@ class RootController < ApplicationController
     rescue ActiveRecord::RecordNotFound => e
       redirect_to news_path,
                 alert: t('shared.msgs.does_not_exist')
+    end
+  end
+
+  def subscribe
+    if params[:email].present?
+      newsletter = Newsletter.new(email: params[:email])
+
+      if newsletter.save
+        render json: {success: true, msg: I18n.t('shared.msgs.newsletter.success')}
+      else
+        error_msg = newsletter.errors.full_messages
+        error_msg = I18n.t('shared.msgs.newsletter.failure') unless error_msg.present?
+        render json: {success: false, msg: error_msg}
+      end
     end
   end
 

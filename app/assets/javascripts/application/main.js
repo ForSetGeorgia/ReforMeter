@@ -3,6 +3,7 @@
     setup_navigation_menu();
     setupSelect2();
     setupVerdictTimePeriodSelect();
+    setupSubscribe();
     initializeChangeReformPageControls().setup();
     initializeScrollToIdSelect().setup();
     initializeChangeEconomicEffectsControls().setup();

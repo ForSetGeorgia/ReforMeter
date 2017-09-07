@@ -22,41 +22,7 @@
   </header>
 
   <div class='contentSection-body mod-no-padding'>
-
-    <article class="news">
-      <div class="news-column sidebar">
-        <% if  @news.image.exists? %>
-          <div class="news-poster news-section">
-            <%= image_tag(@news.image.url('poster'), { width: '400px'}) %>
-          </div>
-        <% end %>
-        <% if @news.slideshow? %>
-
-          <ul id="lightgallery" class="news-slideshow news-section">
-            <li data-src="/system/news/2/poster.jpg?1504529274"><img src="/system/news/2/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/3/poster.jpg?1504529274"><img src="/system/news/3/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/4/poster.jpg?1504529274"><img src="/system/news/4/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/5/poster.jpg?1504529274"><img src="/system/news/5/thumbnail.jpg?1504529274" /></li>
-          </ul>
-
-        <% end %>
-
-        <% if @news.embed? %>
-          <div class="news-embed news-section">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Wh_YPQdH1Zg" frameborder="0" allowfullscreen></iframe>
-          </div>
-        <% end %>
-      </div>
-      <div class="news-column content">
-        <% if @news.content.present? %>
-          <div class="news-content news-section">
-            <p><%= simple_format(@news.content) %></p>
-          </div>
-        <% end %>
-        <div class="news-links news-section">
-          <%= link_to(t('shared.actions.reform'), reform_show_path(@news.reform), class: 'btn btn-default') if @news.reform.present? %>
-          <%= link_to(t('shared.actions.source'), @news.url, class: 'btn btn-default') if @news.url.present? %>
-          <a class="link" href="<%= news_path %>">View all News</a>
-        </div>
-      </div>
-    </article>
+    <%= render partial: 'shared/news_block', locals: { news: @news, with_poster: true, with_media: true, with_content: true, with_links: true } %>
   </div>
 </div>
 

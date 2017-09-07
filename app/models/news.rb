@@ -12,7 +12,6 @@
 #  updated_at         :datetime         not null
 #  is_public          :boolean          default(FALSE)
 #  date               :date
-#  media_type         :integer
 #  slug               :string(255)
 #
 
@@ -32,26 +31,21 @@ class News < AddMissingTranslation
 
   #######################
   ## TRANSLATIONS
-  translates :title, :content, :url, :summary, :video_embed, :slug,
+  translates :title, :content, :url, :summary, :slug,
               :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
   ## RELATIONSHIPS
   belongs_to :reform
-
-  #######################
-  ## CONSTANTS
-  MEDIA_TYPES = {video: 1, slideshow: 2}
+  has_many :news_slideshows, dependent: :destroy
+  accepts_nested_attributes_for :news_slideshows, :reject_if => lambda { |x| x[:image].blank? && x[:id].blank?}, allow_destroy: true
 
   #######################
   ## VALIDATIONS
-  # reform_id is optional because without it, it means it is for expert survey
   validates :title, :summary, :date, presence: :true
   validates_format_of :url, :with => URI::regexp(%w(http https)),
     unless: Proc.new { |x| x.url.blank? }
-  validates :media_type, inclusion: { in: MEDIA_TYPES.values },
-    unless: Proc.new { |x| x.media_type.blank? }
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..4.megabytes }
@@ -62,14 +56,6 @@ class News < AddMissingTranslation
   extend FriendlyId
   friendly_id :slug_text, use: [:globalize, :history, :slugged]
 
-
-  def embed?
-    true
-  end
-
-  def slideshow?
-    true
-  end
   # the slug text is the format: title - date
   def slug_text
     "#{self.title} - #{I18n.l(self.date)}"
@@ -91,6 +77,7 @@ class News < AddMissingTranslation
   scope :published, -> { where(is_public: true) }
   scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
   scope :include_reforms, -> {includes :reform}
+  scope :include_slideshows, -> {includes :news_slideshows}
 
   def self.by_reform(reform_id)
     where(reform_id: reform_id)

@@ -20,23 +20,25 @@
     align-items: flex-start;
 
 
-
+    section {
+      margin: 20px 0;
+    }
     .socialLinks {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
-      margin-top: 20px;
+      // margin-top: 20px;
 
       .fb-page {
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
       }
 
       .addthis_sharing_toolbox {
-
+          margin-top: 6px;
           a[role=button] {
             margin-top: 0 !important;
-            margin-bottom: 10px !important;
+            // margin-bottom: 10px !important;
             border-radius: 3px !important;
           }
 
@@ -44,14 +46,17 @@
             height: 27px !important;
             width: 27px !important;
           }
+
+          .at_flat_counter {
+            line-height: 28px !important;
+          }
       }
 
     }
 
     @media (min-width: $footer-social-and-mobile-links-become-horizontal) {
 
-      &, .socialLinks {
-        align-items: center;
+      & {
         flex-direction: row;
       }
 

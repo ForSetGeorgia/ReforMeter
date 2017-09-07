@@ -10,11 +10,13 @@ function initializeChangeNewsControls() {
 
   function filter_news() {
     var selectedFilter = $selector.val();
+    console.log(selectedFilter)
     if(selectedFilter == 'default') {
-      $('.newsList-item').show();
+      $('article.news').show();
     } else {
-      $('.newsList-item').hide();
-      $( '.newsList-item[data-reform="'+selectedFilter+'"').show();
+      $('article.news').hide();
+      console.log('article.news[data-reform="'+selectedFilter+'"]')
+      $('article.news[data-reform="'+selectedFilter+'"]').show();
     }
   }
 

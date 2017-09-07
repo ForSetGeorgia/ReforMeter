@@ -301,34 +301,17 @@
 
     </div>
     <% if @news.present? %>
-
       <div class='homePage-newsSection'>
         <div class='newsSection-header'>
           <h2 class='heading'><%= t('.latest_news') %></h2>
         </div>
-        <div class='newsSection-body'>
+        <div class='newsSection-body news-grid'>
           <% @news.each do |news| %>
-            <section>
-              <div class='newsSection-item'>
-                <div class="newsSection-item-header">
-                  <div class="newsSection-item-header-column">
-                    <%= link_to(news.title, news_show_path(news), class: 'link heading mod-no-transform') %>
-                  </div>
-                  <% if news.date.present?  %>
-                    <div class="newsSection-item-header-column">
-                      <div class="date"><%= I18n.l(news.date) %></div>
-                    </div>
-                  <% end %>
-                </div>
-                <p>
-                  <%= simple_format(news.summary) if news.summary.present? %>
-                </p>
-              </div>
-            </section>
+            <%= render partial: 'shared/news_block', locals: { news: news, with_title: true, with_summary: true } %>
           <% end %>
         </div>
         <div class="newsSection-footer">
-          <a class="link" href="<%= news_path %>">View all News</a>
+          <a class="link" href="<%= news_path %>"><%= t('shared.actions.with_obj.view_all', obj: News.model_name.human) %></a>
         </div>
       </div>
     <% end %>

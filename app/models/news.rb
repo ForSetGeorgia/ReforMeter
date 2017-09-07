@@ -62,6 +62,14 @@ class News < AddMissingTranslation
   extend FriendlyId
   friendly_id :slug_text, use: [:globalize, :history, :slugged]
 
+
+  def embed?
+    true
+  end
+
+  def slideshow?
+    true
+  end
   # the slug text is the format: title - date
   def slug_text
     "#{self.title} - #{I18n.l(self.date)}"

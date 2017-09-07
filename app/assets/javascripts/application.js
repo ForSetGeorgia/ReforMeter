@@ -32,6 +32,8 @@
 
 //= require_tree ./application/
 
+//= require lightgallery.min
+
 ////////////////////////////////////////
 
 //= require turbolinks

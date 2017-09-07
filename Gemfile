@@ -78,6 +78,8 @@ gem 'globalize-accessors', '~> 0.2.1'
 # send variables to javascript
 gem 'gon', '~> 6.0', '>= 6.0.1'
 
+gem 'light_gallery_rails', git: 'https://github.com/stNicolaas/light-gallery-rails.git'
+
 group :development do
   # Silences assets-related logging
   gem 'quiet_assets', '~> 1.0.3'

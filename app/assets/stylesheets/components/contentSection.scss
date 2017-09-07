@@ -88,6 +88,13 @@
     }
   }
 
+.contentSection.mod-no-background {
+  background-color: transparent;
+}
+.contentSection-header.mod-white-background {
+  background-color: white;
+}
+
 .contentSection.mod-overlap-top-image {
   @media (min-width: $width-content-overlap-top-image) {
     margin-top: -1 * $height-content-heading;
@@ -108,6 +115,7 @@
   display: flex;
   flex-direction: column;
 }
+
 
 $triangle-primary-dimension: .45em;
 $triangle-secondary-dimension: $triangle-primary-dimension * 2/3;

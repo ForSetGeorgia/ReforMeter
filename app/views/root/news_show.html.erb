@@ -1,34 +1,62 @@
 <%
   page_title "#{@news.title} (#{I18n.l(@news.date)})"
-  page_description "#{@news.summary} (#{I18n.l(@news.date)})"
+  page_description "#{@news.summary}"
+  @do_not_use_default_page_layout = true
 %>
-
-<%= simple_format(@news.content) if @news.content.present? %>
-
 <% news = @news %>
-<section class="newsList-item" data-reform='<%= news.reform.slug %>'>
-  <% if news.date.present? %>
-    <div class="newsList-item-header-column">
-      <div class="date"><%= I18n.l(news.date) %></div>
+
+
+<div class='contentSection mod-overlap-top-image mod-no-background'>
+
+  <%= bootstrap_flash %>
+  <header class='contentSection-header mod-white-background'>
+
+    <div class='contentSection-header-title'>
+
+      <h1 class='heading'>
+        <%= yield(:page_title) %>
+      </h1>
+
     </div>
-  <% end %>
-  <div class="newsList-item-content">
-    <% if news.image.exists? %>
-      <div class="newsList-item-content-column newsList-item-thumbnail">
-        <%= image_tag(news.image.url('poster'), { width: '200px'}) %>
+
+  </header>
+
+  <div class='contentSection-body mod-no-padding'>
+
+    <article class="news">
+      <div class="news-column sidebar">
+        <% if  @news.image.exists? %>
+          <div class="news-poster news-section">
+            <%= image_tag(@news.image.url('poster'), { width: '400px'}) %>
+          </div>
+        <% end %>
+        <% if @news.slideshow? %>
+
+          <ul id="lightgallery" class="news-slideshow news-section">
+            <li data-src="/system/news/2/poster.jpg?1504529274"><img src="/system/news/2/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/3/poster.jpg?1504529274"><img src="/system/news/3/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/4/poster.jpg?1504529274"><img src="/system/news/4/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/5/poster.jpg?1504529274"><img src="/system/news/5/thumbnail.jpg?1504529274" /></li>
+          </ul>
+
+        <% end %>
+
+        <% if @news.embed? %>
+          <div class="news-embed news-section">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Wh_YPQdH1Zg" frameborder="0" allowfullscreen></iframe>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-    <% if news.content.present? %>
-      <div class="newsList-item-content-column newsList-item-content">
-        <p><%= simple_format(news.content) %></p>
+      <div class="news-column content">
+        <% if @news.content.present? %>
+          <div class="news-content news-section">
+            <p><%= simple_format(@news.content) %></p>
+          </div>
+        <% end %>
+        <div class="news-links news-section">
+          <%= link_to(t('shared.actions.reform'), reform_show_path(@news.reform), class: 'btn btn-default') if @news.reform.present? %>
+          <%= link_to(t('shared.actions.source'), @news.url, class: 'btn btn-default') if @news.url.present? %>
+          <a class="link" href="<%= news_path %>">View all News</a>
+        </div>
       </div>
-    <% end %>
-    <div class="newsSection-footer">
-      <% if news.reform.present? %>
-        <a class="link" href="<%= reform_show_path(news.reform) %>">Reform</a>
-      <% end %>
-      <a class="link" href="<%= news_path %>">Source</a>
-      <a class="link" href="<%= news_path %>">View all News</a>
-    </div>
+    </article>
   </div>
-</section>
+</div>
+

@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/stNicolaas/light-gallery-rails.git
+  revision: 97d892d0b4637ddae264514e2a44372853ff6f83
+  specs:
+    light_gallery_rails (1.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -434,6 +440,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.3)
   launchy (~> 2.4.3)
   less-rails (~> 2.7.0)
+  light_gallery_rails!
   locales_export_import (~> 0.4.2)
   mina (~> 0.3.8)
   mina-multistage (~> 1.0.2)
@@ -466,4 +473,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.6
+   1.15.4

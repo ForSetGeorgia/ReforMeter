@@ -1,37 +1,67 @@
 <%
   page_title @news.title
+  @do_not_use_default_page_layout = true
 %>
 
-<div class='actions-container'>
-  <%= render partial: 'shared/show_actions',
-        locals: {
-          object: @news,
-          index_path: admin_news_index_path,
-          show_path: admin_news_path(@news),
-          edit_path: edit_admin_news_path(@news)
-                }
-  %>
+
+<div class='contentSection mod-overlap-top-image mod-no-background'>
+
+  <%= bootstrap_flash %>
+  <header class='contentSection-header mod-white-background'>
+
+    <div class='contentSection-header-title'>
+
+      <h1 class='heading'>
+        <%= yield(:page_title) %>
+      </h1>
+
+    </div>
+
+  </header>
+
+  <div class='contentSection-body mod-no-padding'>
+    <div class='actions-container'>
+      <%= render partial: 'shared/show_actions',
+            locals: {
+              object: @news,
+              index_path: admin_news_index_path,
+              show_path: admin_news_path(@news),
+              edit_path: edit_admin_news_path(@news)
+                    }
+      %>
+    </div>
+
+    <article class="news">
+      <div class="news-column sidebar">
+        <% if @news.image.exists? %>
+          <div class="news-poster news-section">
+            <%= image_tag(@news.image.url('poster'), { width: '400px'}) %>
+          </div>
+        <% end %>
+        <% if @news.slideshow? %>
+          <ul id="lightgallery" class="news-slideshow news-section">
+            <li data-src="/system/news/2/poster.jpg?1504529274"><img src="/system/news/2/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/3/poster.jpg?1504529274"><img src="/system/news/3/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/4/poster.jpg?1504529274"><img src="/system/news/4/thumbnail.jpg?1504529274" /></li><li data-src="/system/news/5/poster.jpg?1504529274"><img src="/system/news/5/thumbnail.jpg?1504529274" /></li>
+          </ul>
+        <% end %>
+
+        <% if @news.embed? %>
+          <div class="news-embed news-section">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Wh_YPQdH1Zg" frameborder="0" allowfullscreen></iframe>
+          </div>
+        <% end %>
+      </div>
+      <div class="news-column content">
+        <% if @news.content.present? %>
+          <div class="news-content news-section">
+            <p><%= simple_format(@news.content) %></p>
+          </div>
+        <% end %>
+        <div class="news-links news-section">
+          <%= link_to(t('shared.actions.reform'), reform_show_path(@news.reform), class: 'btn btn-default') if @news.reform.present? %>
+          <%= link_to(t('shared.actions.source'), @news.url, class: 'btn btn-default') if @news.url.present? %>
+          <a class="link" href="<%= news_path %>">View all News</a>
+        </div>
+      </div>
+    </article>
+  </div>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%=t 'activerecord.attributes.news.date' %>:</strong></dt>
-  <dd><%= l @news.date if @news.date.present? %></dd>
-  <dt><strong><%=t 'activerecord.attributes.news.title' %>:</strong></dt>
-  <dd><%= @news.title %></dd>
-  <dt><strong><%=t 'activerecord.attributes.news.is_public' %>:</strong></dt>
-  <dd><%= format_boolean_flag(@news.is_public) %></dd>
-
-
-  <dt><strong><%=t 'activerecord.attributes.news.summary' %>:</strong></dt>
-  <dd><%= simple_format_no_tags(@news.summary) %></dd>
-  <dt><strong><%=t 'activerecord.attributes.news.content' %>:</strong></dt>
-  <dd><%= simple_format_no_tags(@news.content) %></dd>
-  <dt><strong><%=t 'activerecord.attributes.news.url' %>:</strong></dt>
-  <dd><%= link_to @news.url, @news.url if @news.url.present? %></dd>
-  <dt><strong><%=t 'activerecord.attributes.news.image' %>:</strong></dt>
-  <dd><%= image_tag @news.image.url('poster') if @news.image.exists? %></dd>
-
-  <dt><strong><%=t 'activerecord.attributes.news.reform_id' %>:</strong></dt>
-  <dd><%= @news.reform.name if @news.reform_id.present? %></dd>
-
-</dl>

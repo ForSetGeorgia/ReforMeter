@@ -20,6 +20,7 @@ ka:
       view: ნახვა
       source: Source
       reform: რეფორმა
+      reform_with_name: "რეფორმა: %{name}"
       with_obj:
         cancel: "%{obj}-ის გაუქმება"
         create: "%{obj}-ის შექმნა"

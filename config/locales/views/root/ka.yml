@@ -77,6 +77,7 @@ ka:
         title: რეფორმვერდიქტის %{time}
       title: "რეფორმვერდიქტი: %{title}"
     news:
-      title: News
+      title: ReforMeter News
       no_data: Sorry, but at this time there is no news on record.
+      filter_reform: გაფილტრე რეფორმა
     news_show:

@@ -47,7 +47,7 @@ page_title t('.title')
 
     <% if @news.present? %>
       <% @news.each do |news| %>
-        <%= render partial: 'shared/news_block', locals: { news: news, with_poster: true, with_reform_id: true, with_title: true, with_summary: true } %>
+        <%= render partial: 'shared/news_block', locals: { news: news, with_poster: true, with_reform_id: news.reform.present?, with_title: true, with_summary: true } %>
       <% end %>
     <% else %>
       <p class="alert alert-warning">

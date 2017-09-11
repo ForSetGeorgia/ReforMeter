@@ -20,6 +20,7 @@ en:
       view: View
       source: Source
       reform: Reform
+      reform_with_name: "Reform: %{name}"
       with_obj:
         cancel: Cancel %{obj}
         create: Create %{obj}

@@ -58,10 +58,11 @@
     <% end %>
     <% if with_links %>
       <div class="news-links news-section">
-        <%= link_to(t('shared.actions.reform'), reform_show_path(news.reform), class: 'link') if news.reform.present? %>
+        <%= link_to(t('shared.actions.reform_with_name', name: news.reform.name), reform_show_path(news.reform), class: 'link') if news.reform.present? %>
         <% if news.reform.present? && news.url.present? %><span>&nbsp;|&nbsp;</span><% end %>
         <%= link_to(t('shared.actions.source'), news.url, class: 'link') if news.url.present? %>
-        <a class="link float-right" href="<%= news_path %>"><%= t('shared.actions.with_obj.view_all', obj: News.model_name.human) %></a>
+        <a class="link float-right" href="<%= news_path %>"><%= t('shared.actions.with_obj.view_all',
+            obj: t("activerecord.models.news", count: 999)) %></a>
       </div>
     <% end %>
   </div>

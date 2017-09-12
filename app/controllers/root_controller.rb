@@ -421,7 +421,7 @@ class RootController < ApplicationController
     begin
       @news = News.published.include_reforms.include_slideshows.friendly.find(params[:id])
       # @news = News.published.friendly.find(params[:id])
-      @share_image_paths = [@news.image.url('poster')]
+      @share_image_paths = [@news.image.url('share')]
 
       if @news.nil?
         redirect_to news_path,

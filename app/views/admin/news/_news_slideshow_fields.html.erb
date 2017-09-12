@@ -11,7 +11,7 @@
 
     <div class="file input optional form-group">
       <% if object.present? && object.image.exists? %>
-        <%= image_tag(object.image.url('90x50')) %>
+        <%= image_tag(object.image.url('thumbnail')) %>
       <% end %>
       <span class="form-wrapper">
         <%= f.file_field(:image, accept: '.jpg,.jpeg,.png') %>

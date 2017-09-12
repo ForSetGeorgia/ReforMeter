@@ -21,8 +21,9 @@ class News < AddMissingTranslation
   has_attached_file :image,
                     :url => "/system/news/:id/:style.:extension",
                     :styles => {
-                        :'poster' => {:geometry => "360x200#"},
-                        :'thumbnail' => {:geometry => "90x50#"}
+                      :'poster' => {:geometry => "1280x800#"},
+                      :'share' => {:geometry => "1200x628#"},
+                      :'thumbnail' => {:geometry => "390x293#"}
                     },
                     :convert_options => {
                       :'poster' => '-quality 85',

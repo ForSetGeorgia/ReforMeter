@@ -38,6 +38,7 @@ article.news {
     img {
       display: inline-block;
       margin: 0 6px 6px 0;
+      cursor: pointer;
     }
     background-color: white;
   }
@@ -69,9 +70,20 @@ article.news {
   }
   .news-links {
     // border-top: 3px solid #f3f3f4;
-    padding: 20px;
-    .float-right {
-      float: right;
+    display: flex;
+    flex-direction: row;
+    // flex-wrap: wrap;
+    padding: 20px 30px;
+    span {
+      padding: 0 10px;
+    }
+    a {
+      flex: 1;
+      &.news-link-all {
+        text-align: right;
+        white-space: nowrap;
+        padding-left: 30px;
+      }
     }
   }
 }

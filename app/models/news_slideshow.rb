@@ -4,8 +4,8 @@ class NewsSlideshow < ActiveRecord::Base
   has_attached_file :image,
                     :url => "/system/news_slideshow/:id/:style.:extension",
                     :styles => {
-                        :'poster' => {:geometry => "360x200>"},
-                        :'thumbnail' => {:geometry => "90x50>"}
+                      :'poster' => {:geometry => "1280x800#"},
+                      :'thumbnail' => {:geometry => "100x75#"}
                     },
                     :convert_options => {
                       :'poster' => '-quality 85',

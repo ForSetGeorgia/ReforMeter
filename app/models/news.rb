@@ -23,11 +23,14 @@ class News < AddMissingTranslation
                     :styles => {
                       :'poster' => {:geometry => "1280x800#"},
                       :'share' => {:geometry => "1200x628#"},
-                      :'thumbnail' => {:geometry => "390x293#"}
+                      :'thumbnail' => {:geometry => "390x293#"},
+                      :'reform' => {:geometry => "360x200#"}
                     },
                     :convert_options => {
                       :'poster' => '-quality 85',
-                      :'thumbnail' => '-quality 85'
+                      :'share' => '-quality 85',
+                      :'thumbnail' => '-quality 85',
+                      :'reform' => '-quality 85'
                     }
 
   #######################

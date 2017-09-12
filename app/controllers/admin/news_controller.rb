@@ -22,6 +22,7 @@ class Admin::NewsController < ApplicationController
 
   # GET /admin/news/1/edit
   def edit
+    set_date
   end
 
   # POST /admin/news
@@ -34,6 +35,7 @@ class Admin::NewsController < ApplicationController
         format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_created',
                             obj: t('activerecord.models.news', count: 1)) }
       else
+        set_date
         format.html { render :new }
       end
     end
@@ -47,6 +49,7 @@ class Admin::NewsController < ApplicationController
         format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_updated',
                             obj: t('activerecord.models.news', count: 1)) }
       else
+        set_date
         format.html { render :edit }
       end
     end
@@ -80,6 +83,11 @@ class Admin::NewsController < ApplicationController
 
       @reforms = Reform.active.sorted
 
+    end
+
+    # set the date for the datepicker
+    def set_date
+      gon.date = @news.date.strftime('%m/%d/%Y %H:%M') if !@news.date.nil?
     end
 
 end

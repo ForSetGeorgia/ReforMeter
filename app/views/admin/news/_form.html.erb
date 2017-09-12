@@ -3,7 +3,7 @@
   <%= f.semantic_errors *f.object.errors.keys %>
   <%= f.inputs do %>
 
-    <%= f.input :date, as: :string %>
+    <%= f.input :date, as: :string, :input_html => { style: 'width: 10em;'  } %>
 
     <%= render layout: 'shared/form/translated_inputs',
                locals: { object: object } do |enabled_locale, enabled_locale_name| %>
@@ -100,7 +100,26 @@
 
     <hr />
 
-    <%= f.input :reform_id, as: :radio, collection: @reforms %>
+    <div class="radio_buttons input optional form-group" id="news_reform_id_input">
+      <span class="form-label">
+        <label class=" control-label"><%= t('activerecord.attributes.news.reform_id') %></label>
+      </span>
+      <span class="form-wrapper">
+        <% @reforms.each do |reform| %>
+          <div class="radio">
+            <label for="news_reform_id_<%= reform.id %>" class="choice">
+              <% checked = @news.reform_id == reform.id ? "checked='checked'" : "" %>
+              <input id="news_reform_id_<%= reform.id %>" value="<%= reform.id %>" name="news[reform_id]" type="radio" <%= checked %>>
+              <%= reform.name %>
+            </label>
+          </div>
+        <% end %>
+        <div class="radio">
+          <%= link_to t('.reset_reform'), '#',
+              class: 'btn btn-warning btn-sm btn-reset-reform' %>
+        </div>
+      </span>
+    </div>
 
     <%= f.input :is_public, as: :radio %>
 

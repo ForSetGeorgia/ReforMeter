@@ -24,6 +24,7 @@ function initializeChangeNewsControls() {
 
   exports.setup = function() {
     $selector.change(filter_news);
+    $("#lightgallery").lightGallery();
   }
 
   return exports;

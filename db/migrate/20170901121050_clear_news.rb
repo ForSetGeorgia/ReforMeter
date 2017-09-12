@@ -1,5 +1,5 @@
 class ClearNews < ActiveRecord::Migration
   def change
-    News.destroy_all
+    News.delete_all
   end
 end

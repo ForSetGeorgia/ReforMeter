@@ -69,3 +69,29 @@ function setupNewsVideoEmbed(){
     }
   });
 }
+
+function setupNewsDatePicker() {
+  if($('input#news_date').length > 0){
+    // load the date pickers
+    $('#news_date').datepicker({
+        dateFormat: 'yy-mm-dd',
+    });
+
+    if (gon.date !== undefined &&
+        gon.date.length > 0)
+    {
+      $("#news_date").datepicker("setDate", new Date(gon.report_date));
+    }
+  }
+
+}
+
+function setupNewsResetReform() {
+  $('.btn-reset-reform').on('click', function(){
+    $('input[name="news[reform_id]"]').each(function(){
+      $(this).attr('checked',false);
+    });
+    return false;
+  });
+}
+

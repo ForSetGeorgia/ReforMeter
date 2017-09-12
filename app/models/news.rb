@@ -27,6 +27,7 @@ class News < AddMissingTranslation
                     },
                     :convert_options => {
                       :'poster' => '-quality 85',
+                      :'share' => '-quality 85',
                       :'thumbnail' => '-quality 85'
                     }
 

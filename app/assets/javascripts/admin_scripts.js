@@ -32,7 +32,9 @@
     setupReformSurveyDatePicker();
     setupNewsCocoon();
     setupNewsMove();
-    setupNewsVideoEmbed()
+    setupNewsVideoEmbed();
+    setupNewsDatePicker();
+    setupNewsResetReform();
   });
 
   $(document).on('page:change', function() {

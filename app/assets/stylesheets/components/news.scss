@@ -1,15 +1,21 @@
 article.news {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  @media (min-width: $width-show-navigation) {
+    flex-direction: row;
+  }
   .heading {
     font-weight: 600;
     color: #000;
     margin: 0;
   }
   .news-column.sidebar {
-    max-width: 400px;
     border-right: 3px solid #f3f3f4;
-
+    order: 1;
+    @media (min-width: $width-show-navigation) {
+      max-width: 400px;
+      order: 0;
+    }
   }
   .news-column.content {
     flex: 1;
@@ -26,6 +32,7 @@ article.news {
       display: inline-block;
       box-sizing: border-box;
       padding: 20px;
+      max-width: 100%;
     }
   }
   .news-slideshow {
@@ -71,18 +78,34 @@ article.news {
   .news-links {
     // border-top: 3px solid #f3f3f4;
     display: flex;
-    flex-direction: row;
-    // flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-between;
     padding: 20px 30px;
-    span {
-      padding: 0 10px;
+    @media (min-width: $width-show-navigation) {
+      flex-direction: row;
     }
     a {
       flex: 1;
+      padding-bottom: 20px;
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+      @media (min-width: $width-show-navigation) {
+        padding-bottom: 0;
+      }
+      &.news-link-source {
+        @media (min-width: $width-show-navigation) {
+          text-align: center;
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
       &.news-link-all {
-        text-align: right;
         white-space: nowrap;
-        padding-left: 30px;
+        @media (min-width: $width-show-navigation) {
+          text-align: right;
+        }
+
       }
     }
   }
@@ -113,14 +136,19 @@ article.news {
 
 .news-grid {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  @media (min-width: $width-show-navigation) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
   article {
-    width: 50%;
     flex: 1 0 auto;
     // margin: 0 0 3px;
     background-color: white;
     box-sizing: border-box;
+    @media (min-width: $width-show-navigation) {
+      width: 50%;
+    }
     &:nth-child(odd) {
       border-right: 3px solid #f3f3f4;
     }

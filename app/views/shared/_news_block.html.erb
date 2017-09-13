@@ -51,12 +51,12 @@
     <% end %>
     <% if with_summary && news.summary.present? %>
       <div class="news-summary">
-        <p><%= simple_format(news.summary) %></p>
+        <%= simple_format(news.summary) %>
       </div>
     <% end %>
     <% if with_content && news.content.present? %>
       <div class="news-content news-section">
-        <p><%= simple_format(news.content) %></p>
+        <%= simple_format(news.content) %>
       </div>
     <% end %>
     <% if with_links %>

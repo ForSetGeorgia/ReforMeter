@@ -20,7 +20,7 @@ article.news {
   .news-column.content {
     flex: 1;
     height: 100%;
-    p { margin: 0; }
+    /*p { margin: 0; }*/
   }
   .news-section {
     border-bottom: 3px solid #f3f3f4;
@@ -60,10 +60,10 @@ article.news {
     font-size: 1.5rem;
     color:#66666d;
     padding: 20px;
-    p {
+/*    p {
       margin: 0;
     }
-  }
+*/  }
   .news-title {
     padding: 15px $padding-main-content;
     border-bottom: 3px solid #f3f3f4;

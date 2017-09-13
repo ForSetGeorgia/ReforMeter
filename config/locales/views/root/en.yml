@@ -77,7 +77,7 @@ en:
         title: ReformVerdict for %{time}
       title: "ReformVerdict: %{title}"
     news:
-      title: ReforMeter News
+      title: News
       no_data: Sorry, but at this time there is no news on record.
       filter_reform: Filter By Reform
     news_show:

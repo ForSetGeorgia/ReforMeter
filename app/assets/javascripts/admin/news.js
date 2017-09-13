@@ -80,7 +80,7 @@ function setupNewsDatePicker() {
     if (gon.date !== undefined &&
         gon.date.length > 0)
     {
-      $("#news_date").datepicker("setDate", new Date(gon.report_date));
+      $("#news_date").datepicker("setDate", new Date(gon.date));
     }
   }
 

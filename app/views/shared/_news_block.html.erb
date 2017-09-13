@@ -16,10 +16,10 @@
         <div class="news-poster news-section">
           <% if !with_media # it means news show page is used %>
             <%= link_to news_show_path(news) do %>
-              <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.jpg') %>
+              <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.png') %>
             <% end %>
           <% else %>
-            <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.jpg') %>
+            <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.png') %>
           <% end %>
         </div>
       <% end %>

@@ -53,25 +53,6 @@
                 value: object.sort_order.present? ? object.sort_order : '1'
               } %>
 
-  <div class="js-optional js-optional-overall-title">
-
-    <hr />
-
-    <h3><%= t('activerecord.attributes.external_indicator.overall_title') %></h3>
-
-    <p><%= t('.overall_title_explanation') %></p>
-
-    <%= render layout: 'shared/form/translated_inputs',
-               locals: { object: object, id_suffix: '-overall-title' } do |enabled_locale, enabled_locale_name| %>
-      <%= f.input "overall_title_#{enabled_locale}",
-                  as: :string,
-                  label: t('shared.labels.translated_field',
-                         field: t('activerecord.attributes.external_indicator.overall_title'),
-                         language: enabled_locale_name) %>
-    <% end %>
-
-  </div>
-
   <div class="js-optional js-optional-countries">
 
     <hr />

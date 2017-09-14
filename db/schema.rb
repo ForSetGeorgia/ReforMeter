@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170906074605) do
+ActiveRecord::Schema.define(version: 20170914060625) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20170906074605) do
     t.text     "description",           limit: 65535
     t.text     "data",                  limit: 65535
     t.string   "benchmark_title",       limit: 255
+    t.string   "overall_title",         limit: 255
   end
 
   add_index "external_indicator_translations", ["external_indicator_id"], name: "index_external_indicator_translations_on_external_indicator_id", using: :btree

@@ -22,6 +22,7 @@ en:
         plot_band_explanation: A Plot Band is a group of labels that appear on the y-axis to help give context to the values (i.e., behind, on track, ahead). Plot bands are optional. If you want plot bands, enter the text and the range of the band.
         range_explanation: Use the Min and Max fields to force the chart to show a specific range on the y-axis. You can enter Min and/or Max. If a range is not inputted, then the chart will automatically adjust the y-axis range to fit the data.
         reform_explanation: Select which Reforms you want this external indicator to be associated with. You can select more than one.
+        overall_title_explanation: Use the section below to enter the label for the data that will appear in the legend of the chart. If no text is provided, 'Overall' will be used. This text only appears if a benchmark is being used.
       show:
         title: 'External Indicator: %{name}'
     index:

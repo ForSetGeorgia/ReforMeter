@@ -23,6 +23,7 @@ en:
         use_decimals: Show Decimals in Value?
         has_benchmark: Has Benchmark?
         benchmark_title: Benchmark Name
+        overall_title: Chart Legend Label
     models:
       external_indicator:
         one: External Indicator

@@ -13,6 +13,7 @@
 #  is_public          :boolean          default(FALSE)
 #  date               :date
 #  slug               :string(255)
+#  video_embed        :text(65535)
 #
 
 class News < AddMissingTranslation

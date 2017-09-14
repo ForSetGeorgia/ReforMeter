@@ -42,12 +42,15 @@ function moveRowInOtherTables(current_tab_pane, original_index, move_direction){
     // 2 = country
     // 3 = composite
     if (val == '2'){
+      setTabDisplay('overall-title', 'none');
       setTabDisplay('countries', 'block');
       setTabDisplay('indices', 'none');
     }else if (val == '3'){
+      setTabDisplay('overall-title', 'none');
       setTabDisplay('countries', 'none');
       setTabDisplay('indices', 'block');
     }else {
+      setTabDisplay('overall-title', 'block');
       setTabDisplay('countries', 'none');
       setTabDisplay('indices', 'none');
     }

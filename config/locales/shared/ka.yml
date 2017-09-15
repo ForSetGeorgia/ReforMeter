@@ -18,7 +18,7 @@ ka:
       publish: გამოქვეყნება
       unpublish: გამოქვეყნების გაუქმება
       view: ნახვა
-      source: Source
+      source: წყარო
       reform: რეფორმა
       reform_with_name: "რეფორმა: %{name}"
       with_obj:
@@ -129,8 +129,8 @@ ka:
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
       news: სიახლეები
-      download: Download
-      newsletters: Newsletter Emails
+      download: ჩამოტვირთვა
+      newsletters: ნიუსლეთერის მეილები
     locale:
       long:
         en: English
@@ -147,10 +147,10 @@ ka:
       success_unpublished: "%{obj}-ს წარმატებით გაუქმდა გამოქვეყნება."
       success_updated: "%{obj} წარმატებით განახლდა."
       newsletter:
-        success: Thank you!
-        failure: An error occurred. Please try again.
-        upsss: 'Something went wrong, try later.'
-        enter_valid_email: 'Please enter a valid email address.'
+        success: მადლობა!
+        failure: დაფქისირდა შეცდომა. სცადეთ მოგვიანებით.
+        upsss: 'შეცდომაა, სცადეთ მოგვიანებით.'
+        enter_valid_email: 'გთხოვთ შეიყვანოთ მოქმედი მეილი.'
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?

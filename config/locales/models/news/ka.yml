@@ -4,14 +4,14 @@ ka:
     attributes:
       news:
         content: შიგთავსი
-        image: Thumbnail
+        image: გამოსახულებაl
         reform_id: რეფორმა
         title: სათაური
-        url: URL to External Story
-        summary: Summary
-        is_public: Is Public?
+        url: გარე ამბის ბმული
+        summary: შეჯამება
+        is_public: საჯაროა?
         date: Date
-        video_embed: Embeded Video
+        video_embed: ემბედიდ ვიდეო
     models:
       news:
         one: სიუჟეტი

@@ -22,7 +22,7 @@ ka:
         plot_band_explanation: "Plot Bland არის იარლიყების ჯგუფი, რომელიც გამოჩნდება Y - ღერძზე იმისათვის, რომ ღირებულებებს კონტექტსი მიანიჭოს ( მაგ: უკან,  ზოლზე, წინ) Plot Band არ არის აუცილებელი. თუ გინდა  plot bands შეიყვანეთ ტექსტი  და ზღვარი."
         range_explanation: გამოიყენეთ მინიმუმ და მაქსიმუმ ველები რომ ნახოთ გრაფიკის არე  Y- ღერძზე თქვენ შეგიძ₾იატ შეიყვანოთ მინიმუმი ან/და მაქსიმუმი. თუ არე არ არის შევსებული, გრაფიკი ავტომატურად შეცვლის Y ღერძის არე რომ რომ მონაცემები შეუწყოს.
         reform_explanation: მონიშნეთ რომელ რეფორმასთან გინდათ გარე ინდიკატორის დაკავშირება. შეგიძლიათ მონიშნოთ ერთზე მეტი.
-        overall_title_explanation: Use the section below to enter the label for the data that will appear in the legend of the chart. If no text is provided, 'Overall' will be used. This text only appears if a benchmark is being used.
+        overall_title_explanation: გამოიყენეთ ქვემოთ მოცემული ლეიბლი იმისათვის რომ შეიყვანოთ მონაცემები, რომლებიც გრაფიკის ლეგენდაში გამოჩნდება. თუ ტექსტს არ დაამატებთ „ჯამი“ იქნება გამოყენებული. ტექსტი მხოლოდ იმ შემთხვევაში გამოჩნდება თუ მონიშვნას გამოიყენებთ.
       show:
         title: 'გარე ინდიკატორი: %{name}'
     index:
@@ -35,8 +35,8 @@ ka:
         users: იმის მართვა, თუ ვის აქვს გვერდზე მონაცემთა რედაქტირების უფლება.
         reports: ატვირთე რეპორტი რომ შეაჯამო რა მოხდა დროის ამ პერიოდში.
         verdicts: მართე ისეთი მონაცემები, დროის ამ პერიოდისთვის, როგროიცაა საერთო ქულა, და რეფორმის კვლევა.
-        news: Manage the news.
-        newsletters: Manage the email addresses for the newsletter.
+        news: მართე სიახლეები.
+        newsletters: მართე მეილები ნიუსლეთერისთვის.
       title: ადმინის სექცია
     verdicts:
       index:
@@ -62,6 +62,6 @@ ka:
         view_ka: "იხილეთ ქართული"
     news:
       form:
-        media_heading: Multimedia
-        video_help: "Copy past the embed code for a video"
-        reset_reform: Clear Reform Selection
+        media_heading: მულტიმედია
+        video_help: " დააკოპირე და ჩასვი ვიდეოს მებედიდ კოდი"
+        reset_reform: გაასუფთავე რეფორმების სექცია

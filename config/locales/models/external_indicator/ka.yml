@@ -23,7 +23,7 @@ ka:
         use_decimals: ვაჩვენოთ ათწილადები?
         has_benchmark: აქვს ორიენტირები?
         benchmark_title: ორიენტირის სახელები
-        overall_title: Chart Legend Label
+        overall_title: გრაფიკი ლეგენდა ლეიბლი
     models:
       external_indicator:
         one: გარე ინდიკატორი

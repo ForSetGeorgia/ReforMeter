@@ -3,9 +3,9 @@ ka:
   activerecord:
     attributes:
       newsletter:
-        email: Email
-        created_at: Date Added
+        email: მეილი
+        created_at: დამატების თარიღი
     models:
       newsletter:
-        one: Newsletter Email
-        other: Newsletter Emails
+        one: ნიუსლეთერის მეილი
+        other: ნიუსლეთერის მეილები

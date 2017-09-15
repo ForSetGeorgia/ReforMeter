@@ -3,9 +3,9 @@ ka:
   activerecord:
     attributes:
       news_slideshow:
-        image: Image
+        image: ფოტო
         sort_order: დალაგების მიმდევრობა
     models:
       news_slideshow:
-        one: Slideshow
-        other: Slideshows
+        one: სლაიდშოუ
+        other: სლაიდშოუები

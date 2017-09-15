@@ -39,7 +39,7 @@ ka:
       reform_status: რეფორმების მდგომარეობა
       reforms_link: ყველა რეფორმის ნახვა
       subheading: ეკონომიკური რეფორმების შეფასება
-      latest_news: The Latest News
+      latest_news: ყველაზე ახალი ამბავი
     reform_show:
       gauge_group:
         government:
@@ -78,5 +78,5 @@ ka:
       title: "რეფორმვერდიქტი: %{title}"
     news:
       title: სიახლეები
-      no_data: Sorry, but at this time there is no news on record.
+      no_data: ბოდიშ, ამ დროისთვის სიახლე არ არის.
       filter_reform: გაფილტრე რეფორმა

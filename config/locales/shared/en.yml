@@ -21,6 +21,7 @@ en:
       source: Source
       reform: Reform
       reform_with_name: "Reform: %{name}"
+      view_all_news: View All News
       with_obj:
         cancel: Cancel %{obj}
         create: Create %{obj}

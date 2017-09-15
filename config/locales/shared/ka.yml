@@ -21,6 +21,7 @@ ka:
       source: წყარო
       reform: რეფორმა
       reform_with_name: "რეფორმა: %{name}"
+      view_all_news: ყველა სიახლის ნახვა
       with_obj:
         cancel: "%{obj}-ის გაუქმება"
         create: "%{obj}-ის შექმნა"

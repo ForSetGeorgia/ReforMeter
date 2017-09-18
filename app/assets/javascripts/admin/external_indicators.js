@@ -42,12 +42,15 @@ function moveRowInOtherTables(current_tab_pane, original_index, move_direction){
     // 2 = country
     // 3 = composite
     if (val == '2'){
+      setTabDisplay('overall-title', 'none');
       setTabDisplay('countries', 'block');
       setTabDisplay('indices', 'none');
     }else if (val == '3'){
+      setTabDisplay('overall-title', 'none');
       setTabDisplay('countries', 'none');
       setTabDisplay('indices', 'block');
     }else {
+      setTabDisplay('overall-title', 'block');
       setTabDisplay('countries', 'none');
       setTabDisplay('indices', 'none');
     }
@@ -306,7 +309,7 @@ function setupExternalIndicatorCocoon(){
 // move table rows up and down to change order
 function setupExternalIndicatorMove(){
 
-  $('tr.nested-fields a.move-up').on('click', function(){
+  $('table').on('click', 'tr.nested-fields a.move-up', function(){
     var $row = $(this).closest('tr');
 
     // cannot use jquery next for cocoon puts hidden fields in between
@@ -327,7 +330,7 @@ function setupExternalIndicatorMove(){
     return false;
   });
 
-  $('tr.nested-fields a.move-down').on('click', function(){
+  $('table').on('click', 'tr.nested-fields a.move-down', function(){
     var $row = $(this).closest('tr');
 
     // cannot use jquery next for cocoon puts hidden fields in between

@@ -1,0 +1,60 @@
+<%
+page_title t('.title')
+@do_not_use_default_page_layout = true
+%>
+
+<div class='contentSection mod-overlap-top-image'>
+
+  <%= bootstrap_flash %>
+  <header class='contentSection-header'>
+
+    <div class='contentSection-header-title'>
+
+      <h1 class='heading'>
+        <%= yield(:page_title) %>
+      </h1>
+
+    </div>
+
+    <div class='selections'>
+
+      <div class='contentSection-header-controls'>
+        <div class='headerControlsRow'>
+          <span class='headerControlsRow-item'>
+
+            <label class='labeledSelect-label' for='filter-reform'>
+              <%= t('.filter_reform') %>:
+            </label>
+
+            <select id='filter-reform' class='js-become-select2 js-filter-news-by-reform'>
+              <option value='default' class='default'><%= t('shared.common.all') %></option>
+
+            <% @reforms.each do |reform| %>
+              <option value="<%= reform.slug %>"><%= reform.name %></option>
+            <% end %>
+
+            </select>
+
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <div class='contentSection-body mod-no-padding news-list'>
+
+    <% if @news.present? %>
+      <% @news.each do |news| %>
+        <%= render partial: 'shared/news_block', locals: { news: news, with_poster: true, with_reform_id: news.reform.present?, with_title: true, with_summary: true } %>
+      <% end %>
+    <% else %>
+      <p class="alert alert-warning">
+        <%= t('.no_data') %>
+      </p>
+    <% end %>
+
+  </div>
+
+</div>

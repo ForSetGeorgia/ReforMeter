@@ -22,6 +22,7 @@ en:
         plot_band_explanation: A Plot Band is a group of labels that appear on the y-axis to help give context to the values (i.e., behind, on track, ahead). Plot bands are optional. If you want plot bands, enter the text and the range of the band.
         range_explanation: Use the Min and Max fields to force the chart to show a specific range on the y-axis. You can enter Min and/or Max. If a range is not inputted, then the chart will automatically adjust the y-axis range to fit the data.
         reform_explanation: Select which Reforms you want this external indicator to be associated with. You can select more than one.
+        overall_title_explanation: Use the section below to enter the label for the data that will appear in the legend of the chart. If no text is provided, 'Overall' will be used. This text only appears if a benchmark is being used.
       show:
         title: 'External Indicator: %{name}'
     index:
@@ -29,12 +30,13 @@ en:
         experts: Manage the member data like name, bio, and image.
         external_indicators: Manage the external indciator settings and data.
         page_contents: Manage content that appears on pages like about text, methodologies, etc.
-        quarters: Manage the data for quarters like quarterly report, review board survey, reform surveys, and news.
         reform_colors: Manage the list of colors that reforms can be.
         reforms: Manage reform data like name, summary, methodology, color, and show on homepage.
         users: Manage who has access to edit the data on the site.
         reports: Upload reports the summarize what has happened during a time period.
-        verdicts: Manage the data for a time period like overall score, reform surveys, and news.
+        verdicts: Manage the data for a time period like overall score, and reform surveys.
+        news: Manage the news.
+        newsletters: Manage the email addresses for the newsletter.
       title: Admin Section
     verdicts:
       index:
@@ -58,3 +60,8 @@ en:
       index:
         view_en: "View English"
         view_ka: "View Georgian"
+    news:
+      form:
+        media_heading: Multimedia
+        video_help: "Copy past the embed code for a video"
+        reset_reform: Clear Reform Selection

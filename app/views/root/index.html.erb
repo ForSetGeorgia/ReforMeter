@@ -109,7 +109,6 @@
       </div>
 
     </nav>
-
     <div class='homePage-reformsIndicatorsContainer'>
 
       <div class='homePage-reformsIndicatorsContainer-reforms'>
@@ -301,8 +300,24 @@
       </section>
 
     </div>
+    <% if @news.present? %>
+      <div class='homePage-newsSection'>
+        <div class='newsSection-header'>
+          <h2 class='heading'><%= t('.latest_news') %></h2>
+        </div>
+        <div class='newsSection-body news-grid'>
+          <% @news.each do |news| %>
+            <%= render partial: 'shared/news_block', locals: { news: news, with_title: true, with_summary: true } %>
+          <% end %>
+        </div>
+        <div class="newsSection-footer">
+          <a class="link" href="<%= news_path %>"><%= t('shared.actions.view_all_news') %></a>
+        </div>
+      </div>
+    <% end %>
 
   </main>
 
 <% end %>
+
 </div>

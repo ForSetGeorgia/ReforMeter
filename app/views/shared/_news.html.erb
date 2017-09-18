@@ -10,11 +10,10 @@
 
       <% if news.image.exists? %>
 
-        <%= link_to news.url,
-                    target: :blank do %>
+        <%= link_to news_show_path(news) do %>
 
           <%= image_tag(
-                news.image.url('360x200'),
+                news.image.url('thumbnail'),
                 class: 'responsiveImage') %>
 
         <% end %>
@@ -26,8 +25,7 @@
         <h3 class='heading'>
 
           <%= link_to news.title,
-                      news.url,
-                      target: :blank,
+                      news_show_path(news),
                       class: 'link mod-no-decoration' %>
 
         </h3>
@@ -36,7 +34,9 @@
 
       <div class='contentSection-body<%= ' mod-no-top-border' if news.image.exists? %>'>
 
-        <%= simple_format(news.content) %>
+        <%= simple_format("<em>#{I18n.l(news.date)}</em>") if news.date.present? %>
+
+        <%= simple_format(news.summary) %>
 
       </div>
 

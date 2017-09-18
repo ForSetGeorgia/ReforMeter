@@ -30,6 +30,11 @@
     setupReportDatePicker();
     setupVerdictDatePicker();
     setupReformSurveyDatePicker();
+    setupNewsCocoon();
+    setupNewsMove();
+    setupNewsVideoEmbed();
+    setupNewsDatePicker();
+    setupNewsResetReform();
   });
 
   $(document).on('page:change', function() {

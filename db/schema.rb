@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419105454) do
+ActiveRecord::Schema.define(version: 20170914060625) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20170419105454) do
     t.text     "description",           limit: 65535
     t.text     "data",                  limit: 65535
     t.string   "benchmark_title",       limit: 255
+    t.string   "overall_title",         limit: 255
   end
 
   add_index "external_indicator_translations", ["external_indicator_id"], name: "index_external_indicator_translations_on_external_indicator_id", using: :btree
@@ -237,21 +238,36 @@ ActiveRecord::Schema.define(version: 20170419105454) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "news", force: :cascade do |t|
-    t.integer  "quarter_id",         limit: 4
     t.integer  "reform_id",          limit: 4
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "reform_survey_id",   limit: 4
-    t.integer  "verdict_id",         limit: 4
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.boolean  "is_public",                        default: false
+    t.date     "date"
+    t.string   "slug",               limit: 255
+    t.text     "video_embed",        limit: 65535
   end
 
-  add_index "news", ["quarter_id", "reform_id"], name: "index_news_on_quarter_id_and_reform_id", using: :btree
-  add_index "news", ["reform_survey_id"], name: "index_news_on_reform_survey_id", using: :btree
-  add_index "news", ["verdict_id"], name: "index_news_on_verdict_id", using: :btree
+  add_index "news", ["date"], name: "index_news_on_date", using: :btree
+  add_index "news", ["is_public"], name: "index_news_on_is_public", using: :btree
+  add_index "news", ["slug"], name: "index_news_on_slug", unique: true, using: :btree
+
+  create_table "news_slideshows", force: :cascade do |t|
+    t.integer  "news_id",            limit: 4
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.integer  "sort_order",         limit: 1,   default: 1
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "news_slideshows", ["news_id"], name: "index_news_slideshows_on_news_id", using: :btree
+  add_index "news_slideshows", ["sort_order"], name: "index_news_slideshows_on_sort_order", using: :btree
 
   create_table "news_translations", force: :cascade do |t|
     t.integer  "news_id",    limit: 4,     null: false
@@ -261,11 +277,20 @@ ActiveRecord::Schema.define(version: 20170419105454) do
     t.string   "title",      limit: 255
     t.text     "content",    limit: 65535
     t.string   "url",        limit: 255
+    t.text     "summary",    limit: 65535
+    t.string   "slug",       limit: 255
   end
 
   add_index "news_translations", ["locale"], name: "index_news_translations_on_locale", using: :btree
   add_index "news_translations", ["news_id"], name: "index_news_translations_on_news_id", using: :btree
+  add_index "news_translations", ["slug"], name: "index_news_translations_on_slug", using: :btree
   add_index "news_translations", ["title"], name: "index_news_translations_on_title", using: :btree
+
+  create_table "newsletters", force: :cascade do |t|
+    t.string   "email",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "page_content_translations", force: :cascade do |t|
     t.integer  "page_content_id", limit: 4,     null: false
@@ -336,10 +361,6 @@ ActiveRecord::Schema.define(version: 20170419105454) do
     t.text     "summary",             limit: 65535
     t.text     "government_summary",  limit: 65535
     t.text     "stakeholder_summary", limit: 65535
-    t.string   "report_file_name",    limit: 255
-    t.string   "report_content_type", limit: 255
-    t.integer  "report_file_size",    limit: 4
-    t.datetime "report_updated_at"
   end
 
   add_index "reform_survey_translations", ["locale"], name: "index_reform_survey_translations_on_locale", using: :btree
@@ -513,4 +534,5 @@ ActiveRecord::Schema.define(version: 20170419105454) do
   add_index "verdicts", ["slug"], name: "index_verdicts_on_slug", using: :btree
   add_index "verdicts", ["time_period"], name: "index_verdicts_on_time_period", using: :btree
 
+  add_foreign_key "news_slideshows", "news"
 end

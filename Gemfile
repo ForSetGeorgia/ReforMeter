@@ -78,6 +78,8 @@ gem 'globalize-accessors', '~> 0.2.1'
 # send variables to javascript
 gem 'gon', '~> 6.0', '>= 6.0.1'
 
+gem 'light_gallery_rails', git: 'https://github.com/stNicolaas/light-gallery-rails.git'
+
 group :development do
   # Silences assets-related logging
   gem 'quiet_assets', '~> 1.0.3'
@@ -105,8 +107,8 @@ group :development do
 
   # make dev environment faster
   gem 'rails-dev-boost', '~> 0.3.0'
-  gem 'rb-fsevent', '>= 0.9.1' # needed for mac
-  # gem 'rb-inotify', '~> 0.9.7' # needed for linux
+  # gem 'rb-fsevent', '>= 0.9.1' # needed for mac
+  gem 'rb-inotify', '~> 0.9.7' # needed for linux
 
   # show model attributes (table fields) in model
   gem 'annotate', '~> 2.7'

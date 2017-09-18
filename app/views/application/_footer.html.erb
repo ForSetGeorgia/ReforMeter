@@ -3,15 +3,19 @@
   <div class='appFooter-socialAndMobileLinks'>
 
     <section class='socialLinks'>
+      <% if @addthis_id.present? %>
+        <div class="addthis_sharing_toolbox"></div>
+      <% end %>
 
       <div class="fb-page" data-href="https://www.facebook.com/Reformeter"  data-width="200" data-small-header="true" data-adapt-container-width="false" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/Reformeter" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Reformeter">ReforMeter</a></blockquote></div>
 
-      <% if @addthis_id.present? %>
+    </section>
 
-      <div class="addthis_sharing_toolbox"></div>
-
-      <% end %>
-
+    <section class="subscribeForm">
+      <label class="subscribeForm-label"><%= t('shared.common.subscribe.join_newsletter') %></label>
+      <input class="subscribeForm-email" id="subscribe_form_email" type="email" placeholder="<%= t('shared.common.subscribe.email_placeholder') %>" title="<%= t('shared.common.subscribe.email_placeholder') %>">
+      <button class="subscribeForm-submit" id="subscribe_form_submit"><%= t('shared.common.subscribe.submit') %></button>
+      <span class="subscribeMessage" id="subscribe_message"></span>
     </section>
 
     <section class='mobileAppLinks'>

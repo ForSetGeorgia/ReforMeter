@@ -9,7 +9,6 @@ ka:
         government_category4_score: სამართლებრივი ჩარჩო
         government_overall_score: ზოგადი შეფასება
         government_summary: მთავრობის შეჯამება
-        quarter_id: მეოთხედი
         reform_id: რეფორმა
         scores: ქულები
         stakeholder_category1_score: ვითარება
@@ -20,8 +19,8 @@ ka:
         stakeholder_summary: დაინტერესებულ მხარეთა შეჯამება
         summary: შეჯამება
         report: რეპორტი
-        delete_report_en: Delete Existing Report
-        delete_report_ka: Delete Existing Report
+        delete_report_en: წაშალე არსებული რეპორტი
+        delete_report_ka: წაშალე არსებული რეპორტი
     errors:
       models:
         reform_survey:

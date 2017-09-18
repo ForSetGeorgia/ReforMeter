@@ -1,0 +1,11 @@
+---
+ka:
+  activerecord:
+    attributes:
+      news_slideshow:
+        image: ფოტო
+        sort_order: დალაგების მიმდევრობა
+    models:
+      news_slideshow:
+        one: სლაიდშოუ
+        other: სლაიდშოუები

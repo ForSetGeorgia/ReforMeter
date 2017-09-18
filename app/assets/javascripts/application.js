@@ -29,8 +29,10 @@
 //= require highcharts/modules/solid-gauge
 //= require highcharts/modules/exporting
 //= require tipsy
+//= require lightgallery
 
 //= require_tree ./application/
+
 
 ////////////////////////////////////////
 

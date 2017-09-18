@@ -4,13 +4,14 @@ en:
     attributes:
       news:
         content: Content
-        image: Image
-        quarter_id: Quarter
+        image: Thumbnail
         reform_id: Reform
         title: Title
-        url: URL to Story
-        verdict_id: ReformVerdict
-        reform_survey_id: Reform Survey
+        url: URL to External Story
+        summary: Summary
+        is_public: Is Public?
+        date: Date
+        video_embed: Embeded Video
     models:
       news:
         one: News Item

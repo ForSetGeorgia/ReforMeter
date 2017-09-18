@@ -18,6 +18,10 @@ ka:
       publish: გამოქვეყნება
       unpublish: გამოქვეყნების გაუქმება
       view: ნახვა
+      source: წყარო
+      reform: რეფორმა
+      reform_with_name: "რეფორმა: %{name}"
+      view_all_news: ყველა სიახლის ნახვა
       with_obj:
         cancel: "%{obj}-ის გაუქმება"
         create: "%{obj}-ის შექმნა"
@@ -82,7 +86,6 @@ ka:
       change_reform: რეფორმის შეცვლა
       change_time: დროის მონაკვეთის შეცვლა
       description: რეფორმეტრი ზომავს საქართველოს მთავრობის  მიერ განხორციელებული რეფორმების პროგრესს.
-      formatted_quarter: კვ.%{quarter}
       move_row:
         down: ქვედა რიგში ჩასვლა
         up: ზედა რიგში ასვლა
@@ -91,6 +94,10 @@ ka:
       percent: პროცენტი (%)
       sub_title: თითოეული რეფორმის კვალდაკვალ
       'yes': დიახ
+      subscribe:
+        join_newsletter: გამოიწერე სიახლეები
+        email_placeholder: ელექტრონული ფოსტა
+        submit: გამოიწერე
     expert_show:
       header:
         chart: შეფასების საბჭო ისტორია
@@ -118,11 +125,13 @@ ka:
       experts: წევრები
       external_indicators: გარე ინდიკატორები
       page_contents: გვერდის ტექსტის რედაქტირება
-      quarters: მეოთხედები
       reform_colors: რეფორმის ფერები
       reforms: რეფორმები
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
+      news: სიახლეები
+      download: ჩამოტვირთვა
+      newsletters: ნიუსლეთერის მეილები
     locale:
       long:
         en: English
@@ -138,6 +147,11 @@ ka:
       success_published: "%{obj} წარმატებით გამოქვეყნდა."
       success_unpublished: "%{obj}-ს წარმატებით გაუქმდა გამოქვეყნება."
       success_updated: "%{obj} წარმატებით განახლდა."
+      newsletter:
+        success: მადლობა!
+        failure: დაფქისირდა შეცდომა. სცადეთ მოგვიანებით.
+        upsss: 'შეცდომაა, სცადეთ მოგვიანებით.'
+        enter_valid_email: 'გთხოვთ შეიყვანოთ მოქმედი მეილი.'
     prompts:
       confirm: დარწმუნებული ხართ?
       forgot_password: დაგავიწყდათ პაროლი?
@@ -175,6 +189,7 @@ ka:
   time:
     formats:
       file: "%Y%m%d%H%M%S"
+      date_only: '%Y-%m-%d'
   date:
     formats:
       default: ! '%Y-%m-%d'

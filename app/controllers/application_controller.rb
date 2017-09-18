@@ -25,9 +25,6 @@ class ApplicationController < ActionController::Base
     # Used by share buttons in footer
     @addthis_id = ENV['ADDTHIS_ID']
 
-    # indicate which year can be the first year for data
-#    @quarter_start_year = 2015
-
     # get the disclaimer text
     @disclaimer = PageContent.find_by(name: 'disclaimer')
 
@@ -50,6 +47,14 @@ class ApplicationController < ActionController::Base
         }
       }
     }
+
+    gon.subscribe_url = subscribe_path
+
+    gon.messages = {
+      upsss: I18n.t('shared.msgs.newsletter.upsss'),
+      enter_valid_email: I18n.t('shared.msgs.newsletter.enter_valid_email')
+    }
+
   end
 
   ##############################################
@@ -59,21 +64,6 @@ class ApplicationController < ActionController::Base
     filename.strip.to_url.gsub(' ', '_').gsub(/[\\ \/ \: \* \? \" \< \> \| \, \. ]/,'')
   end
 
-
-  # get the quarter
-  # def get_quarter
-  #   begin
-  #     @quarter = Quarter.friendly.find(params[:quarter_id])
-
-  #     if @quarter.nil?
-  #       redirect_to admin_quarters_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #     end
-  #   rescue ActiveRecord::RecordNotFound  => e
-  #     redirect_to admin_quarters_path,
-  #               alert: t('shared.msgs.does_not_exist')
-  #   end
-  # end
 
   # get the verdict
   def get_verdict
@@ -114,7 +104,7 @@ class ApplicationController < ActionController::Base
       @methodology_government = PageContent.find_by(name: 'methodology_government')
       @methodology_stakeholder = PageContent.find_by(name: 'methodology_stakeholder')
       @outcome = PageContent.find_by(name: 'outcome')
-      @news = @reform_survey.news
+      @news = @reform.news.published.sorted
       @stakeholders = Expert.stakeholders.by_reform(@reform.id).active.sorted
 
       gon.linked_reforms_verdicts = Verdict.linked_reforms

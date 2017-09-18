@@ -28,7 +28,7 @@ $sidebar-move-to-side: 700px;
     margin: 0 auto;
 
     @media (min-width: $sidebar-move-to-side) {
-      max-width: initial;
+      // max-width: initial;
       margin: initial;
       margin-left: 20px;
     }

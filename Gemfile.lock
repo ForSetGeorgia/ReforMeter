@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/stNicolaas/light-gallery-rails.git
+  revision: 97d892d0b4637ddae264514e2a44372853ff6f83
+  specs:
+    light_gallery_rails (1.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -284,7 +290,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (10.5.0)
-    rb-fsevent (0.9.7)
+    rb-inotify (0.9.8)
+      ffi (>= 0.5.0)
     ref (2.0.0)
     request_store (1.3.1)
     responders (2.1.2)
@@ -434,6 +441,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 5.0.3)
   launchy (~> 2.4.3)
   less-rails (~> 2.7.0)
+  light_gallery_rails!
   locales_export_import (~> 0.4.2)
   mina (~> 0.3.8)
   mina-multistage (~> 1.0.2)
@@ -448,7 +456,7 @@ DEPENDENCIES
   rails (= 4.2.6)
   rails-dev-boost (~> 0.3.0)
   rails-observers (~> 0.1.2)
-  rb-fsevent (>= 0.9.1)
+  rb-inotify (~> 0.9.7)
   rspec-collection_matchers (~> 1.1.2)
   rspec-rails (~> 3.1.0)
   rubocop (~> 0.35.0)
@@ -466,4 +474,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.6
+   1.15.4

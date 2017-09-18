@@ -1,20 +1,9 @@
 <% object = @news %>
-<%= semantic_form_for [:admin, @verdict, object], html: {multipart: true} do |f| %>
+<%= semantic_form_for [:admin, object], html: {multipart: true} do |f| %>
   <%= f.semantic_errors *f.object.errors.keys %>
   <%= f.inputs do %>
 
-    <%= f.input :t, as: :hidden, :input_html => { :value => params[:t] } %>
-    <%= f.input :verdict_id, as: :hidden, :input_html => { :value => @verdict.id } %>
-    <div class="input optional form-group" id="news_verdict_id_input">
-      <span class="form-label">
-        <label for="news_verdict_id" class=" control-label"><%= t('activerecord.attributes.news.verdict_id') %></label>
-      </span>
-      <span class="form-wrapper">
-        <%= @verdict.title %>
-      </span>
-    </div>
-
-    <%= f.input :reform_survey_id, as: :select, collection: @reform_survey_array %>
+    <%= f.input :date, as: :string, :input_html => { style: 'width: 10em;'  } %>
 
     <%= render layout: 'shared/form/translated_inputs',
                locals: { object: object } do |enabled_locale, enabled_locale_name| %>
@@ -23,31 +12,116 @@
                   label: t('shared.labels.translated_field',
                          field: t('activerecord.attributes.news.title'),
                          language: enabled_locale_name) %>
-      <%= f.input "url_#{enabled_locale}",
-                  as: :url,
+      <%= f.input "summary_#{enabled_locale}",
+                  as: :text,
                   label: t('shared.labels.translated_field',
-                         field: t('activerecord.attributes.news.url'),
-                         language: enabled_locale_name) %>
+                         field: t('activerecord.attributes.news.summary'),
+                         language: enabled_locale_name),
+                   :input_html => { :class => 'autogrow', :rows => 2, :maxlength => 255  } %>
       <%= f.input "content_#{enabled_locale}",
                   as: :text,
                   label: t('shared.labels.translated_field',
                          field: t('activerecord.attributes.news.content'),
                          language: enabled_locale_name),
-                   :input_html => { :class => 'autogrow', :rows => 2, :maxlength => 255  } %>
+                   :input_html => { :class => 'autogrow', :rows => 2  } %>
+      <%= f.input "url_#{enabled_locale}",
+                  as: :url,
+                  label: t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.news.url'),
+                         language: enabled_locale_name) %>
     <% end %>
 
+    <hr />
+
+    <h2><%= t('.media_heading') %></h2>
 
     <div class="file input optional form-group" id="news_image_input">
       <span class="form-label">
         <label for="news_image" class=" control-label"><%= t('activerecord.attributes.news.image') %></label>
       </span>
       <% if @news.image.exists? %>
-        <%= image_tag(@news.image.url('90x50')) %>
+        <%= image_tag(@news.image.url('thumbnail')) %>
       <% end %>
       <span class="form-wrapper">
-        <input accept=".jpg,.jpeg,.png,.gif" id="news_image" name="news[image]" type="file">
+        <input accept=".jpg,.jpeg,.png" id="news_image" name="news[image]" type="file">
       </span>
     </div>
+
+    <div class="text input optional form-group" id="news_video_embed_input">
+      <span class="form-label">
+        <label for="news_video_embed" class=" control-label">Embeded Video</label>
+      </span>
+      <span class="form-wrapper">
+        <%= f.text_area(:video_embed, rows: 2, class: 'autogrow form-control') %>
+        <span class="help-block"><%= t('.video_help') %></span>
+      </span>
+      <span class="js-show-video">
+        <% if @news.video_embed.present? %>
+          <%= @news.video_embed.html_safe %>
+        <% end %>
+      </span>
+
+    </div>
+
+
+    <h3><%= t('activerecord.models.news_slideshow', count: 999) %></h3>
+
+    <table class="table table-striped table-hover table-nonfluid table-news-slideshows">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <%= t('activerecord.attributes.news_slideshow.image') %><abbr title="required">*</abbr>
+          </th>
+          <th>
+            <%=t 'shared.common.actions' %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% object.news_slideshows.sorted.each do |slideshow| %>
+          <%= f.semantic_fields_for :news_slideshows, slideshow do |slide| %>
+            <%= render partial: 'news_slideshow_fields', locals: {f: slide, object: slideshow} %>
+          <% end %>
+        <% end %>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <%= link_to_add_association t('shared.actions.add'), f, :news_slideshows,
+                  :'data-association-insertion-node' => "table.table-news-slideshows tbody",
+                  :'data-association-insertion-method' => 'append',
+                  class: 'btn btn-primary' %>
+          </td>
+        </tr>
+      </tfoot>
+      </tbody>
+    </table>
+
+
+    <hr />
+
+    <div class="radio_buttons input optional form-group" id="news_reform_id_input">
+      <span class="form-label">
+        <label class=" control-label"><%= t('activerecord.attributes.news.reform_id') %></label>
+      </span>
+      <span class="form-wrapper">
+        <% @reforms.each do |reform| %>
+          <div class="radio">
+            <label for="news_reform_id_<%= reform.id %>" class="choice">
+              <% checked = @news.reform_id == reform.id ? "checked='checked'" : "" %>
+              <input id="news_reform_id_<%= reform.id %>" value="<%= reform.id %>" name="news[reform_id]" type="radio" <%= checked %>>
+              <%= reform.name %>
+            </label>
+          </div>
+        <% end %>
+        <div class="radio">
+          <%= link_to t('.reset_reform'), '#',
+              class: 'btn btn-warning btn-sm btn-reset-reform' %>
+        </div>
+      </span>
+    </div>
+
+    <%= f.input :is_public, as: :radio %>
 
   <% end %>
 

@@ -39,6 +39,7 @@ ka:
       reform_status: რეფორმების მდგომარეობა
       reforms_link: ყველა რეფორმის ნახვა
       subheading: ეკონომიკური რეფორმების შეფასება
+      latest_news: ახალი ამბები
     reform_show:
       gauge_group:
         government:
@@ -75,21 +76,7 @@ ka:
       gauge_group:
         title: რეფორმვერდიქტის %{time}
       title: "რეფორმვერდიქტი: %{title}"
-    # review_board:
-    #   header:
-    #     chart: ქრონოლოგია
-    #     experts: ექსპერტები
-    #     methodology: მეთოდოლოგია
-    #     table: შედეგები
-    #   no_data: ბოდიშს გიხდით, ამ დროისთვის არ არსებობს საბჭოს წევრთა მონაცემთა ჩანაწერი.
-    #   no_experts: არ არსებობს საბჭოს წევრებზე ჩანაწერი.
-    #   no_methodology: არ არსებობს მეთოდოლოგიის ჩანაწერი.
-    #   table_header:
-    #     overall: ზოგადი შეფასება
-    #     summary: შეჯამება
-    #     time: დროის მონაკვეთი
-    #   title: შეფასების საბჭო
-    # review_board_show:
-    #   gauge_group:
-    #     title: საბჭოს დასკვნით %{quarter}-ისთვის
-    #   title: საბჭოს დასკვნით %{time}-ისთვის
+    news:
+      title: სიახლეები
+      no_data: ბოდიშ, ამ დროისთვის სიახლე არ არის.
+      filter_reform: გაფილტრე რეფორმა

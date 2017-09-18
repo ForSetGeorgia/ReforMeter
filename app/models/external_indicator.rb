@@ -24,7 +24,7 @@ class ExternalIndicator < AddMissingTranslation
   #######################
   ## TRANSLATIONS
 
-  translates :title, :subtitle, :description, :benchmark_title, :data, :fallbacks_for_empty_translations => true
+  translates :title, :subtitle, :description, :benchmark_title, :overall_title, :data, :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
@@ -362,7 +362,7 @@ class ExternalIndicator < AddMissingTranslation
         end
       end
       hash[:series] << {
-        name: I18n.t('shared.categories.overall'),
+        name: self.overall_title.present? ? self.overall_title : I18n.t('shared.categories.overall'),
         data: data
       }
 

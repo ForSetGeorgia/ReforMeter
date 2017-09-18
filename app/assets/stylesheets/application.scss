@@ -63,6 +63,7 @@ URL: https://gist.github.com/bobbygrace/9e961e8982f42eb91b80
 @import 'components/select2';
 @import 'components/socialLinks';
 @import 'components/solidGauge';
+@import 'components/subscribeForm';
 @import 'components/summaryGaugesContainer';
 @import 'components/tabList';
 @import 'components/tabListSelectContainer';
@@ -74,9 +75,13 @@ URL: https://gist.github.com/bobbygrace/9e961e8982f42eb91b80
 @import 'pages/downloadPage';
 @import 'pages/homePage';
 @import 'pages/indicatorsPage';
+@import 'lightgallery';
 
 .actions-container {
   background-color: #f9f9f9;
   padding: 10px;
   margin: 20px 0px;
+}
+a {
+  cursor: pointer;
 }

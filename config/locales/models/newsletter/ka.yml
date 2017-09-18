@@ -1,0 +1,11 @@
+---
+ka:
+  activerecord:
+    attributes:
+      newsletter:
+        email: მეილი
+        created_at: დამატების თარიღი
+    models:
+      newsletter:
+        one: ნიუსლეთერის მეილი
+        other: ნიუსლეთერის მეილები

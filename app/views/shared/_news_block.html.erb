@@ -1,0 +1,70 @@
+<%
+  with_reform_id = false unless with_reform_id.present?
+  with_poster = false unless with_poster.present?
+  with__link = false unless with_poster.present?
+  with_media = false unless with_media.present?
+  with_title = false unless with_title.present?
+  with_links = false unless with_links.present?
+  with_summary = false unless with_summary.present?
+  with_content = false unless with_content.present?
+%>
+
+<article class="news"<%= with_reform_id ? " data-reform=#{news.reform.slug}" : "" %>>
+  <% if with_poster || with_media %>
+    <div class="news-column sidebar">
+      <% if with_poster %>
+        <div class="news-poster news-section">
+          <% if !with_media # it means news show page is used %>
+            <%= link_to news_show_path(news) do %>
+              <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.png') %>
+            <% end %>
+          <% else %>
+            <%= image_tag(news.image.exists? ? news.image.url('thumbnail') : 'missing/missing_news.png') %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if with_media %>
+        <% if news.news_slideshows.present? %>
+          <ul id="lightgallery" class="news-slideshow news-section">
+            <% news.news_slideshows.sorted.each do |slideshow| %>
+              <li data-src="<%= slideshow.image.url('poster') %>">
+                <%= image_tag(slideshow.image.url('thumbnail'), alt: "#{news.title} (#{I18n.l(news.date)})") %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if news.video_embed.present? %>
+          <div class="news-embed news-section">
+            <%= news.video_embed.html_safe %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="news-column content">
+    <% if with_title %>
+      <div class="news-title">
+        <%= link_to("#{news.title} (#{I18n.l(news.date)})", news_show_path(news), class: 'link heading mod-no-transform') %>
+      </div>
+    <% end %>
+    <% if with_summary && news.summary.present? %>
+      <div class="news-summary">
+        <%= simple_format(news.summary) %>
+      </div>
+    <% end %>
+    <% if with_content && news.content.present? %>
+      <div class="news-content news-section">
+        <%= simple_format(news.content) %>
+      </div>
+    <% end %>
+    <% if with_links %>
+      <div class="news-links news-section">
+        <%= link_to(t('shared.actions.reform_with_name', name: news.reform.name), reform_show_path(news.reform), class: 'link') if news.reform.present? %>
+        <%= link_to(t('shared.actions.source'), news.url, class: 'link news-link-source', target: :blank) if news.url.present? %>
+        <a class="link news-link-all" href="<%= news_path %>"><%= t('shared.actions.view_all_news') %></a>
+      </div>
+    <% end %>
+  </div>
+</article>

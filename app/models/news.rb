@@ -3,7 +3,6 @@
 # Table name: news
 #
 #  id                 :integer          not null, primary key
-#  quarter_id         :integer
 #  reform_id          :integer
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
@@ -11,8 +10,10 @@
 #  image_updated_at   :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  reform_survey_id   :integer
-#  verdict_id         :integer
+#  is_public          :boolean          default(FALSE)
+#  date               :date
+#  slug               :string(255)
+#  video_embed        :text(65535)
 #
 
 class News < AddMissingTranslation
@@ -21,52 +22,69 @@ class News < AddMissingTranslation
   has_attached_file :image,
                     :url => "/system/news/:id/:style.:extension",
                     :styles => {
-                        :'360x200' => {:geometry => "360x200#"},
-                        :'90x50' => {:geometry => "90x50#"}
+                      :'poster' => {:geometry => "1280x800#"},
+                      :'share' => {:geometry => "1200x628#"},
+                      :'thumbnail' => {:geometry => "360x270#"}
                     },
                     :convert_options => {
-                      :'360x200' => '-quality 85',
-                      :'90x50' => '-quality 85'
+                      :'poster' => '-quality 85',
+                      :'share' => '-quality 85',
+                      :'thumbnail' => '-quality 85'
                     }
 
   #######################
   ## TRANSLATIONS
-
-  translates :title, :content, :url, :fallbacks_for_empty_translations => true
+  translates :title, :content, :url, :summary, :slug,
+              :fallbacks_for_empty_translations => true
   globalize_accessors
 
   #######################
   ## RELATIONSHIPS
-  # belongs_to :reform
-  # belongs_to :quarter
-  belongs_to :reform_survey
-  belongs_to :verdict
-
+  belongs_to :reform
+  has_many :news_slideshows, dependent: :destroy
+  accepts_nested_attributes_for :news_slideshows, :reject_if => lambda { |x| x[:image].blank? && x[:id].blank?}, allow_destroy: true
 
   #######################
   ## VALIDATIONS
-  # reform_id is optional because without it, it means it is for expert survey
-  validates :title, :url, presence: :true
-  validates_format_of :url, :with => URI::regexp(%w(http https))
+  validates :title, :summary, :date, presence: :true
+  validates_format_of :url, :with => URI::regexp(%w(http https)),
+    unless: Proc.new { |x| x.url.blank? }
   validates_attachment :image,
     content_type: { content_type: ["image/jpeg", "image/png"] },
     size: { in: 0..4.megabytes }
 
   #######################
+  ## SLUG DEFINITION (friendly_id)
+
+  extend FriendlyId
+  friendly_id :slug_text, use: [:globalize, :history, :slugged]
+
+  # the slug text is the format: title - date
+  def slug_text
+    "#{self.title} - #{I18n.l(self.date)}"
+  end
+
+  # for genereate friendly_id
+  def should_generate_new_friendly_id?
+#    name_changed? || super
+    super
+  end
+
+  # for locale sensitive transliteration with friendly_id
+  def normalize_friendly_id(input)
+    input.to_s.to_url
+  end
+
+  #######################
   ## SCOPES
-  scope :sorted, -> {order(title: :asc)}
-  scope :for_verdict, -> {where(reform_survey_id: nil)}
-  scope :for_reform_survey, -> {where.not(reform_survey_id: nil)}
+  scope :published, -> { where(is_public: true) }
+  scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
+  scope :include_reforms, -> {includes :reform}
+  scope :include_slideshows, -> {includes :news_slideshows}
 
-  # # get news for a quarter and reform
-  # def self.by_expert_quarter(quarter_id)
-  #   by_reform_quarter(quarter_id, nil)
-  # end
-
-  # # get news for a quarter and reform
-  # def self.by_reform_quarter(quarter_id, reform_id)
-  #   where(quarter_id: quarter_id, reform_id: reform_id)
-  # end
+  def self.by_reform(reform_id)
+    where(reform_id: reform_id)
+  end
 
 
   #######################

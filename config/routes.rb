@@ -31,18 +31,10 @@ Rails.application.routes.draw do
       end
       resources :reforms, except: :show, constraints: { format: :html }
       resources :reform_colors, except: :show, constraints: { format: :html }
-      # resources :quarters, except: :show, constraints: { format: :html } do
-      #   resources :news, except: :index, constraints: { format: :html }
-      #   resource :expert_survey, except: :index, constraints: { format: :html }
-      #   resources :reform_surveys, except: :index, constraints: { format: :html }
-      #   member do
-      #     post 'publish', constraints: { format: :html }
-      #     post 'unpublish', constraints: { format: :html }
-      #   end
-      # end
+
+      resources :news, constraints: { format: :html }
 
       resources :verdicts, except: :show, constraints: { format: :html } do
-        resources :news, except: :index, constraints: { format: :html }
         resources :reform_surveys, except: :index, constraints: { format: :html } do
           member do
             post 'publish', constraints: { format: :html }
@@ -54,7 +46,13 @@ Rails.application.routes.draw do
           post 'unpublish', constraints: { format: :html }
         end
       end
-      
+
+      resources :newsletters, except: :show, constraints: { format: :html } do
+        collection do
+          get 'download', constraints: { format: :csv }
+        end
+      end
+
       resources :page_contents, constraints: { format: :html }
       resources :users, constraints: { format: :html }
     end
@@ -65,14 +63,18 @@ Rails.application.routes.draw do
     post '/download_data_and_reports' => 'root#download_data_and_reports'
     get '/reforms' => 'root#reforms'
     # if there is no time period then send back to reforms page with reform as query string
-    get '/reforms/:reform_id', to: redirect('/%{locale}/reforms?reform=%{reform_id}')
-    get '/reforms/:reform_id/:verdict_id' => 'root#reform_show', as: :reform_show
+    # get '/reforms/:reform_id', to: redirect('/%{locale}/reforms?reform=%{reform_id}')
+    get '/reforms/:reform_id/(:verdict_id)' => 'root#reform_show', as: :reform_show
     # get '/review_board' => 'root#review_board'
     # get '/review_board/:id' => 'root#review_board_show', as: :review_board_show
     get '/reform_verdicts' => 'root#reform_verdicts'
     get '/reform_verdicts/:id' => 'root#reform_verdict_show', as: :reform_verdict_show
+    get '/news' => 'root#news'
+    get '/news/:id' => 'root#news_show', as: :news_show
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
+
+    post '/subscribe' => 'root#subscribe', as: :subscribe, constraints: { format: :json }
 
     root 'root#index'
 

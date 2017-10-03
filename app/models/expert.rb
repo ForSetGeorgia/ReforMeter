@@ -44,7 +44,6 @@ class Expert < AddMissingTranslation
 
   #######################
   ## RELATIONSHIPS
-  has_and_belongs_to_many :expert_surveys
   belongs_to :reform
 
   #######################

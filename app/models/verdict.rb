@@ -151,7 +151,7 @@ class Verdict < ActiveRecord::Base
   # - overall_score_only - indicates whether just the overall score should be returned or overall and all category scores (default false)
   # - is_published - indicates if just the published quarters should be returned (default true)
   def self.verdict_data_for_charting(options={})
-    default_options = {overall_score_only: false, is_published: true}
+    default_options = {overall_score_only: false, is_published: true, use_decimals: true}
     options = options.reverse_merge(default_options)
 
     hash = {
@@ -167,7 +167,8 @@ class Verdict < ActiveRecord::Base
         behind: I18n.t('shared.chart_rating_categories.reforms.behind'),
         on_track: I18n.t('shared.chart_rating_categories.reforms.on_track'),
         ahead: I18n.t('shared.chart_rating_categories.reforms.ahead')
-      }
+      },
+      use_decimals: options[:use_decimals]
     }
 
     verdicts = sorted

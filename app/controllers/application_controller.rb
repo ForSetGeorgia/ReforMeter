@@ -189,7 +189,8 @@ class ApplicationController < ActionController::Base
         color: government_color,
         title: t('shared.categories.overall'),
         score: @reform_survey.stakeholder_overall_score.to_f,
-        change: @reform_survey.stakeholder_overall_change
+        change: @reform_survey.stakeholder_overall_change,
+        use_decimals: true
       })
 
       stakeholder_performance_gauge = Chart.new({
@@ -197,7 +198,8 @@ class ApplicationController < ActionController::Base
         color: government_color,
         title: t('shared.categories.performance'),
         score: @reform_survey.stakeholder_category1_score.to_f,
-        change: @reform_survey.stakeholder_category1_change
+        change: @reform_survey.stakeholder_category1_change,
+        use_decimals: true
       })
 
       # stakeholder_goals_gauge = Chart.new({
@@ -205,7 +207,8 @@ class ApplicationController < ActionController::Base
       #   color: government_color,
       #   title: t('shared.categories.goals'),
       #   score: @reform_survey.stakeholder_category2_score.to_f,
-      #   change: @reform_survey.stakeholder_category2_change
+      #   change: @reform_survey.stakeholder_category2_change,
+      #   use_decimals: true
       # })
 
       stakeholder_progress_gauge = Chart.new({
@@ -213,7 +216,8 @@ class ApplicationController < ActionController::Base
         color: government_color,
         title: t('shared.categories.progress'),
         score: @reform_survey.stakeholder_category2_score.to_f,
-        change: @reform_survey.stakeholder_category2_change
+        change: @reform_survey.stakeholder_category2_change,
+        use_decimals: true
       })
 
       stakeholder_goals_gauge = Chart.new({
@@ -221,7 +225,8 @@ class ApplicationController < ActionController::Base
         color: government_color,
         title: t('shared.categories.outcome'),
         score: @reform_survey.stakeholder_category3_score.to_f,
-        change: @reform_survey.stakeholder_category3_change
+        change: @reform_survey.stakeholder_category3_change,
+        use_decimals: true
       })
 
       if @reform_survey.present?

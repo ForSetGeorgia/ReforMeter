@@ -19,7 +19,8 @@ class RootController < ApplicationController
             title: nil,
             responsiveTo: '.js-homepage-primary-gauge-container',
             score: @verdict.overall_score.to_f,
-            change: @verdict.overall_change
+            change: @verdict.overall_change,
+            use_decimals: true
           }
         )
       ]
@@ -40,7 +41,8 @@ class RootController < ApplicationController
           subtitle: I18n.t('root.index.subheading'),
           size: 300,
           score: @verdict.overall_score.to_f,
-          change: @verdict.overall_change
+          change: @verdict.overall_change,
+          use_decimals: true
         },
         request.path
       )
@@ -74,7 +76,8 @@ class RootController < ApplicationController
           color: reform.color.to_hash,
           title: nil,
           score: survey.stakeholder_overall_score.to_f,
-          change: survey.stakeholder_overall_change
+          change: survey.stakeholder_overall_change,
+          use_decimals: true
         }
       end
     end
@@ -237,7 +240,8 @@ class RootController < ApplicationController
           color: reform.color.to_hash,
           title: nil,
           score: survey.stakeholder_overall_score.to_f,
-          change: survey.stakeholder_overall_change
+          change: survey.stakeholder_overall_change,
+          use_decimals: true
         }
       end
     end
@@ -294,7 +298,8 @@ class RootController < ApplicationController
         id: verdict.slug,
         title: nil,
         score: verdict.overall_score.to_f,
-        change: verdict.overall_change
+        change: verdict.overall_change,
+        use_decimals: true
       }
     end
   end
@@ -326,28 +331,32 @@ class RootController < ApplicationController
         id: 'overall',
         title: I18n.t('shared.categories.overall'),
         score: @verdict.overall_score.to_f,
-        change: @verdict.overall_change
+        change: @verdict.overall_change,
+        use_decimals: true
       })
 
       verdict_performance_gauge = Chart.new({
         id: 'performance',
         title: I18n.t('shared.categories.performance'),
         score: @verdict.category1_score.to_f,
-        change: @verdict.category1_change
+        change: @verdict.category1_change,
+        use_decimals: true
       })
 
       verdict_progress_gauge = Chart.new({
         id: 'progress',
         title: I18n.t('shared.categories.progress'),
         score: @verdict.category2_score.to_f,
-        change: @verdict.category2_change
+        change: @verdict.category2_change,
+        use_decimals: true
       })
 
       verdict_outcome_gauge = Chart.new({
         id: 'outcome',
         title: I18n.t('shared.categories.outcome'),
         score: @verdict.category3_score.to_f,
-        change: @verdict.category3_change
+        change: @verdict.category3_change,
+        use_decimals: true
       })
 
       verdict_gauge_group = ChartGroup.new(
@@ -399,7 +408,8 @@ class RootController < ApplicationController
           color: reform.color.to_hash,
           title: nil,
           score: survey.stakeholder_overall_score.to_f,
-          change: survey.stakeholder_overall_change
+          change: survey.stakeholder_overall_change,
+          use_decimals: true
         }
       end
 

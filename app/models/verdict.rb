@@ -433,7 +433,7 @@ class Verdict < ActiveRecord::Base
 
   #######################
   #######################
-  private
+  # private
 
   # if this verdict is published, make sure the scores are present
   def check_publish_fields
@@ -522,9 +522,9 @@ class Verdict < ActiveRecord::Base
     change = nil
     if current_value.present? && previous_value.present?
       diff = current_value - previous_value
-      if diff < -0.2
+      if diff < 0
         change = -1
-      elsif diff > 0.2
+      elsif diff > 0
         change = 1
       else
         change = 0

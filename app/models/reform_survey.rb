@@ -256,9 +256,9 @@ class ReformSurvey < ActiveRecord::Base
   def compute_stakeholder_change(current_value, previous_value)
     diff = current_value - previous_value
     change = nil
-    if diff < -0.2
+    if diff < 0
       change = -1
-    elsif diff > 0.2
+    elsif diff > 0
       change = 1
     else
       change = 0

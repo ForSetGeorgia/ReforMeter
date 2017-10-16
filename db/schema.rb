@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914060625) do
+ActiveRecord::Schema.define(version: 20171016064351) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 20170914060625) do
   create_table "external_indicator_times", force: :cascade do |t|
     t.integer  "external_indicator_id", limit: 4
     t.integer  "sort_order",            limit: 1,                         default: 1
-    t.decimal  "overall_value",                   precision: 5, scale: 2
+    t.decimal  "overall_value",                   precision: 9, scale: 2
     t.integer  "overall_change",        limit: 4
     t.datetime "created_at",                                                          null: false
     t.datetime "updated_at",                                                          null: false

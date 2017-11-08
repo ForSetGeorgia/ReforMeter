@@ -424,7 +424,7 @@ class RootController < ApplicationController
     # filter_by = :recent unless filter_by.present? && [:recent, :reform].index(filter_by)
     @verdict = Verdict.published.recent.first
     @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
-    @news = News.published.sorted
+    @news = News.published.sorted.with_title
   end
 
   def news_show

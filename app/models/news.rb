@@ -79,6 +79,7 @@ class News < AddMissingTranslation
   ## SCOPES
   scope :published, -> { where(is_public: true) }
   scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
+  scope :with_title, -> {with_translations(I18n.locale).where('news_translations.title is not null and news_translations.title != ""') }
   scope :include_reforms, -> {includes :reform}
   scope :include_slideshows, -> {includes :news_slideshows}
 
@@ -99,8 +100,8 @@ class News < AddMissingTranslation
   #   self.title = default_trans.title if self["title_#{Globalize.locale}"].blank?
   # end
 
-  def required_translation_fields
-    return ['title']
-  end
+  # def required_translation_fields
+  #   return ['title']
+  # end
 
 end

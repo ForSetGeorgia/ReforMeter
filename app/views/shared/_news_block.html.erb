@@ -46,7 +46,10 @@
   <div class="news-column content">
     <% if with_title %>
       <div class="news-title">
-        <%= link_to("#{news.title} (#{I18n.l(news.date)})", news_show_path(news), class: 'link heading mod-no-transform') %>
+        <%= link_to news_show_path(news), class: 'link heading mod-no-transform' do %>
+          <%= news.title %>
+          <span><%= I18n.l(news.date) %></span>
+        <% end %>
       </div>
     <% end %>
     <% if with_summary && news.summary.present? %>

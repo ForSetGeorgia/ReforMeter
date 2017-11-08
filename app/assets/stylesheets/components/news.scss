@@ -67,6 +67,10 @@ article.news {
   .news-title {
     padding: 15px $padding-main-content;
     border-bottom: 3px solid #f3f3f4;
+    span{
+      display:block;
+      font-weight: 400;
+    }
   }
   .news-content, .news-summary {
     padding: 15px $padding-main-content;

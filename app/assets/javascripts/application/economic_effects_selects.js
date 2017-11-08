@@ -36,3 +36,10 @@ function initializeChangeEconomicEffectsControls() {
 
 	return exports;
 }
+
+function initializeEconomicEffectsScrollToTop() {
+	$('body.root.economic_effects').on('click', '.contentSection-footer .jump-to-top a', function(){
+		$('html,body').animate({ scrollTop: 0 }, 'fast');
+		return false;
+	});
+}

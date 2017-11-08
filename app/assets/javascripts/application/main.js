@@ -8,6 +8,7 @@
     initializeScrollToIdSelect().setup();
     initializeChangeEconomicEffectsControls().setup();
     initializeChangeNewsControls().setup();
+    initializeEconomicEffectsScrollToTop();
 
     var charts = setupCharts();
 

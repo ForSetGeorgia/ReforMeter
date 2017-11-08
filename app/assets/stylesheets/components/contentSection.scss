@@ -88,6 +88,24 @@
     }
   }
 
+  .contentSection-footer {
+    border-top: 3px solid $color-grey-background;
+    padding: $padding-footer-content $padding-main-content;
+    color: $color-grey-text;
+  }
+  .contentSection-footer .jump-to-top{
+    text-align: center;
+  }
+  .contentSection-footer .jump-to-top a{
+    color: $color-grey-text;
+    text-decoration:none;
+  }
+  .contentSection-footer .jump-to-top a:hover{
+    text-decoration:underline;
+  }
+
+
+
 .contentSection.mod-no-background {
   background-color: transparent;
 }

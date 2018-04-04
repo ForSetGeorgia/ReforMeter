@@ -1,0 +1,15 @@
+---
+en:
+  activerecord:
+    attributes:
+      puzzle:
+        content: Content
+        title: Title
+        summary: Summary
+        is_public: Is Public?
+        date: Date
+        embed_code: Puzzle Embed Code
+    models:
+      puzzle:
+        one: Puzzle
+        other: Puzzles

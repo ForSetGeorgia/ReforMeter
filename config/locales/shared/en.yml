@@ -22,6 +22,7 @@ en:
       reform: Reform
       reform_with_name: "Reform: %{name}"
       view_all_news: View All News
+      view_all_puzzles: View All Puzzles
       with_obj:
         cancel: Cancel %{obj}
         create: Create %{obj}
@@ -132,6 +133,7 @@ en:
       reports: Reports
       verdicts: ReformVerdicts
       news: News
+      puzzles: Puzzles
       download: Download
       newsletters: Newsletter Emails
     locale:

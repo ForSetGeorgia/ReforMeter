@@ -37,6 +37,7 @@ en:
         verdicts: Manage the data for a time period like overall score, and reform surveys.
         news: Manage the news.
         newsletters: Manage the email addresses for the newsletter.
+        puzzles: Manage the puzzles.
       title: Admin Section
     verdicts:
       index:

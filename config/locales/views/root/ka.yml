@@ -41,6 +41,7 @@ ka:
       reforms_link: ყველა რეფორმის ნახვა
       subheading: ეკონომიკური რეფორმების შეფასება
       latest_news: ახალი ამბები
+      latest_puzzles: ააწყვე საქართველოს ეკონომიკა
     reform_show:
       gauge_group:
         government:
@@ -81,3 +82,6 @@ ka:
       title: სიახლეები
       no_data: ბოდიშ, ამ დროისთვის სიახლე არ არის.
       filter_reform: გაფილტრე რეფორმა
+    puzzles:
+      title: ააწყვე საქართველოს ეკონომიკა
+      no_data: ბოდიში, ამ დროისთვის ფაზლები არ არის.

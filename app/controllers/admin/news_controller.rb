@@ -1,7 +1,7 @@
 class Admin::NewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_news, only: [:show, :edit, :update, :destroy]
-  before_action :load_types, only: [:new, :edit, :create, :update]
+  before_action :load_variables, only: [:new, :edit, :create, :update]
   authorize_resource
 
   # GET /admin/news
@@ -22,7 +22,6 @@ class Admin::NewsController < ApplicationController
 
   # GET /admin/news/1/edit
   def edit
-    set_date
   end
 
   # POST /admin/news
@@ -35,7 +34,6 @@ class Admin::NewsController < ApplicationController
         format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_created',
                             obj: t('activerecord.models.news', count: 1)) }
       else
-        set_date
         format.html { render :new }
       end
     end
@@ -49,7 +47,6 @@ class Admin::NewsController < ApplicationController
         format.html { redirect_to admin_news_path(@news), notice: t('shared.msgs.success_updated',
                             obj: t('activerecord.models.news', count: 1)) }
       else
-        set_date
         format.html { render :edit }
       end
     end
@@ -71,6 +68,13 @@ class Admin::NewsController < ApplicationController
       @news = News.friendly.find(params[:id])
     end
 
+    def load_variables
+      @reforms = Reform.active.sorted
+
+      # set the date for the datepicker
+      gon.date = @news.date.strftime('%m/%d/%Y %H:%M') if @news && !@news.date.nil?
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_params
       permitted = News.globalize_attribute_names + [:reform_id, :image, :is_public, :date, :video_embed,
@@ -79,15 +83,5 @@ class Admin::NewsController < ApplicationController
       params.require(:news).permit(*permitted)
     end
 
-    def load_types
-
-      @reforms = Reform.active.sorted
-
-    end
-
-    # set the date for the datepicker
-    def set_date
-      gon.date = @news.date.strftime('%m/%d/%Y %H:%M') if !@news.date.nil?
-    end
 
 end

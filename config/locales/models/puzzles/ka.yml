@@ -1,0 +1,15 @@
+---
+ka:
+  activerecord:
+    attributes:
+      puzzle:
+        content: შიგთავსი
+        title: სათაური
+        summary: შეჯამება
+        is_public: საჯაროა?
+        date: თარიღი
+        embed_code: ფაზლის ემბედ კოდი
+    models:
+      puzzle:
+        one: ფაზლი
+        other: ფაზლები

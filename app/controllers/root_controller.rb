@@ -5,6 +5,7 @@ class RootController < ApplicationController
     @external_indicators = ExternalIndicator.published.for_home_page.with_time_periods
     @reforms = Reform.with_reform_survey(@verdict.id).in_verdict(@verdict.id).active.highlight.sorted if @verdict
     @news = News.published.sorted.with_title.limit(2)
+    @puzzles = Puzzle.published.sorted.with_title.limit(2)
 
     gon.change_icons = view_context.change_icons
 
@@ -440,6 +441,25 @@ class RootController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       redirect_to news_path,
+                alert: t('shared.msgs.does_not_exist')
+    end
+  end
+
+  def puzzles
+    @puzzles = Puzzle.published.sorted.with_title
+  end
+
+  def puzzles_show
+    begin
+      @puzzle = Puzzle.published.friendly.find(params[:id])
+
+      if @puzzle.nil?
+        redirect_to puzzles_path,
+                alert: t('shared.msgs.does_not_exist')
+      end
+
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to puzzles_path,
                 alert: t('shared.msgs.does_not_exist')
     end
   end

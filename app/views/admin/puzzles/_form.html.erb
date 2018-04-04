@@ -1,0 +1,57 @@
+<% object = @puzzle %>
+<%= semantic_form_for [:admin, object] do |f| %>
+  <%= f.semantic_errors *f.object.errors.keys %>
+  <%= f.inputs do %>
+
+    <%= f.input :date, as: :string, :input_html => { style: 'width: 10em;'  } %>
+
+    <%= render layout: 'shared/form/translated_inputs',
+               locals: { object: object } do |enabled_locale, enabled_locale_name| %>
+      <%= f.input "title_#{enabled_locale}",
+                  as: :string,
+                  label: t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.puzzle.title'),
+                         language: enabled_locale_name) %>
+      <%= f.input "summary_#{enabled_locale}",
+                  as: :text,
+                  label: t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.puzzle.summary'),
+                         language: enabled_locale_name),
+                   :input_html => { :class => 'autogrow', :rows => 2, :maxlength => 255  } %>
+      <%= f.input "content_#{enabled_locale}",
+                  as: :text,
+                  label: t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.puzzle.content'),
+                         language: enabled_locale_name),
+                   :input_html => { :class => 'autogrow', :rows => 2  } %>
+      <div class="text input optional form-group" id="puzzle_embed_code_<%= enabled_locale %>_input">
+        <span class="form-label">
+          <label for="puzzle_embed_code_ka" class=" control-label"><%= t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.puzzle.embed_code'),
+                         language: enabled_locale_name) %></label>
+        </span>
+        <span class="form-wrapper">
+          <textarea rows="2" id="puzzle_embed_code_<%= enabled_locale %>" class="puzzle_embed_code autogrow form-control" name="puzzle[embed_code_<%= enabled_locale %>]"><%= enabled_locale == 'ka' ? object.embed_code_ka : object.embed_code_en %></textarea>
+        </span>
+        <span class="js-show-embed">
+          <% if enabled_locale == 'ka' && object.embed_code_ka.present? %>
+            <%= object.embed_code_ka.html_safe %>
+          <% elsif enabled_locale == 'en' && object.embed_code_en.present? %>
+            <%= object.embed_code_en.html_safe %>
+          <% end %>
+        </span>
+      </div>
+
+    <% end %>
+
+    <hr />
+
+    <%= f.input :is_public, as: :radio %>
+
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, button_html: { class: 'btn btn-success' } %>
+  <% end %>
+<% end %>
+

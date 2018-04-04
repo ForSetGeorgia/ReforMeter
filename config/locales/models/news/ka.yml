@@ -10,7 +10,7 @@ ka:
         url: გარე ამბის ბმული
         summary: შეჯამება
         is_public: საჯაროა?
-        date: Date
+        date: თარიღი
         video_embed: ემბედიდ ვიდეო
     models:
       news:

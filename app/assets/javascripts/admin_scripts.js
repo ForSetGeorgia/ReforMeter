@@ -35,6 +35,8 @@
     setupNewsVideoEmbed();
     setupNewsDatePicker();
     setupNewsResetReform();
+    setupPuzzleEmbed();
+    setupPuzzleDatePicker();
   });
 
   $(document).on('page:change', function() {

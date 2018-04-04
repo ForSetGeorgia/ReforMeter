@@ -120,6 +120,9 @@
                 <li><%= link_to t('shared.links.newsletters'), admin_newsletters_path %></li>
               <% end %>
               <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
+                <li><%= link_to t('shared.links.puzzles'), admin_puzzles_path %></li>
+              <% end %>
+              <% if current_user.is?(['super_admin', 'site_admin', 'content_manager']) %>
                 <li><%= link_to t('shared.links.page_contents'), admin_page_contents_path %></li>
               <% end %>
               <% if current_user.is?(['super_admin', 'site_admin']) %>

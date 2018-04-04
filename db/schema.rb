@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016064351) do
+ActiveRecord::Schema.define(version: 20180404073749) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -311,6 +311,35 @@ ActiveRecord::Schema.define(version: 20171016064351) do
   end
 
   add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
+
+  create_table "puzzle_translations", force: :cascade do |t|
+    t.integer  "puzzle_id",  limit: 4,     null: false
+    t.string   "locale",     limit: 255,   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "title",      limit: 255
+    t.text     "summary",    limit: 65535
+    t.text     "content",    limit: 65535
+    t.text     "embed_code", limit: 65535
+    t.string   "slug",       limit: 255
+  end
+
+  add_index "puzzle_translations", ["locale"], name: "index_puzzle_translations_on_locale", using: :btree
+  add_index "puzzle_translations", ["puzzle_id"], name: "index_puzzle_translations_on_puzzle_id", using: :btree
+  add_index "puzzle_translations", ["slug"], name: "index_puzzle_translations_on_slug", using: :btree
+  add_index "puzzle_translations", ["title"], name: "index_puzzle_translations_on_title", using: :btree
+
+  create_table "puzzles", force: :cascade do |t|
+    t.date     "date"
+    t.boolean  "is_public",              default: false
+    t.string   "slug",       limit: 255
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "puzzles", ["date"], name: "index_puzzles_on_date", using: :btree
+  add_index "puzzles", ["is_public"], name: "index_puzzles_on_is_public", using: :btree
+  add_index "puzzles", ["slug"], name: "index_puzzles_on_slug", using: :btree
 
   create_table "quarter_translations", force: :cascade do |t|
     t.integer  "quarter_id",   limit: 4,   null: false

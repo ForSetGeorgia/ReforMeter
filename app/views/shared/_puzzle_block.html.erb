@@ -1,0 +1,40 @@
+<%
+  with_media = false unless with_media.present?
+  with_title = false unless with_title.present?
+  with_links = false unless with_links.present?
+  with_summary = false unless with_summary.present?
+  with_content = false unless with_content.present?
+%>
+
+<article class="puzzle">
+  <div class="puzzle-column content">
+    <% if with_title %>
+      <div class="puzzle-title">
+        <%= link_to puzzles_show_path(puzzle), class: 'link heading mod-no-transform' do %>
+          <%= puzzle.title %>
+          <span><%= I18n.l(puzzle.date) %></span>
+        <% end %>
+      </div>
+    <% end %>
+    <% if with_summary && puzzle.summary.present? %>
+      <div class="puzzle-summary">
+        <%= simple_format(puzzle.summary) %>
+      </div>
+    <% end %>
+    <% if with_content && puzzle.content.present? %>
+      <div class="puzzle-content puzzle-section">
+        <%= simple_format(puzzle.content) %>
+      </div>
+    <% end %>
+    <% if with_media && puzzle.embed_code.present? %>
+      <div class="puzzle-embed puzzle-section">
+        <%= puzzle.embed_code.html_safe %>
+      </div>
+    <% end %>
+    <% if with_links %>
+      <div class="puzzle-links puzzle-section">
+        <a class="link puzzle-link-all" href="<%= puzzles_path %>"><%= t('shared.actions.view_all_puzzles') %></a>
+      </div>
+    <% end %>
+  </div>
+</article>

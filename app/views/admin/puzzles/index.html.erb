@@ -1,0 +1,61 @@
+<%
+  model_class = Puzzle
+  page_title t('activerecord.models.puzzle', count: 999)
+%>
+
+<div class='actions-container'>
+  <%= render partial: 'shared/index_actions',
+        locals: {
+          model_class: model_class,
+          new_path: new_admin_puzzle_path
+        }
+  %>
+</div>
+
+<table class='table table-striped table-hover table-nonfluid datatable-admin'>
+  <thead>
+    <tr>
+      <th></th>
+
+      <th><%=t 'activerecord.attributes.puzzle.date' %></th>
+      <th><%=t 'activerecord.attributes.puzzle.title' %></th>
+      <th><%=t 'activerecord.attributes.puzzle.summary' %></th>
+      <th><%=t 'activerecord.attributes.puzzle.is_public' %></th>
+
+      <th class='action-col'><%=t 'shared.common.actions' %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @puzzles.each do |puzzle| %>
+      <tr>
+        <td>
+          <%= link_to t('shared.actions.view'),
+                      admin_puzzle_path(puzzle),
+                      class: 'btn btn-default' %>
+        </td>
+
+        <td><%= l puzzle.date if puzzle.date.present? %></td>
+        <td><%= puzzle.title %></td>
+        <td><%= puzzle.summary %></td>
+        <td><%= format_boolean_flag(puzzle.is_public) %></td>
+
+        <td>
+          <%= if can? :edit, puzzle
+                link_to t('shared.actions.edit'),
+                        edit_admin_puzzle_path(puzzle),
+                        class: 'btn btn-default'
+          end %>
+
+          <%= if can? :destroy, puzzle
+                link_to t('shared.actions.destroy'),
+                        admin_puzzle_path(puzzle),
+                        method: :delete,
+                        data: { confirm: t('shared.prompts.confirm') },
+                        class: 'btn btn-danger'
+          end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

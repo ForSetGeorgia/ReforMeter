@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :reform_colors, except: :show, constraints: { format: :html }
 
       resources :news, constraints: { format: :html }
+      resources :puzzles, constraints: { format: :html }
 
       resources :verdicts, except: :show, constraints: { format: :html } do
         resources :reform_surveys, except: :index, constraints: { format: :html } do
@@ -71,6 +72,8 @@ Rails.application.routes.draw do
     get '/reform_verdicts/:id' => 'root#reform_verdict_show', as: :reform_verdict_show
     get '/news' => 'root#news'
     get '/news/:id' => 'root#news_show', as: :news_show
+    get '/puzzles' => 'root#puzzles'
+    get '/puzzles/:id' => 'root#puzzles_show', as: :puzzles_show
 
     post '/charts/create_share_image', to: 'charts#create_share_image'
 

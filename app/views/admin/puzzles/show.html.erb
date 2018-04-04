@@ -1,0 +1,36 @@
+<%
+  page_title @puzzle.title
+  @do_not_use_default_page_layout = true
+%>
+
+
+<div class='contentSection mod-overlap-top-image mod-no-background'>
+
+  <%= bootstrap_flash %>
+  <header class='contentSection-header mod-white-background'>
+
+    <div class='contentSection-header-title'>
+
+      <h1 class='heading mod-puzzle'>
+        <%= @puzzle.title %>
+        <span><%= I18n.l(@puzzle.date) %></span>
+      </h1>
+
+    </div>
+
+  </header>
+
+  <div class='contentSection-body mod-no-padding'>
+    <div class='actions-container'>
+      <%= render partial: 'shared/show_actions',
+            locals: {
+              object: @puzzle,
+              index_path: admin_puzzles_path,
+              show_path: admin_puzzle_path(@puzzle),
+              edit_path: edit_admin_puzzle_path(@puzzle)
+                    }
+      %>
+    </div>
+    <%= render partial: 'shared/puzzle_block', locals: { puzzle: @puzzle, with_media: true, with_content: true, with_links: true } %>
+  </div>
+</div>

@@ -41,6 +41,7 @@ en:
       reforms_link: View All Reforms
       subheading: Assessment of economic reforms
       latest_news: The Latest News
+      latest_puzzles: Crack Georgia's Economic Puzzles
     reform_show:
       gauge_group:
         government:
@@ -81,3 +82,6 @@ en:
       title: News
       no_data: Sorry, but at this time there is no news on record.
       filter_reform: Filter By Reform
+    puzzles:
+      title: Crack Georgia's Economic Puzzles
+      no_data: Sorry, but at this time there are no puzzles on record.

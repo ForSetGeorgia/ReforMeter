@@ -22,6 +22,7 @@ ka:
       reform: რეფორმა
       reform_with_name: "რეფორმა: %{name}"
       view_all_news: ყველა სიახლის ნახვა
+      view_all_puzzles: ყველა ფაზლის ნახვა
       with_obj:
         cancel: "%{obj}-ის გაუქმება"
         create: "%{obj}-ის შექმნა"
@@ -130,6 +131,7 @@ ka:
       reports: რეპორტები
       verdicts:  რეფორმვერდიქტები
       news: სიახლეები
+      puzzles: ფაზლები
       download: ჩამოტვირთვა
       newsletters: ნიუსლეთერის მეილები
     locale:

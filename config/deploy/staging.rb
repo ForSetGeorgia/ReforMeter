@@ -6,4 +6,4 @@ set :repository, 'https://github.com/ForSetGeorgia/ReforMeter.git'
 set :branch, 'master'
 set :web_url, 'dev-reformeter.forset.ge'
 set :visible_to_robots, false
-set :use_ssl, false
+set :use_ssl, true

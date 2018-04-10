@@ -87,7 +87,7 @@ function setupNewsDatePicker() {
 }
 
 function setupNewsResetReform() {
-  $('.btn-reset-reform').on('click', function(){
+  $('form.news .btn-reset-reform').on('click', function(){
     $('input[name="news[reform_id]"]').each(function(){
       $(this).attr('checked',false);
     });

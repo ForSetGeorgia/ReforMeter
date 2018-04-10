@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404073749) do
+ActiveRecord::Schema.define(version: 20180410071434) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -335,10 +335,12 @@ ActiveRecord::Schema.define(version: 20180404073749) do
     t.string   "slug",       limit: 255
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "reform_id",  limit: 4
   end
 
   add_index "puzzles", ["date"], name: "index_puzzles_on_date", using: :btree
   add_index "puzzles", ["is_public"], name: "index_puzzles_on_is_public", using: :btree
+  add_index "puzzles", ["reform_id"], name: "index_puzzles_on_reform_id", using: :btree
   add_index "puzzles", ["slug"], name: "index_puzzles_on_slug", using: :btree
 
   create_table "quarter_translations", force: :cascade do |t|

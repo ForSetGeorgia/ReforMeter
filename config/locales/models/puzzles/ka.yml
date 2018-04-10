@@ -9,6 +9,7 @@ ka:
         is_public: საჯაროა?
         date: თარიღი
         embed_code: ფაზლის ემბედ კოდი
+        reform_id: რეფორმა
     models:
       puzzle:
         one: ფაზლი

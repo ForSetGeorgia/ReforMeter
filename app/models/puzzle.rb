@@ -1,6 +1,10 @@
 class Puzzle < ActiveRecord::Base
 
   #######################
+  ## RELATIONSHIPS
+  belongs_to :reform
+
+  #######################
   ## TRANSLATIONS
   translates :title, :content, :summary, :slug, :embed_code,
               :fallbacks_for_empty_translations => true
@@ -37,6 +41,7 @@ class Puzzle < ActiveRecord::Base
   scope :published, -> { where(is_public: true) }
   scope :sorted, -> {with_translations(I18n.locale).order(date: :desc, title: :asc)}
   scope :with_title, -> {with_translations(I18n.locale).where('puzzle_translations.title is not null and puzzle_translations.title != ""') }
+  scope :include_reforms, -> {includes :reform}
 
 
 end

@@ -27,3 +27,12 @@ function setupPuzzleDatePicker() {
 
 }
 
+function setupPuzzleResetReform() {
+  $('form.puzzle .btn-reset-reform').on('click', function(){
+    $('input[name="puzzle[reform_id]"]').each(function(){
+      $(this).attr('checked',false);
+    });
+    return false;
+  });
+}
+

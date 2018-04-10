@@ -33,6 +33,7 @@
     <% end %>
     <% if with_links %>
       <div class="puzzle-links puzzle-section">
+        <%= link_to(t('shared.actions.reform_with_name', name: puzzle.reform.name), reform_show_path(puzzle.reform), class: 'link') if puzzle.reform.present? %>
         <a class="link puzzle-link-all" href="<%= puzzles_path %>"><%= t('shared.actions.view_all_puzzles') %></a>
       </div>
     <% end %>

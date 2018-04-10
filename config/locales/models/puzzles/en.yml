@@ -9,6 +9,7 @@ en:
         is_public: Is Public?
         date: Date
         embed_code: Puzzle Embed Code
+        reform_id: Reform
     models:
       puzzle:
         one: Puzzle

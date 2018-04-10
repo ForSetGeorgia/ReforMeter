@@ -46,6 +46,27 @@
 
     <hr />
 
+    <div class="radio_buttons input optional form-group" id="puzzle_reform_id_input">
+      <span class="form-label">
+        <label class=" control-label"><%= t('activerecord.attributes.puzzle.reform_id') %></label>
+      </span>
+      <span class="form-wrapper">
+        <% @reforms.each do |reform| %>
+          <div class="radio">
+            <label for="puzzle_reform_id_<%= reform.id %>" class="choice">
+              <% checked = @puzzle.reform_id == reform.id ? "checked='checked'" : "" %>
+              <input id="puzzle_reform_id_<%= reform.id %>" value="<%= reform.id %>" name="puzzle[reform_id]" type="radio" <%= checked %>>
+              <%= reform.name %>
+            </label>
+          </div>
+        <% end %>
+        <div class="radio">
+          <%= link_to t('.reset_reform'), '#',
+              class: 'btn btn-warning btn-sm btn-reset-reform' %>
+        </div>
+      </span>
+    </div>
+
     <%= f.input :is_public, as: :radio %>
 
   <% end %>

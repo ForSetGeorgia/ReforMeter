@@ -7,7 +7,7 @@ class Admin::PuzzlesController < ApplicationController
   # GET /admin/puzzles
   # GET /admin/puzzles.json
   def index
-    @puzzles = Puzzle.sorted
+    @puzzles = Puzzle.sorted.include_reforms
   end
 
   # GET /admin/puzzles/1
@@ -69,13 +69,15 @@ class Admin::PuzzlesController < ApplicationController
     end
 
     def load_variables
+      @reforms = Reform.active.sorted
+
       # set the date for the datepicker
       gon.date = @puzzle.date.strftime('%m/%d/%Y %H:%M') if @puzzle && !@puzzle.date.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def puzzle_params
-      permitted = Puzzle.globalize_attribute_names + [:is_public, :date]
+      permitted = Puzzle.globalize_attribute_names + [:is_public, :date, :reform_id]
       params.require(:puzzle).permit(*permitted)
     end
 

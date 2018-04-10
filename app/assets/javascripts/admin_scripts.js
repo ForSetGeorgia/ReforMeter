@@ -37,6 +37,7 @@
     setupNewsResetReform();
     setupPuzzleEmbed();
     setupPuzzleDatePicker();
+    setupPuzzleResetReform();
   });
 
   $(document).on('page:change', function() {

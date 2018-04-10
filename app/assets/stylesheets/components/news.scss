@@ -138,6 +138,19 @@ article.news {
   }
 }
 
+.contentSection-homepage-news{
+  article.news{
+    border-bottom: solid 3px #f3f3f4;
+    .news-title {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .news-summary {
+      padding-top: 0;
+    }
+  }
+}
+
 .news-grid {
   display: flex;
   flex-direction: column;

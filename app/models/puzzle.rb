@@ -22,7 +22,7 @@ class Puzzle < ActiveRecord::Base
 
   # the slug text is the format: title - date
   def slug_text
-    "#{self.title} - #{I18n.l(self.date)}"
+    "#{self.title} - #{I18n.l(self.date) if self.date.present?}"
   end
 
   # for genereate friendly_id

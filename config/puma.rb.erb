@@ -15,18 +15,9 @@ threads <%= puma_thread_count_min %>,<%= puma_thread_count_max %>
 bind "unix://<%= puma_socket %>"
 workers <%= puma_worker_count %>
 
-on_worker_boot do
-  # Worker specific setup for Rails 4.1+
-  # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
-  ActiveRecord::Base.establish_connection
-end
-
 # restart puma workers so memory is kept in check
 before_fork do
-  require 'puma_worker_killer'
+  require "puma_worker_killer"
 
   PumaWorkerKiller.enable_rolling_restart(<%= Integer(puma_rolling_hours) %> * 3600)
-
-  puts "Puma master process about to fork. Closing existing Active record connections."
-  ActiveRecord::Base.connection.disconnect!
 end

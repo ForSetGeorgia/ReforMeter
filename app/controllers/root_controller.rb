@@ -452,6 +452,7 @@ class RootController < ApplicationController
   def puzzles_show
     begin
       @puzzle = Puzzle.published.include_reforms.friendly.find(params[:id])
+      @share_image_paths = [ActionController::Base.helpers.asset_url("share_puzzle_#{I18n.locale}.jpg", type: :image)]
 
       if @puzzle.nil?
         redirect_to puzzles_path,

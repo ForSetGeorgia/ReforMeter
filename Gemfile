@@ -63,6 +63,9 @@ gem 'font-awesome-sass', '~> 4.4.0'
 # Ruby server
 gem 'puma', '~> 3.4.0'
 
+# auto restart puma workers to keep memory usage low
+gem 'puma_worker_killer', '~> 0.1.0'
+
 # sends updates to google analytics when turbolinks changes page
 gem 'google-analytics-turbolinks', '~> 0.0.4'
 
@@ -78,7 +81,8 @@ gem 'globalize-accessors', '~> 0.2.1'
 # send variables to javascript
 gem 'gon', '~> 6.0', '>= 6.0.1'
 
-gem 'light_gallery_rails', git: 'https://github.com/stNicolaas/light-gallery-rails.git'
+# image slideshow popups
+gem 'light_gallery_rails', git: 'https://github.com/lucmousinho/light-gallery-rails.git'
 
 group :development do
   # Silences assets-related logging

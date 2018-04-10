@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/stNicolaas/light-gallery-rails.git
-  revision: 97d892d0b4637ddae264514e2a44372853ff6f83
+  remote: https://github.com/lucmousinho/light-gallery-rails.git
+  revision: 552fd39a9f1be060c77622741ee2963a07428439
   specs:
-    light_gallery_rails (1.1.4)
+    light_gallery_rails (1.2.14)
 
 GEM
   remote: https://rubygems.org/
@@ -151,6 +151,7 @@ GEM
       activerecord (>= 4.0.0)
     friendly_id-globalize (1.0.0.alpha2)
       friendly_id (~> 5.1.0, < 6.0)
+    get_process_mem (0.2.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     globalize (5.0.1)
@@ -255,6 +256,9 @@ GEM
       byebug (~> 4.0)
       pry (~> 0.10)
     puma (3.4.0)
+    puma_worker_killer (0.1.0)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -451,6 +455,7 @@ DEPENDENCIES
   poltergeist (~> 1.7)
   pry-byebug (~> 3.1.0)
   puma (~> 3.4.0)
+  puma_worker_killer (~> 0.1.0)
   quiet_assets (~> 1.0.3)
   rack-test (= 0.6.2)
   rails (= 4.2.6)
@@ -474,4 +479,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

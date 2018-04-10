@@ -62,6 +62,7 @@ set :puma_port, '9292'
 set_default :puma_worker_count, '1'
 set_default :puma_thread_count_min, '1'
 set_default :puma_thread_count_max, '1'
+set_default :puma_rolling_hours, '6'
 
 # Nginx settings
 set :nginx_conf, -> { "#{full_current_path}/config/nginx.conf" }

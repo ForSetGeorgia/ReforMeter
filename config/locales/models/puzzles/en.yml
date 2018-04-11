@@ -10,6 +10,7 @@ en:
         date: Date
         embed_code: Puzzle Embed Code
         reform_id: Reform
+        image: Thumbnail
     models:
       puzzle:
         one: Puzzle

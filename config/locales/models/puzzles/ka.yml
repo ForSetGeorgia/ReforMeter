@@ -10,6 +10,7 @@ ka:
         date: თარიღი
         embed_code: ფაზლის ემბედ კოდი
         reform_id: რეფორმა
+        image: გამოსახულებაl
     models:
       puzzle:
         one: ფაზლი

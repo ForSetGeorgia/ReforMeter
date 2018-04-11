@@ -22,7 +22,8 @@ page_title t('.title')
 
     <% if @puzzles.present? %>
       <% @puzzles.each do |puzzle| %>
-        <%= render partial: 'shared/puzzle_block', locals: { puzzle: puzzle, with_title: true, with_summary: true } %>
+        <%= render partial: 'shared/puzzle_block', locals: { puzzle: puzzle, with_poster: true,
+                                                             with_reform_id: puzzle.reform.present?, with_title: true, with_summary: true } %>
       <% end %>
     <% else %>
       <p class="alert alert-warning">

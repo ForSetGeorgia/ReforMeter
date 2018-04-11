@@ -452,9 +452,14 @@ class RootController < ApplicationController
   def puzzles_show
     begin
       @puzzle = Puzzle.published.include_reforms.friendly.find(params[:id])
-      @share_image_paths = [ActionController::Base.helpers.asset_url("share_puzzle_#{I18n.locale}.jpg", type: :image)]
+      if @puzzle.present?
+        @share_image_paths = []
+        if @puzzle.image.exists?
+          @share_image_paths << @puzzle.image.url('share')
+        end
+        @share_image_paths << ActionController::Base.helpers.asset_url("share_puzzle_#{I18n.locale}.jpg", type: :image)
 
-      if @puzzle.nil?
+      else
         redirect_to puzzles_path,
                 alert: t('shared.msgs.does_not_exist')
       end

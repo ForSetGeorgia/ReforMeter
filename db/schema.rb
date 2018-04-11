@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410071434) do
+ActiveRecord::Schema.define(version: 20180411132236) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -331,11 +331,19 @@ ActiveRecord::Schema.define(version: 20180410071434) do
 
   create_table "puzzles", force: :cascade do |t|
     t.date     "date"
-    t.boolean  "is_public",              default: false
-    t.string   "slug",       limit: 255
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "reform_id",  limit: 4
+    t.boolean  "is_public",                         default: false
+    t.string   "slug",                  limit: 255
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "reform_id",             limit: 4
+    t.string   "image_en_file_name",    limit: 255
+    t.string   "image_en_content_type", limit: 255
+    t.integer  "image_en_file_size",    limit: 4
+    t.datetime "image_en_updated_at"
+    t.string   "image_ka_file_name",    limit: 255
+    t.string   "image_ka_content_type", limit: 255
+    t.integer  "image_ka_file_size",    limit: 4
+    t.datetime "image_ka_updated_at"
   end
 
   add_index "puzzles", ["date"], name: "index_puzzles_on_date", using: :btree

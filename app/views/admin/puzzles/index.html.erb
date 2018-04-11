@@ -17,6 +17,7 @@
     <tr>
       <th></th>
 
+      <th><%=t 'activerecord.attributes.puzzle.image' %></th>
       <th><%=t 'activerecord.attributes.puzzle.date' %></th>
       <th><%=t 'activerecord.attributes.puzzle.title' %></th>
       <th><%=t 'activerecord.attributes.puzzle.summary' %></th>
@@ -36,6 +37,7 @@
                       class: 'btn btn-default' %>
         </td>
 
+        <td><%= image_tag puzzle.image.url('thumbnail') if puzzle.image.exists? %></td>
         <td><%= l puzzle.date if puzzle.date.present? %></td>
         <td><%= puzzle.title %></td>
         <td><%= puzzle.summary %></td>

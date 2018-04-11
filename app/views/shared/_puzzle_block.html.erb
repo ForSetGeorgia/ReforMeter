@@ -1,4 +1,5 @@
 <%
+  with_poster = false unless with_poster.present?
   with_media = false unless with_media.present?
   with_title = false unless with_title.present?
   with_links = false unless with_links.present?
@@ -7,6 +8,20 @@
 %>
 
 <article class="puzzle">
+  <% if with_poster %>
+    <div class="puzzle-column sidebar">
+      <div class="puzzle-poster puzzle-section">
+        <% if !with_media # it means puzzle show page is used %>
+          <%= link_to puzzles_show_path(puzzle) do %>
+            <%= image_tag(puzzle.image.exists? ? puzzle.image.url('poster') : 'missing/missing_puzzle.png') %>
+          <% end %>
+        <% else %>
+          <%= image_tag(puzzle.image.exists? ? puzzle.image.url('poster') : 'missing/missing_puzzle.png') %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="puzzle-column content">
     <% if with_title %>
       <div class="puzzle-title">

@@ -1,5 +1,5 @@
 <% object = @puzzle %>
-<%= semantic_form_for [:admin, object] do |f| %>
+<%= semantic_form_for [:admin, object], html: {multipart: true} do |f| %>
   <%= f.semantic_errors *f.object.errors.keys %>
   <%= f.inputs do %>
 
@@ -40,6 +40,20 @@
           <% elsif enabled_locale == 'en' && object.embed_code_en.present? %>
             <%= object.embed_code_en.html_safe %>
           <% end %>
+        </span>
+      </div>
+
+      <div class="file input optional form-group" id="puzzle_image_<%= enabled_locale %>_input">
+        <span class="form-label">
+          <label for="puzzle_image_<%= enabled_locale %>" class=" control-label"><%= t('shared.labels.translated_field',
+                         field: t('activerecord.attributes.puzzle.image'),
+                         language: enabled_locale_name) %></label>
+        </span>
+        <% if object.image(enabled_locale).exists? %>
+          <%= image_tag(object.image(enabled_locale).url('thumbnail')) %>
+        <% end %>
+        <span class="form-wrapper">
+          <input accept=".jpg,.jpeg,.png" id="puzzle_image_<%= enabled_locale %>" name="puzzle[image_<%= enabled_locale %>]" type="file">
         </span>
       </div>
 

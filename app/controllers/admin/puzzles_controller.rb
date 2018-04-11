@@ -77,7 +77,7 @@ class Admin::PuzzlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def puzzle_params
-      permitted = Puzzle.globalize_attribute_names + [:is_public, :date, :reform_id]
+      permitted = Puzzle.globalize_attribute_names + [:is_public, :date, :reform_id, :image_ka, :image_en]
       params.require(:puzzle).permit(*permitted)
     end
 

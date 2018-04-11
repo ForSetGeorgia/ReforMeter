@@ -109,6 +109,8 @@
       </div>
 
     </nav>
+
+
     <div class='homePage-reformsIndicatorsContainer'>
 
       <div class='homePage-reformsIndicatorsContainer-reforms'>
@@ -347,9 +349,11 @@
 
         <div class='contentSection-body mod-no-padding'>
 
-          <% @puzzles.each do |puzzle| %>
-            <%= render partial: 'shared/puzzle_block', locals: { puzzle: puzzle, with_title: true, with_summary: true } %>
-          <% end %>
+          <section class='homePage-externalIndicator mod-puzzle'>
+            <%= link_to puzzles_show_path(@puzzles.first), class: 'homePage-puzzle-image-link' do %>
+              <%= image_tag "puzzle_#{I18n.locale}.jpg" %>
+            <% end %>
+          </section>
 
           <p class='homePage-contentSectionLink'>
             <%= link_to t('shared.actions.view_all_puzzles'),

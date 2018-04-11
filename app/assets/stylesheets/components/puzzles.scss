@@ -1,3 +1,18 @@
+.homePage-externalIndicator.mod-puzzle{
+  padding:  10px 0;
+
+  .homePage-puzzle-image-link{
+    border-bottom: 3px solid #f3f3f4;
+    display: block;
+    img{
+      max-width:  517.5px;
+    }
+    &:hover img{
+      opacity: 0.9;
+    }
+  }
+}
+
 article.puzzle {
   display: flex;
   flex-direction: column;

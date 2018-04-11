@@ -1,11 +1,11 @@
 .homePage-externalIndicator.mod-puzzle{
-  padding:  10px 0;
+  /* padding:  10px 0; */
 
   .homePage-puzzle-image-link{
     border-bottom: 3px solid #f3f3f4;
     display: block;
     img{
-      max-width:  517.5px;
+      max-width:  457.5px;
     }
     &:hover img{
       opacity: 0.9;
@@ -175,6 +175,19 @@ article.puzzle {
   }
 }
 
+.contentSection-homepage-puzzle{
+  padding: 0 !important;
+  article.puzzle{
+    .puzzle-title {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .puzzle-summary {
+      padding-top: 0;
+    }
+  }
+}
+
 .puzzle-list {
   .puzzle {
     border-bottom: 20px solid #f3f3f4;
@@ -196,12 +209,5 @@ article.puzzle {
     &:last-of-type {
       border-bottom: 0;
     }
-  }
-}
-
-.contentSection-homepage-puzzle{
-  article.puzzle{
-    border-bottom: solid 3px #f3f3f4;
-
   }
 }

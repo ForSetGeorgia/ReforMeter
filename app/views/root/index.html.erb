@@ -354,6 +354,12 @@
               <%= image_tag "puzzle_#{I18n.locale}.jpg" %>
             <% end %>
           </section>
+
+          <section class='homePage-externalIndicator contentSection-homepage-puzzle'>
+            <% @puzzles.each do |puzzle| %>
+              <%= render partial: 'shared/puzzle_block', locals: { puzzle: puzzle, with_title: true, with_summary: true } %>
+            <% end %>
+          </section>
           <% end %>
 
           <p class='homePage-contentSectionLink'>

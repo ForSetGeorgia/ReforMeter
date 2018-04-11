@@ -347,20 +347,20 @@
 
         </header>
 
-        <div class='contentSection-body mod-no-padding'>
-
+        <div class='contentSection-body mod-no-padding mod-fill-vertical-space mod-flex-column'>
+          <% if @puzzles.present? %>
           <section class='homePage-externalIndicator mod-puzzle'>
             <%= link_to puzzles_show_path(@puzzles.first), class: 'homePage-puzzle-image-link' do %>
               <%= image_tag "puzzle_#{I18n.locale}.jpg" %>
             <% end %>
           </section>
+          <% end %>
 
           <p class='homePage-contentSectionLink'>
             <%= link_to t('shared.actions.view_all_puzzles'),
                         puzzles_path,
                         class: 'link' %>
           </p>
-
         </div>
       </section>
     </div>

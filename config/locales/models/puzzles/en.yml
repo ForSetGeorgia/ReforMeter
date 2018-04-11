@@ -14,3 +14,6 @@ en:
       puzzle:
         one: Puzzle
         other: Puzzles
+    hints:
+      puzzle:
+        embed_code: Go to your account on jigsawplanet.com, find the puzzle you want to embed and click on Share > Embed. On the embed page, scroll down to the Game section (where the puzzle is visible). Set the background color to black. Finally, copy the code in the textbox above the background color (it starts with '<iframe') and paste it into this textbox.

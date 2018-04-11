@@ -32,6 +32,7 @@
         </span>
         <span class="form-wrapper">
           <textarea rows="2" id="puzzle_embed_code_<%= enabled_locale %>" class="puzzle_embed_code autogrow form-control" name="puzzle[embed_code_<%= enabled_locale %>]"><%= enabled_locale == 'ka' ? object.embed_code_ka : object.embed_code_en %></textarea>
+          <span class="help-block"><%= t('activerecord.hints.puzzle.embed_code') %></span>
         </span>
         <span class="js-show-embed">
           <% if enabled_locale == 'ka' && object.embed_code_ka.present? %>

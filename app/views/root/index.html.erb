@@ -348,13 +348,13 @@
         </header>
 
         <div class='contentSection-body mod-no-padding mod-fill-vertical-space mod-flex-column'>
-          <% if @puzzles.present? %>
           <section class='homePage-externalIndicator mod-puzzle'>
-            <%= link_to puzzles_show_path(@puzzles.first), class: 'homePage-puzzle-image-link' do %>
+            <%= link_to @puzzles.present? ? puzzles_show_path(@puzzles.first) : puzzles_path, class: 'homePage-puzzle-image-link' do %>
               <%= image_tag "puzzle_#{I18n.locale}.jpg" %>
             <% end %>
           </section>
 
+          <% if @puzzles.present? %>
           <section class='homePage-externalIndicator contentSection-homepage-puzzle'>
             <% @puzzles.each do |puzzle| %>
               <%= render partial: 'shared/puzzle_block', locals: { puzzle: puzzle, with_title: true, with_summary: true } %>

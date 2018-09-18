@@ -58,7 +58,7 @@
     <% end %>
     <% if with_content && news.content.present? %>
       <div class="news-content news-section">
-        <%= simple_format(news.content) %>
+        <%= simple_format(news.content, {}, sanitize: false) %>
       </div>
     <% end %>
     <% if with_links %>

@@ -204,7 +204,7 @@ gem 'select2-rails', '~> 4.0', '>= 4.0.1.1'
 gem 'autoprefixer-rails', '~> 6.3', '>= 6.3.6'
 
 # Super cool charts!
-gem 'highcharts-rails', '~> 4.2', '>= 4.2.3'
+# gem 'highcharts-rails', '~> 4.2', '>= 4.2.3'
 
 # nested forms
 gem 'cocoon', '~> 1.2', '>= 1.2.9'

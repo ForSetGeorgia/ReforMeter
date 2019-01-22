@@ -24,10 +24,6 @@
 
 //= require twitter/bootstrap/alert
 //= require select2
-//= require highcharts
-//= require highcharts/highcharts-more
-//= require highcharts/modules/solid-gauge
-//= require highcharts/modules/exporting
 //= require tipsy
 //= require light-gallery
 

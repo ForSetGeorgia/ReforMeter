@@ -167,8 +167,6 @@ GEM
     google-analytics-turbolinks (0.0.4)
     haml (4.0.7)
       tilt
-    highcharts-rails (4.2.5)
-      railties (>= 3.1)
     highline (1.7.8)
     i18n (0.7.0)
     i18n-tasks (0.9.5)
@@ -436,7 +434,6 @@ DEPENDENCIES
   globalize-accessors (~> 0.2.1)
   gon (~> 6.0, >= 6.0.1)
   google-analytics-turbolinks (~> 0.0.4)
-  highcharts-rails (~> 4.2, >= 4.2.3)
   i18n-tasks (~> 0.9.5)
   inline_svg (~> 0.7.0)
   jbuilder (~> 2.0)
@@ -479,4 +476,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

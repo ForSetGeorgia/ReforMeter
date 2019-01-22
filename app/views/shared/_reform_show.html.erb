@@ -138,7 +138,7 @@ show_admin_links ||= false
         <% end %>
 
         <section class='gaugesContainer mod-solid-gauges'>
-
+<% if false %>
           <div class='gaugesContainer-exportButton'>
 
             <%= render partial: 'shared/chart_export_button',
@@ -147,7 +147,7 @@ show_admin_links ||= false
                        } %>
 
           </div>
-
+<% end %>
           <div class="js-become-highchart solidGauge mod-big mod-white-border" data-chart-type='big-solid-gauge' data-id='reform-government-overall'></div>
 
           <div class='gaugesContainer-small'>
@@ -314,7 +314,7 @@ show_admin_links ||= false
           <% end %>
 
           <section class='gaugesContainer mod-meter-gauges'>
-
+<% if false %>
             <div class='gaugesContainer-exportButton'>
 
               <%= render partial: 'shared/chart_export_button',
@@ -323,7 +323,7 @@ show_admin_links ||= false
                          } %>
 
             </div>
-
+<% end %>
             <div class='js-become-highchart meterGauge mod-big' data-chart-type='big-meter-gauge' data-id='reform-stakeholder-overall'></div>
 
             <div class='gaugesContainer-small'>

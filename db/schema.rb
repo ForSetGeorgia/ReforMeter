@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411132236) do
+ActiveRecord::Schema.define(version: 20190404125131) do
 
   create_table "expert_survey_translations", force: :cascade do |t|
     t.integer  "expert_survey_id", limit: 4,     null: false
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 20180411132236) do
     t.datetime "updated_at",               null: false
     t.string   "title",      limit: 255
     t.text     "content",    limit: 65535
-    t.string   "url",        limit: 255
+    t.string   "url",        limit: 500
     t.text     "summary",    limit: 65535
     t.string   "slug",       limit: 255
   end
